@@ -10,7 +10,8 @@
 * Remove soundcloud stuff
 * Use web audio for sound generation
 * Add reverb
-* Use 12 maybe 3 and 5 to generate sound
+* Midi control
 * Use better sound than just the straight wave
+* Use 12 maybe 3 and 5 to generate sound
 * Make styles look better
 * Use next.js and react?
