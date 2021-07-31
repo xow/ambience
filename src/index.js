@@ -1,3 +1,5 @@
+import css from "./index.css";
+
 var context = new (window.AudioContext || window.webkitAudioContext)();
 var convolver = context.createConvolver();
 convolver.connect(context.destination);
@@ -42,3 +44,6 @@ function impulseResponse(duration, decay, reverse) {
   }
   return impulse;
 }
+
+// TODO don't use window
+window.playTone = playTone;
