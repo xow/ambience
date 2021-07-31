@@ -7,7 +7,6 @@
 
 ## Todo
 
-* Webpack
 * Typescript
 * Add reverb
 * Midi control
