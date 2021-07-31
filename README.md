@@ -7,6 +7,8 @@
 
 ## Todo
 
+* Webpack
+* Typescript
 * Add reverb
 * Midi control
 * Use better sound than just the straight wave
