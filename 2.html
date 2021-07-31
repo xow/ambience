@@ -1,0 +1,124 @@
+<html>
+  <head>
+    <style>
+.keyboard {
+  width: 100%;
+  height: 200px;
+}
+.key {
+  display: inline-block;
+  background-color: #fff;
+  height: 100%;
+  width: 12.5%;
+  border: 1px solid black;
+  border-radius: 1vw;
+  margin: -1px;
+}
+div:nth-child(12n-10),
+div:nth-child(12n-8),
+div:nth-child(12n-5),
+div:nth-child(12n-3),
+div:nth-child(12n-1)
+{
+  margin: -1px -3%;
+  background-color: #000;
+  vertical-align: top;
+  height: 60%;
+  width: 6%;
+  border: none;
+  position: relative;
+}
+iframe {
+    opacity: 0;
+}
+    </style>
+    <script src="https://w.soundcloud.com/player/api.js">
+    </script>
+    <script>
+
+var context = new (window.AudioContext || window.webkitAudioContext)();
+var convolver = context.createConvolver();
+convolver.connect(context.destination);
+var soundSource, concertHallBuffer;
+
+ajaxRequest = new XMLHttpRequest();
+ajaxRequest.open('GET', 'D.m4a', true);
+ajaxRequest.responseType = 'arraybuffer';
+
+ajaxRequest.onload = function() {
+  var audioData = ajaxRequest.response;
+  context.decodeAudioData(audioData, function(buffer) {
+      concertHallBuffer = buffer;
+      soundSource = context.createBufferSource();
+      soundSource.buffer = concertHallBuffer;
+      console.log('buffer set');
+      convolver.buffer = concertHallBuffer;
+    }, function(e){"Error with decoding audio data" + e.err});
+}
+
+ajaxRequest.send();
+
+var frequencies = {
+    "c0": 440/1.681793,
+    "db0": 440/1.587401,
+    "d0": 440/1.498307,
+    "eb0": 440/1.414214,
+    "e0": 440/1.334840,
+    "f0": 440/1.259921,
+    "gb0": 440/1.189207,
+    "g0": 440/1.122462,
+    "ab0": 440/1.059463,
+    "a0": 440,
+    "bb0": 440*1.059463,
+    "b0": 440*1.122462
+};
+
+function playTone(selector) {
+    var osc = context.createOscillator(); // instantiate an oscillator
+    osc.type = 'sine'; // this is the default - also square, sawtooth, triangle
+    osc.frequency.value = frequencies[selector.substr(1)]; // Hz
+    osc.connect(context.destination); // connect it to the destination
+    osc.start(); // start the oscillator
+    osc.stop(context.currentTime + 0.3); // stop 2 seconds after the current time
+}
+
+function impulseResponse( duration, decay, reverse ) {
+    var sampleRate = audioContext.sampleRate;
+    var length = sampleRate * duration;
+    var impulse = audioContext.createBuffer(2, length, sampleRate);
+    var impulseL = impulse.getChannelData(0);
+    var impulseR = impulse.getChannelData(1);
+
+    if (!decay)
+        decay = 2.0;
+    for (var i = 0; i < length; i++){
+        var n = reverse ? length - i : i;
+        impulseL[i] = (Math.random() * 2 - 1) * Math.pow(1 - n / length, decay);
+        impulseR[i] = (Math.random() * 2 - 1) * Math.pow(1 - n / length, decay);
+    }
+    return impulse;
+}
+    </script>
+  </head>
+  <body>
+    <div class="keyboard">
+      <div class="key" onclick="playTone('#c0')"></div>
+      <div class="key" onclick="playTone('#db0')"></div>
+      <div class="key" onclick="playTone('#d0')"></div>
+      <div class="key" onclick="playTone('#eb0')"></div>
+      <div class="key" onclick="playTone('#e0')"></div>
+      <div class="key" onclick="playTone('#f0')"></div>
+      <div class="key" onclick="playTone('#gb0')"></div>
+      <div class="key" onclick="playTone('#g0')"></div>
+      <div class="key" onclick="playTone('#ab0')"></div>
+      <div class="key" onclick="playTone('#a0')"></div>
+      <div class="key" onclick="playTone('#bb0')"></div>
+      <div class="key" onclick="playTone('#b0')"></div>
+    </div>
+<!--<audio controls loop preload="none" style="width:480px;">
+    <!-- controls autoplay loop preload - ->
+ <source src="D.m4a" type="audio/mp4" />
+ <p>Your browser does not support HTML5 audio.</p>
+</audio>-->
+  </body>
+</html>
