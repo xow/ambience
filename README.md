@@ -7,7 +7,6 @@
 
 ## Todo
 
-* Use web audio for sound generation
 * Add reverb
 * Midi control
 * Use better sound than just the straight wave
