@@ -51,7 +51,7 @@
 
       function playTone(selector) {
         var osc = context.createOscillator(); // instantiate an oscillator
-        osc.type = "sine"; // this is the default - also square, sawtooth, triangle
+        osc.type = "sawtooth"; // this is the default - also square, sawtooth, triangle
         osc.frequency.value = frequencies[selector.substr(1)]; // Hz
         osc.connect(context.destination); // connect it to the destination
         osc.start(); // start the oscillator
