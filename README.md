@@ -7,7 +7,6 @@
 
 ## Todo
 
-* Remove soundcloud stuff
 * Use web audio for sound generation
 * Add reverb
 * Midi control
