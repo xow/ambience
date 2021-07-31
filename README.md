@@ -12,4 +12,5 @@
 * Add reverb
 * Use 12 maybe 3 and 5 to generate sound
 * Use better sound than just the straight wave
-*
+* Make styles look better
+* Use next.js and react?
