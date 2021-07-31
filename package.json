@@ -2,9 +2,17 @@
   "name": "ambience",
   "version": "0.0.1",
   "description": "Ambient drone pad generator",
-  "main": "index.js",
+  "main": "dist/index.js",
   "repository": "git@github.com:xow/ambience.git",
   "author": "John Okely <jlokely@gmail.com>",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "scripts": {
+    "build": "webpack"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "webpack": "^5.47.1",
+    "webpack-cli": "^4.7.2"
+  }
 }
