@@ -5,18 +5,35 @@ enum Commands {
   NOT_OFF = 128,
 }
 
+const note = [
+  "c",
+  "db",
+  "d",
+  "eb",
+  "e",
+  "f",
+  "gb",
+  "g",
+  "ab",
+  "a",
+  "bb",
+  "b",
+] as const;
+
 export async function listen(playToneFunction: typeof playTone) {
   const midiAccess: WebMidi.MIDIAccess = await navigator.requestMIDIAccess();
 
   midiAccess.inputs.forEach(function (entry) {
     entry.onmidimessage = (event) => {
-      const [command, note, velocity] = event.data;
+      const [command, noteValue, velocity] = event.data;
 
-      console.log(command);
+      const noteIndex = noteValue % 12;
+      const octave = Math.floor(noteValue / 12) as 0; // TODO support more octaves
 
       switch (command) {
         case Commands.NOTE_ON:
-          playToneFunction("c0");
+          console.log(note[noteIndex]);
+          playToneFunction(`${note[noteIndex]}${octave}`);
       }
     };
   });

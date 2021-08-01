@@ -1,3 +1,8 @@
+/**
+ * Convert human readable note to a frequency
+ *
+ * TODO support more octaves
+ */
 export const frequencies = {
   c0: 440 / 1.681793,
   db0: 440 / 1.587401,
