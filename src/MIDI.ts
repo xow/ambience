@@ -1,18 +1,23 @@
-const midiAccess: WebMidi.MIDIAccess = await navigator.requestMIDIAccess();
+import type { playTone } from "./Music";
 
-export function listen() {
+enum Commands {
+  NOTE_ON = 144,
+  NOT_OFF = 128,
+}
+
+export async function listen(playToneFunction: typeof playTone) {
+  const midiAccess: WebMidi.MIDIAccess = await navigator.requestMIDIAccess();
+
   midiAccess.inputs.forEach(function (entry) {
     entry.onmidimessage = (event) => {
-      var str =
-        "MIDI message received at timestamp " +
-        event.timeStamp +
-        "[" +
-        event.data.length +
-        " bytes]: ";
-      for (var i = 0; i < event.data.length; i++) {
-        str += "0x" + event.data[i].toString(16) + " ";
+      const [command, note, velocity] = event.data;
+
+      console.log(command);
+
+      switch (command) {
+        case Commands.NOTE_ON:
+          playToneFunction("c0");
       }
-      console.log(str);
     };
   });
 }
