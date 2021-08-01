@@ -32,7 +32,6 @@ export async function listen(playToneFunction: typeof playTone) {
 
       switch (command) {
         case Commands.NOTE_ON:
-          console.log(note[noteIndex]);
           playToneFunction(`${note[noteIndex]}${octave}`);
       }
     };

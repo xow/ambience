@@ -7,6 +7,7 @@
 
 ## Todo
 
+* Add eslint
 * Midi control more octaves
 * Add reverb https://developer.mozilla.org/en-US/docs/Web/API/ConvolverNode
 * Show feedback when you press a note
