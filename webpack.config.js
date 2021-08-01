@@ -1,10 +1,16 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+const devMode = process.env.VERCEL_ENV !== "production";
 
 module.exports = {
   entry: "./src/index.ts",
-  mode: process.env.VERCEL_ENV === "production" ? "production" : "development",
-  plugins: [new HtmlWebpackPlugin({ template: "src/index.html" })],
+  mode: devMode ? "development" : "production",
+  plugins: [
+    ...(devMode ? [] : [new MiniCssExtractPlugin()]),
+    new HtmlWebpackPlugin({ template: "src/index.html" }),
+  ],
   module: {
     rules: [
       {
@@ -14,7 +20,10 @@ module.exports = {
       },
       {
         test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
+        use: [
+          devMode ? "style-loader" : MiniCssExtractPlugin.loader,
+          "css-loader",
+        ],
       },
     ],
   },
@@ -24,5 +33,11 @@ module.exports = {
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
+  },
+  devServer: {
+    contentBase: path.join(__dirname, "dist"),
+    compress: true,
+    port: 3000,
+    open: true,
   },
 };

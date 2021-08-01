@@ -1,4 +1,5 @@
-import css from "./index.css";
+import "./styles.css";
+import * as MIDI from "./MIDI";
 
 const context = new window.AudioContext();
 const convolver = context.createConvolver();

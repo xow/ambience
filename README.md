@@ -7,8 +7,7 @@
 
 ## Todo
 
-* Typescript
-* Add reverb
+* Add reverb https://developer.mozilla.org/en-US/docs/Web/API/ConvolverNode
 * Midi control
 * Use better sound than just the straight wave
 * Use 12 maybe 3 and 5 to generate sound
