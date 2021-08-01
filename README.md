@@ -7,8 +7,9 @@
 
 ## Todo
 
+* Midi control more octaves
 * Add reverb https://developer.mozilla.org/en-US/docs/Web/API/ConvolverNode
-* Midi control
+* Show feedback when you press a note
 * Use better sound than just the straight wave
 * Use 12 maybe 3 and 5 to generate sound
 * Make styles look better
