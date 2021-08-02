@@ -2,7 +2,7 @@
 
 ## Live
 
-https://ambience.vercel.app/
+[View on Vercel](https://ambience.vercel.app/)
 
 ## Purpose
 
