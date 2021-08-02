@@ -1,30 +1,33 @@
 html,
 body {
   height: 100%;
+  margin: 0px;
 }
 .keyboard {
-  width: 100%;
   height: 100%;
+  margin: 0.5vw;
 }
 .key {
+  box-sizing: border-box;
   display: inline-block;
   background-color: #fff;
   height: 100%;
-  width: 13.95%;
-  border: 1px solid black;
-  border-radius: 1vw;
-  margin: -1px;
+  width: 14.2857142857%;
+  border: 0.5vw solid black;
+  border-bottom-right-radius: 1vw;
+  border-bottom-left-radius: 1vw;
+  margin: -0.5vw;
 }
 div:nth-child(12n-10),
 div:nth-child(12n-8),
 div:nth-child(12n-5),
 div:nth-child(12n-3),
 div:nth-child(12n-1) {
-  margin: -1px -3%;
+  margin: -0.5vw -4%;
   background-color: #000;
   vertical-align: top;
   height: 60%;
-  width: 6%;
+  width: 8%;
   border: none;
   position: relative;
 }
