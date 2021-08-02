@@ -2,7 +2,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-const devMode = process.env.VERCEL_ENV !== "production";
+const devMode = false; // TODO what's wrong with HTML WebpackPlugin usage? process.env.VERCEL_ENV !== "production";
 
 module.exports = {
   entry: "./src/index.ts",
