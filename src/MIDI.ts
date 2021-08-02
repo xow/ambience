@@ -28,11 +28,11 @@ export async function listen(playToneFunction: typeof playTone) {
       const [command, noteValue, velocity] = event.data;
 
       const noteIndex = noteValue % 12;
-      const octave = Math.floor(noteValue / 12) as 0; // TODO support more octaves
+      const octave = Math.floor(noteValue / 12);
 
       switch (command) {
         case Commands.NOTE_ON:
-          playToneFunction(`${note[noteIndex]}${octave}`);
+          playToneFunction(note[noteIndex], octave);
       }
     };
   });

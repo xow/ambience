@@ -1,32 +1,32 @@
 /**
  * Convert human readable note to a frequency
- *
- * TODO support more octaves
  */
 export const frequencies = {
-  c0: 440 / 1.681793,
-  db0: 440 / 1.587401,
-  d0: 440 / 1.498307,
-  eb0: 440 / 1.414214,
-  e0: 440 / 1.33484,
-  f0: 440 / 1.259921,
-  gb0: 440 / 1.189207,
-  g0: 440 / 1.122462,
-  ab0: 440 / 1.059463,
-  a0: 440,
-  bb0: 440 * 1.059463,
-  b0: 440 * 1.122462,
+  c: 440 / 1.681793,
+  db: 440 / 1.587401,
+  d: 440 / 1.498307,
+  eb: 440 / 1.414214,
+  e: 440 / 1.33484,
+  f: 440 / 1.259921,
+  gb: 440 / 1.189207,
+  g: 440 / 1.122462,
+  ab: 440 / 1.059463,
+  a: 440,
+  bb: 440 * 1.059463,
+  b: 440 * 1.122462,
 };
 
 const context = new window.AudioContext();
 
-export function playTone(note: keyof typeof frequencies) {
+export function playTone(note: keyof typeof frequencies, octave: number) {
+  const frequency = frequencies[note] * Math.pow(2, octave - 4);
+
   var osc = context.createOscillator(); // instantiate an oscillator
   osc.type = "sawtooth"; // this is the default - also square, sawtooth, triangle
-  osc.frequency.value = frequencies[note]; // Hz
+  osc.frequency.value = frequency; // Hz
   osc.connect(context.destination); // connect it to the destination
   osc.start(); // start the oscillator
-  osc.stop(context.currentTime + 0.3); // stop 2 seconds after the current time
+  osc.stop(context.currentTime + 0.3);
 }
 
 const convolver = context.createConvolver();
