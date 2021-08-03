@@ -2,13 +2,13 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-const devMode = false; // TODO what's wrong with HTML WebpackPlugin usage? process.env.VERCEL_ENV !== "production";
+const devMode = process.env.VERCEL_ENV !== "production";
 
-module.exports = {
+module.exports = (_, { mode }) => ({
   entry: "./src/index.ts",
-  mode: devMode ? "development" : "production",
+  mode,
   plugins: [
-    ...(devMode ? [] : [new MiniCssExtractPlugin()]),
+    ...(mode === "production" ? [new MiniCssExtractPlugin()] : []),
     new HtmlWebpackPlugin({ template: "src/index.html" }),
   ],
   module: {
@@ -21,7 +21,7 @@ module.exports = {
       {
         test: /\.css$/i,
         use: [
-          devMode ? "style-loader" : MiniCssExtractPlugin.loader,
+          mode === "production" ? MiniCssExtractPlugin.loader : "style-loader",
           "css-loader",
         ],
       },
@@ -40,4 +40,4 @@ module.exports = {
     port: 3000,
     open: true,
   },
-};
+});
