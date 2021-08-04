@@ -2,9 +2,11 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
+const devMode = process.env.VERCEL_ENV !== "production";
+
 module.exports = (_, { mode }) => ({
   entry: "./src/index.ts",
-  mode,
+  mode: devMode ? "development" : "production",
   plugins: [
     ...(mode === "production" ? [new MiniCssExtractPlugin()] : []),
     new HtmlWebpackPlugin({ template: "src/index.html" }),
