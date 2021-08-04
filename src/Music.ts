@@ -26,7 +26,7 @@ export function playTone(
   const frequency = frequencies[note] * 2 ** (octave - 4);
 
   const gain = context.createGain();
-  gain.gain.value = velocity / 255;
+  gain.gain.value = velocity / 127;
 
   const osc = context.createOscillator(); // instantiate an oscillator
   osc.type = "sawtooth"; // this is the default - also square, sawtooth, triangle
