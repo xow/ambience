@@ -18,10 +18,17 @@ export const frequencies = {
 
 const context = new window.AudioContext();
 
-export function playTone(note: keyof typeof frequencies, octave: number) {
-  const frequency = frequencies[note] * Math.pow(2, octave - 4);
+export function playTone(
+  note: keyof typeof frequencies,
+  octave: number,
+  velocity: number
+) {
+  const frequency = frequencies[note] * 2 ** (octave - 4);
 
-  var osc = context.createOscillator(); // instantiate an oscillator
+  const gain = context.createGain();
+  gain.gain.value = velocity / 255;
+
+  const osc = context.createOscillator(); // instantiate an oscillator
   osc.type = "sawtooth"; // this is the default - also square, sawtooth, triangle
   osc.frequency.value = frequency; // Hz
   osc.connect(context.destination); // connect it to the destination
@@ -32,18 +39,21 @@ export function playTone(note: keyof typeof frequencies, octave: number) {
 const convolver = context.createConvolver();
 convolver.connect(context.destination);
 
+/**
+ * Reverb. TODO finsih & use
+ */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function impulseResponse(duration: number, decay: number, reverse: boolean) {
-  var sampleRate = context.sampleRate;
-  var length = sampleRate * duration;
-  var impulse = context.createBuffer(2, length, sampleRate);
-  var impulseL = impulse.getChannelData(0);
-  var impulseR = impulse.getChannelData(1);
+  const { sampleRate } = context;
+  const length = sampleRate * duration;
+  const impulse = context.createBuffer(2, length, sampleRate);
+  const impulseL = impulse.getChannelData(0);
+  const impulseR = impulse.getChannelData(1);
 
-  if (!decay) decay = 2.0;
-  for (var i = 0; i < length; i++) {
-    var n = reverse ? length - i : i;
-    impulseL[i] = (Math.random() * 2 - 1) * Math.pow(1 - n / length, decay);
-    impulseR[i] = (Math.random() * 2 - 1) * Math.pow(1 - n / length, decay);
+  for (let i = 0; i < length; i += 1) {
+    const n = reverse ? length - i : i;
+    impulseL[i] = (Math.random() * 2 - 1) * (1 - n / length) ** decay;
+    impulseR[i] = (Math.random() * 2 - 1) * (1 - n / length) ** decay;
   }
   return impulse;
 }

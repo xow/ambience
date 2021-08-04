@@ -1,6 +1,6 @@
 import "./styles.css";
 import * as MIDI from "./MIDI";
-import { frequencies, playTone } from "./Music";
+import { playTone } from "./Music";
 
 MIDI.listen(playTone);
 

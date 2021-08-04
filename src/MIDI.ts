@@ -23,7 +23,8 @@ const note = [
 export async function listen(playToneFunction: typeof playTone) {
   const midiAccess: WebMidi.MIDIAccess = await navigator.requestMIDIAccess();
 
-  midiAccess.inputs.forEach(function (entry) {
+  midiAccess.inputs.forEach((entry) => {
+    // eslint-disable-next-line no-param-reassign
     entry.onmidimessage = (event) => {
       const [command, noteValue, velocity] = event.data;
 
@@ -32,7 +33,10 @@ export async function listen(playToneFunction: typeof playTone) {
 
       switch (command) {
         case Commands.NOTE_ON:
-          playToneFunction(note[noteIndex], octave);
+          playToneFunction(note[noteIndex], octave, velocity);
+          break;
+        default:
+          break;
       }
     };
   });
