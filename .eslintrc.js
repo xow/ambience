@@ -11,7 +11,11 @@ module.exports = {
       },
     },
   },
-  extends: ["airbnb-base", "prettier"],
+  extends: [
+    "@spotify/eslint-config-base",
+    "@spotify/eslint-config-typescript",
+    "prettier",
+  ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaVersion: 12,
