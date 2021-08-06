@@ -2,6 +2,7 @@ import "./styles.css";
 import * as MIDI from "./MIDI";
 import { getPlayTone } from "./Oscillator";
 import { createReverb } from "./Reverb";
+import { adjustContinuousControl } from "./CC";
 
 const masterVolume = 0.6;
 
@@ -20,7 +21,7 @@ reverb.connect(gain);
 
 const playTone = getPlayTone(context, reverb);
 
-MIDI.listen(playTone);
+MIDI.listen(playTone, adjustContinuousControl);
 
 // TODO don't use window
 (window as any).playTone = playTone;

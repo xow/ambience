@@ -16,11 +16,17 @@ export const frequencies = {
   b: 440 * 1.122462,
 };
 
+interface IPlayToneParams {
+  note: keyof typeof frequencies;
+  octave: number;
+  velocity: number;
+}
+
 /**
  * Returns a function that when called will play a certain note
  */
 export function getPlayTone(context: AudioContext, node: AudioNode) {
-  return (note: keyof typeof frequencies, octave: number, velocity: number) => {
+  return ({ note, octave, velocity }: IPlayToneParams) => {
     const frequency = frequencies[note] * 2 ** (octave - 4);
 
     const gain = context.createGain();
