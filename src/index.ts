@@ -3,21 +3,25 @@ import * as MIDI from './MIDI';
 import { getPlayTone } from './Oscillator';
 import { createReverb } from './Reverb';
 import { adjustContinuousControl } from './CC';
-
-const masterVolume = 0.6;
+import { createTrack, Track } from './Track';
 
 /**
  * Main audio context
  */
 const context = new window.AudioContext();
 
+// Effects
 const reverb = createReverb(context, 6);
 
-const gain = context.createGain();
-gain.gain.value = masterVolume; // Master volume
-gain.connect(context.destination);
+/**
+ * Master Track
+ */
+const masterTrack: Track = {
+  chain: [reverb],
+  volume: 0.6,
+};
 
-reverb.connect(gain);
+createTrack({ track: masterTrack, context });
 
 const playTone = getPlayTone(context, reverb);
 
