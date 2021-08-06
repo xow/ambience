@@ -1,4 +1,4 @@
-import type { playTone } from "./Music";
+import type { getPlayTone } from "./Oscillator";
 
 enum Commands {
   NOTE_ON = 144,
@@ -20,7 +20,7 @@ const note = [
   "b",
 ] as const;
 
-export async function listen(playToneFunction: typeof playTone) {
+export async function listen(playToneFunction: ReturnType<typeof getPlayTone>) {
   const midiAccess: WebMidi.MIDIAccess = await navigator.requestMIDIAccess();
 
   midiAccess.inputs.forEach((entry) => {
