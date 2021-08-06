@@ -9,6 +9,7 @@
   "private": false,
   "scripts": {
     "dev": "webpack serve",
+    "start": "webpack serve",
     "build": "webpack",
     "lint": "eslint src/**/*.ts"
   },
