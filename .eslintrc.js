@@ -5,30 +5,21 @@ module.exports = {
     node: true,
   },
   settings: {
-    "import/resolver": {
+    'import/resolver': {
       node: {
-        extensions: [".js", ".jsx", ".ts", ".tsx"],
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
       },
     },
   },
   extends: [
-    "@spotify/eslint-config-base",
-    "@spotify/eslint-config-typescript",
-    "prettier",
+    '@spotify/eslint-config-base',
+    '@spotify/eslint-config-typescript',
+    'prettier',
   ],
-  parser: "@typescript-eslint/parser",
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 12,
-    sourceType: "module",
+    sourceType: 'module',
   },
-  plugins: ["@typescript-eslint"],
-  rules: {
-    "import/extensions": "off",
-    "import/prefer-default-export": "off",
-    "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": "error",
-    "no-shadow": "off",
-    "@typescript-eslint/no-shadow": "error",
-    "no-undef": "off",
-  },
+  plugins: ['@typescript-eslint'],
 };
