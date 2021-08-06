@@ -31,8 +31,7 @@ export function getPlayTone(context: AudioContext, node: AudioNode) {
 
     const gain = context.createGain();
     gain.gain.value = velocity / 127;
-    gain.connect(node); // connect to the next node (wet)
-    gain.connect(context.destination); // connect to the next node (dry) TODO handle in index.ts
+    gain.connect(node); // connect to the next node TODO handle in index.ts
 
     // Todo make params
     const unison = 3;
