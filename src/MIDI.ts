@@ -1,5 +1,5 @@
 import type { getPlayTone } from './Oscillator';
-import type { adjustContinuousControl } from './CC';
+import type { adjustContinuousControl } from './ContinuousControl';
 
 enum Commands {
   NOTE_ON = 144,

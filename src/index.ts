@@ -2,7 +2,7 @@ import './styles.css';
 import * as MIDI from './MIDI';
 import { getPlayTone } from './Oscillator';
 import { createReverb } from './Reverb';
-import { adjustContinuousControl } from './CC';
+import { adjustContinuousControl } from './ContinuousControl';
 import { createTrack, Track } from './Track';
 
 /**
