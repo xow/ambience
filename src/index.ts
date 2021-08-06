@@ -1,7 +1,7 @@
 import './styles.css';
 import * as MIDI from './MIDI';
 import { getPlayTone } from './Oscillator';
-import { createReverb } from './Reverb';
+import { createReverb } from './AudioEffects/Reverb';
 import { adjustContinuousControl } from './ContinuousControl';
 import { createTrack, Track } from './Track';
 
