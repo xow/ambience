@@ -13,7 +13,9 @@ const context = new window.AudioContext();
 
 // Effects
 const reverb = createReverb(context, 6);
-const filter = createFilter(context, 1000);
+const filter = createFilter(context, 1000, 'lowpass', 1);
+
+const instrument = context.createGain();
 
 /**
  * Master Track
@@ -21,16 +23,13 @@ const filter = createFilter(context, 1000);
 const masterTrack: Track = {
   chain: [reverb, filter],
   volume: 0.6,
+  instrument,
 };
 
 createTrack({ track: masterTrack, context });
 
-const playTone = getPlayTone(
-  context,
-  masterTrack.chain[masterTrack.chain.length - 1],
-); // TODO don't pass in last chain, add audio source to track, and auto connect in createTrack
+const playTone = getPlayTone({ context, instrumentNode: instrument });
 
 MIDI.listen(playTone, adjustContinuousControl);
 
-// TODO don't use window
 (window as any).playTone = playTone;

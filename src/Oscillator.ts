@@ -22,16 +22,21 @@ interface IPlayToneParams {
   velocity: number;
 }
 
+interface IGetPlayToneProps {
+  context: AudioContext;
+  instrumentNode: AudioNode;
+}
+
 /**
  * Returns a function that when called will play a certain note
  */
-export function getPlayTone(context: AudioContext, node: AudioNode) {
+export function getPlayTone({ context, instrumentNode }: IGetPlayToneProps) {
   return ({ note, octave, velocity }: IPlayToneParams) => {
     const frequency = frequencies[note] * 2 ** (octave - 4);
 
+    // Todo have set polyphony, reuse or discard unneeded nodes.
     const gain = context.createGain();
     gain.gain.value = velocity / 127;
-    gain.connect(node); // connect to the next node TODO handle in index.ts
 
     // Todo make params
     const unison = 3;
@@ -46,7 +51,9 @@ export function getPlayTone(context: AudioContext, node: AudioNode) {
       osc.frequency.value = frequency * (1 + detune); // Hz
       osc.start(); // start the oscillator
       osc.stop(context.currentTime + 0.3);
-      osc.connect(gain); // connect it to the gain (velocity) node
+      osc.connect(gain); // connect it to the gain node to give it correct velocity
     }
+
+    gain.connect(instrumentNode);
   };
 }

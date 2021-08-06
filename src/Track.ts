@@ -8,6 +8,7 @@ type AudioChain = PossibleNode[];
 export interface Track {
   chain: AudioChain;
   volume: number;
+  instrument: AudioNode;
 }
 
 interface ICreateTrackProps {
@@ -16,13 +17,11 @@ interface ICreateTrackProps {
 }
 
 export function createTrack({ track, context }: ICreateTrackProps) {
-  // Apply volume as final node
   const gain = context.createGain();
   gain.gain.value = track.volume;
-  gain.connect(context.destination);
 
-  let nextNode: AudioNode = gain;
-  track.chain.forEach((node: PossibleNode) => {
+  let nextNode: AudioNode = context.destination;
+  [...track.chain, track.instrument, gain].forEach((node: PossibleNode) => {
     node.connect(nextNode);
     nextNode = node;
   });
