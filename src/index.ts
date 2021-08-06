@@ -3,20 +3,24 @@ import * as MIDI from "./MIDI";
 import { getPlayTone } from "./Oscillator";
 import { createReverb } from "./Reverb";
 
-(async () => {
-  /**
-   * Main audio context
-   */
-  const context = new window.AudioContext();
+const masterVolume = 0.6;
 
-  const reverb = await createReverb(context);
+/**
+ * Main audio context
+ */
+const context = new window.AudioContext();
 
-  reverb.connect(context.destination);
+const reverb = createReverb(context, 6);
 
-  const playTone = getPlayTone(context, reverb);
+const gain = context.createGain();
+gain.gain.value = masterVolume; // Master volume
+gain.connect(context.destination);
 
-  MIDI.listen(playTone);
+reverb.connect(gain);
 
-  // TODO don't use window
-  (window as any).playTone = playTone;
-})();
+const playTone = getPlayTone(context, reverb);
+
+MIDI.listen(playTone);
+
+// TODO don't use window
+(window as any).playTone = playTone;

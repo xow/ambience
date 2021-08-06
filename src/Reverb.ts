@@ -1,12 +1,14 @@
+function noise(amount: number) {
+  return Math.random() * amount - amount / 2;
+}
+
 /**
  * Create the impulse response for the convolver
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function createImpulseResponse(
   context: AudioContext,
   duration: number,
-  decay: number,
-  reverse: boolean
+  decay: number
 ) {
   const { sampleRate } = context;
   const length = sampleRate * duration;
@@ -15,24 +17,23 @@ function createImpulseResponse(
   const impulseR = impulse.getChannelData(1);
 
   for (let i = 0; i < length; i += 1) {
-    const n = reverse ? length - i : i;
-    impulseL[i] = (Math.random() * 2 - 1) * (1 - n / length) ** decay;
-    impulseR[i] = (Math.random() * 2 - 1) * (1 - n / length) ** decay;
+    impulseL[i] = noise(2) * (1 - i / length) ** decay;
+    impulseR[i] = noise(2) * (1 - i / length) ** decay;
   }
+
   return impulse;
 }
 
-export async function createReverb(context: AudioContext) {
+/**
+ * Returns a reverb
+ * @param context Audio context we should create the reverb under
+ * @param decayTime Number of seconds the reverb tail should last
+ * @returns A convolver representing the reverb to be connected.
+ */
+export function createReverb(context: AudioContext, decayTime: number) {
   const convolver = context.createConvolver();
 
-  // // load impulse response from file
-  // const response = await fetch(
-  //   "Rocksta Reactions Fender Twin Reverb SM57 A 2 3 3 45.wav"
-  // );
-  // const arraybuffer = await response.arrayBuffer();
-  // convolver.buffer = await context.decodeAudioData(arraybuffer);
-
-  convolver.buffer = createImpulseResponse(context, 1, 0.5, false);
+  convolver.buffer = createImpulseResponse(context, decayTime, 4);
 
   return convolver;
 }
