@@ -19,7 +19,7 @@ export const frequencies = {
 /**
  * Returns a function that when called will play a certain note
  */
-export function getPlayTone(context: AudioContext) {
+export function getPlayTone(context: AudioContext, node: AudioNode) {
   return (note: keyof typeof frequencies, octave: number, velocity: number) => {
     const frequency = frequencies[note] * 2 ** (octave - 4);
 
@@ -29,7 +29,7 @@ export function getPlayTone(context: AudioContext) {
     const osc = context.createOscillator(); // instantiate an oscillator
     osc.type = "sawtooth"; // this is the default - also square, sawtooth, triangle
     osc.frequency.value = frequency; // Hz
-    osc.connect(context.destination); // connect it to the destination
+    osc.connect(node); // connect it to the next node
     osc.start(); // start the oscillator
     osc.stop(context.currentTime + 0.3);
   };
