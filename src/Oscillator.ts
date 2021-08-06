@@ -23,15 +23,25 @@ export function getPlayTone(context: AudioContext, node: AudioNode) {
   return (note: keyof typeof frequencies, octave: number, velocity: number) => {
     const frequency = frequencies[note] * 2 ** (octave - 4);
 
-    const osc = context.createOscillator(); // instantiate an oscillator
-    osc.type = "sawtooth"; // this is the default - also square, sawtooth, triangle
-    osc.frequency.value = frequency; // Hz
-    osc.start(); // start the oscillator
-    osc.stop(context.currentTime + 0.3);
-
     const gain = context.createGain();
     gain.gain.value = velocity / 127;
-    osc.connect(gain); // connect it to the next node
-    gain.connect(node);
+    gain.connect(node); // connect to the next node (wet)
+    gain.connect(context.destination); // connect to the next node (dry) TODO handle in index.ts
+
+    // Todo make params
+    const unison = 3;
+    const type = "sawtooth";
+    const spread = 0.005;
+
+    for (let i = 0; i < unison; i += 1) {
+      const detune = ((i - (unison - 1) / 2) / (unison - 1)) * spread;
+
+      const osc = context.createOscillator(); // instantiate an oscillator
+      osc.type = type; // this is the default - also square, sawtooth, triangle
+      osc.frequency.value = frequency * (1 + detune); // Hz
+      osc.start(); // start the oscillator
+      osc.stop(context.currentTime + 0.3);
+      osc.connect(gain); // connect it to the gain (velocity) node
+    }
   };
 }
