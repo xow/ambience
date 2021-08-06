@@ -8,7 +8,7 @@ function noise(amount: number) {
 function createImpulseResponse(
   context: AudioContext,
   duration: number,
-  decay: number
+  decay: number,
 ) {
   const { sampleRate } = context;
   const length = sampleRate * duration;

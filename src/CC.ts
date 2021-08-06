@@ -4,7 +4,7 @@ enum ContinuousControls {
 
 export function adjustContinuousControl(
   control: ContinuousControls,
-  value: number
+  value: number,
 ) {
   // eslint-disable-next-line no-console
   console.log(control, value);

@@ -1,5 +1,5 @@
-import type { getPlayTone } from "./Oscillator";
-import type { adjustContinuousControl } from "./CC";
+import type { getPlayTone } from './Oscillator';
+import type { adjustContinuousControl } from './CC';
 
 enum Commands {
   NOTE_ON = 144,
@@ -8,29 +8,29 @@ enum Commands {
 }
 
 const note = [
-  "c",
-  "db",
-  "d",
-  "eb",
-  "e",
-  "f",
-  "gb",
-  "g",
-  "ab",
-  "a",
-  "bb",
-  "b",
+  'c',
+  'db',
+  'd',
+  'eb',
+  'e',
+  'f',
+  'gb',
+  'g',
+  'ab',
+  'a',
+  'bb',
+  'b',
 ] as const;
 
 export async function listen(
   playTone: ReturnType<typeof getPlayTone>,
-  adjustContinuousControlFunction: typeof adjustContinuousControl
+  adjustContinuousControlFunction: typeof adjustContinuousControl,
 ) {
   const midiAccess: WebMidi.MIDIAccess = await navigator.requestMIDIAccess();
 
-  midiAccess.inputs.forEach((entry) => {
+  midiAccess.inputs.forEach(entry => {
     // eslint-disable-next-line no-param-reassign
-    entry.onmidimessage = (event) => {
+    entry.onmidimessage = event => {
       const [command, message, value] = event.data;
 
       switch (command) {

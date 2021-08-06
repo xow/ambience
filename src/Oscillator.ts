@@ -36,7 +36,7 @@ export function getPlayTone(context: AudioContext, node: AudioNode) {
 
     // Todo make params
     const unison = 3;
-    const type = "sawtooth";
+    const type = 'sawtooth';
     const spread = 0.005;
 
     for (let i = 0; i < unison; i += 1) {

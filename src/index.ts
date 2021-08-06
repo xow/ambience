@@ -1,8 +1,8 @@
-import "./styles.css";
-import * as MIDI from "./MIDI";
-import { getPlayTone } from "./Oscillator";
-import { createReverb } from "./Reverb";
-import { adjustContinuousControl } from "./CC";
+import './styles.css';
+import * as MIDI from './MIDI';
+import { getPlayTone } from './Oscillator';
+import { createReverb } from './Reverb';
+import { adjustContinuousControl } from './CC';
 
 const masterVolume = 0.6;
 
