@@ -1,4 +1,5 @@
 import { AudioIO } from '.';
+import { createDryWet } from './DryWet';
 
 function noise(amount: number) {
   return Math.random() * amount - amount / 2;
@@ -30,15 +31,17 @@ function createImpulseResponse(
  * Returns a reverb
  * @param context Audio context we should create the reverb under
  * @param decayTime Number of seconds the reverb tail should last
+ * @param dryWet 0 (dry) to 1 (wet)
  * @returns A convolver representing the reverb to be connected.
  */
 export function createReverb(
   context: AudioContext,
   decayTime: number,
+  dryWet: number,
 ): AudioIO {
   const convolver = context.createConvolver();
 
   convolver.buffer = createImpulseResponse(context, decayTime, 4);
 
-  return { input: convolver, output: convolver };
+  return createDryWet(context, convolver, dryWet);
 }

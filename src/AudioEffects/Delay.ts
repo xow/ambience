@@ -7,6 +7,7 @@ import { createDryWet } from './DryWet';
  * @param bpm Beats per minute
  * @param timeSignature Time signature top half, e.g. 4 = 4/4
  * @param noteDenominator Note denominator, e.g. 4 = quarter note
+ * @param dryWet 0 (dry) to 1 (wet)
  * @returns
  */
 export function createDelay(
@@ -14,10 +15,11 @@ export function createDelay(
   bpm: number,
   timeSignature: number,
   noteDenominator: number,
+  dryWet: number,
 ): AudioIO {
   const delay = context.createDelay();
 
   delay.delayTime.value = ((60 / bpm) * timeSignature) / noteDenominator;
 
-  return createDryWet(context, delay, 0.5);
+  return createDryWet(context, delay, dryWet);
 }

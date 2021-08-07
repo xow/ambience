@@ -16,9 +16,9 @@ const timeSignature = 4;
 const context = new window.AudioContext();
 
 // Effects
-const reverb = createReverb(context, 6);
-const filter = createFilter(context, 5000, 'lowpass', 1);
-const delay = createDelay(context, bpm, timeSignature, 4);
+const reverb = createReverb(context, 6, 0.5);
+const filter = createFilter(context, 5000, 'lowpass', 1, 1);
+const delay = createDelay(context, bpm, timeSignature, 4, 0.3);
 
 const instrument = context.createGain();
 
@@ -26,7 +26,7 @@ const instrument = context.createGain();
  * Master Track
  */
 const masterTrack: Track = {
-  chain: [delay],
+  chain: [delay, filter, reverb],
   volume: 0.6,
   instrument,
 };

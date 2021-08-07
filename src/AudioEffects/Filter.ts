@@ -1,4 +1,5 @@
 import { AudioIO } from '.';
+import { createDryWet } from './DryWet';
 
 /**
  * Returns a filter
@@ -6,6 +7,7 @@ import { AudioIO } from '.';
  * @param cutoffFrequency Frequency of cutoff fot the filter
  * @param type Type of filter
  * @param qFactor Q-factor aka. resonance
+ * @param dryWet 0 (dry) to 1 (wet)
  * @returns A biquadfilter representing the filter to be connected.
  */
 export function createFilter(
@@ -13,6 +15,7 @@ export function createFilter(
   cutoffFrequency: number,
   type: BiquadFilterType,
   qFactor: number,
+  dryWet: number,
 ): AudioIO {
   const biquadFilter = context.createBiquadFilter();
 
@@ -20,5 +23,5 @@ export function createFilter(
   biquadFilter.frequency.value = cutoffFrequency;
   biquadFilter.Q.value = qFactor;
 
-  return { input: biquadFilter, output: biquadFilter };
+  return createDryWet(context, biquadFilter, dryWet);
 }
