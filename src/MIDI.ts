@@ -7,7 +7,7 @@ enum Commands {
   CONTINUOUS_CONTROL = 176,
 }
 
-const note = [
+const noteStrings = [
   'c',
   'db',
   'd',
@@ -38,7 +38,7 @@ export async function listen(
       switch (command) {
         case Commands.NOTE_ON:
           stopTones[message] = playTone({
-            note: note[message % 12],
+            note: noteStrings[message % 12],
             octave: Math.floor(message / 12),
             velocity: value,
           });

@@ -1,5 +1,6 @@
 import './styles.css';
 import * as MIDI from './MIDI';
+import * as OnScreenKeyboard from './OnScreenKeyboard';
 import { getPlayTone } from './Oscillator';
 import { createReverb } from './AudioEffects/Reverb';
 import { createFilter } from './AudioEffects/Filter';
@@ -36,5 +37,4 @@ createTrack({ track: masterTrack, context });
 const playTone = getPlayTone({ context, instrumentNode: instrument });
 
 MIDI.listen(playTone, adjustContinuousControl);
-
-(window as any).playTone = playTone;
+OnScreenKeyboard.listen(playTone);
