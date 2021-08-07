@@ -35,7 +35,7 @@ module.exports = (_, { mode }) => ({
     path: path.resolve(__dirname, 'dist'),
   },
   devServer: {
-    contentBase: [path.join(__dirname, 'dist'), path.join(__dirname, 'public')],
+    contentBase: [path.join(__dirname, 'dist')],
     compress: true,
     port: 3000,
     open: true,
