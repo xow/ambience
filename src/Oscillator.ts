@@ -22,6 +22,8 @@ interface IPlayToneParams {
   velocity: number;
 }
 
+type IPlayTone = (data: IPlayToneParams) => () => void;
+
 interface IGetPlayToneProps {
   context: AudioContext;
   instrumentNode: AudioNode;
@@ -30,8 +32,11 @@ interface IGetPlayToneProps {
 /**
  * Returns a function that when called will play a certain note
  */
-export function getPlayTone({ context, instrumentNode }: IGetPlayToneProps) {
-  return ({ note, octave, velocity }: IPlayToneParams) => {
+export function getPlayTone({
+  context,
+  instrumentNode,
+}: IGetPlayToneProps): IPlayTone {
+  return ({ note, octave, velocity }) => {
     const frequency = frequencies[note] * 2 ** (octave - 4);
 
     // Todo have set polyphony, reuse or discard unneeded nodes.
@@ -43,17 +48,24 @@ export function getPlayTone({ context, instrumentNode }: IGetPlayToneProps) {
     const type = 'sawtooth';
     const spread = 0.005;
 
-    for (let i = 0; i < unison; i += 1) {
+    const ocillators = Array.from(new Array(unison), (x, i) => {
       const detune = ((i - (unison - 1) / 2) / (unison - 1)) * spread;
 
       const osc = context.createOscillator(); // instantiate an oscillator
       osc.type = type; // this is the default - also square, sawtooth, triangle
       osc.frequency.value = frequency * (1 + detune); // Hz
       osc.start(); // start the oscillator
-      osc.stop(context.currentTime + 0.3);
       osc.connect(gain); // connect it to the gain node to give it correct velocity
-    }
+
+      return osc;
+    });
 
     gain.connect(instrumentNode);
+
+    return () => {
+      ocillators.map(osc => {
+        osc.stop(0);
+      });
+    };
   };
 }

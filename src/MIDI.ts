@@ -3,7 +3,7 @@ import type { adjustContinuousControl } from './ContinuousControl';
 
 enum Commands {
   NOTE_ON = 144,
-  NOT_OFF = 128,
+  NOTE_OFF = 128,
   CONTINUOUS_CONTROL = 176,
 }
 
@@ -28,6 +28,8 @@ export async function listen(
 ) {
   const midiAccess: WebMidi.MIDIAccess = await navigator.requestMIDIAccess();
 
+  const stopTones: Record<number, () => void> = {};
+
   midiAccess.inputs.forEach(entry => {
     // eslint-disable-next-line no-param-reassign
     entry.onmidimessage = event => {
@@ -35,11 +37,14 @@ export async function listen(
 
       switch (command) {
         case Commands.NOTE_ON:
-          playTone({
+          stopTones[message] = playTone({
             note: note[message % 12],
             octave: Math.floor(message / 12),
             velocity: value,
           });
+          break;
+        case Commands.NOTE_OFF:
+          stopTones[message]?.();
           break;
         case Commands.CONTINUOUS_CONTROL:
           adjustContinuousControlFunction(message, value);
