@@ -1,3 +1,5 @@
+import { AudioIO } from '.';
+
 /**
  * Returns a filter
  * @param context Audio context we should create the filter under
@@ -11,12 +13,12 @@ export function createFilter(
   cutoffFrequency: number,
   type: BiquadFilterType,
   qFactor: number,
-) {
+): AudioIO {
   const biquadFilter = context.createBiquadFilter();
 
   biquadFilter.type = type;
   biquadFilter.frequency.value = cutoffFrequency;
   biquadFilter.Q.value = qFactor;
 
-  return biquadFilter;
+  return { input: biquadFilter, output: biquadFilter };
 }

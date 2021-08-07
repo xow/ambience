@@ -1,3 +1,5 @@
+import { AudioIO } from '.';
+
 function noise(amount: number) {
   return Math.random() * amount - amount / 2;
 }
@@ -30,10 +32,13 @@ function createImpulseResponse(
  * @param decayTime Number of seconds the reverb tail should last
  * @returns A convolver representing the reverb to be connected.
  */
-export function createReverb(context: AudioContext, decayTime: number) {
+export function createReverb(
+  context: AudioContext,
+  decayTime: number,
+): AudioIO {
   const convolver = context.createConvolver();
 
   convolver.buffer = createImpulseResponse(context, decayTime, 4);
 
-  return convolver;
+  return { input: convolver, output: convolver };
 }

@@ -1,12 +1,7 @@
-// TODO add groups
-// type NodeGroup = AudioNode[];
-
-type PossibleNode = AudioNode;
-
-type AudioChain = PossibleNode[];
+import { AudioIO } from './AudioEffects';
 
 export interface Track {
-  chain: AudioChain;
+  chain: AudioIO[];
   volume: number;
   instrument: AudioNode;
 }
@@ -17,12 +12,21 @@ interface ICreateTrackProps {
 }
 
 export function createTrack({ track, context }: ICreateTrackProps) {
-  const gain = context.createGain();
-  gain.gain.value = track.volume;
+  const trackVolumeNode = context.createGain();
+  trackVolumeNode.gain.value = track.volume;
 
-  let nextNode: AudioNode = context.destination;
-  [...track.chain, track.instrument, gain].forEach((node: PossibleNode) => {
-    node.connect(nextNode);
-    nextNode = node;
+  const nodeConnectionChain: AudioIO[] = [
+    { input: null, output: track.instrument },
+    ...track.chain,
+    { input: trackVolumeNode, output: trackVolumeNode },
+    { input: context.destination, output: null },
+  ];
+
+  nodeConnectionChain.forEach((currentNode: AudioIO, i) => {
+    // Final node, don't need to connect
+    if (i + 1 > nodeConnectionChain.length - 1) return;
+
+    const nextNode = nodeConnectionChain[i + 1];
+    currentNode.output.connect(nextNode.input);
   });
 }
