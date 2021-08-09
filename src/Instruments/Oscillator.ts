@@ -1,3 +1,6 @@
+import { MidiSignal } from '../MidiEffects';
+import { messageToOctaveAndNote } from '../Tools/Midi';
+
 /**
  * Convert human readable note to a frequency
  */
@@ -16,13 +19,11 @@ export const frequencies = {
   b: 440 * 1.122462,
 };
 
-interface IPlayToneParams {
-  note: keyof typeof frequencies;
-  octave: number;
-  velocity: number;
-}
-
-type IPlayTone = (data: IPlayToneParams) => () => void;
+/**
+ * A function to begin playing a tone
+ * @returns An object with a stopTone function to stop the tone playing
+ */
+export type IPlayTone = (data: MidiSignal) => { stopTone: () => void };
 
 interface IGetPlayToneProps {
   context: AudioContext;
@@ -36,7 +37,8 @@ export function getPlayTone({
   context,
   instrumentNode,
 }: IGetPlayToneProps): IPlayTone {
-  return ({ note, octave, velocity }) => {
+  return ({ message, value: velocity }) => {
+    const { octave, note } = messageToOctaveAndNote(message);
     const frequency = frequencies[note] * 2 ** (octave - 4);
 
     // Todo have set polyphony, reuse or discard unneeded nodes.
@@ -62,10 +64,12 @@ export function getPlayTone({
 
     gain.connect(instrumentNode);
 
-    return () => {
+    function stopTone() {
       ocillators.map(osc => {
         osc.stop(0);
       });
-    };
+    }
+
+    return { stopTone };
   };
 }

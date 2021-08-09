@@ -1,4 +1,5 @@
 import { frequencies, getPlayTone } from '../Instruments/Oscillator';
+import { Commands, octaveAndNoteToMessage } from '../Tools/Midi';
 
 export function listen(playTone: ReturnType<typeof getPlayTone>) {
   (window as any).onClickKey = ({
@@ -8,7 +9,9 @@ export function listen(playTone: ReturnType<typeof getPlayTone>) {
     note: keyof typeof frequencies;
     octave: number;
   }) => {
-    const stopTone = playTone({ note, octave, velocity: 100 });
+    const message = octaveAndNoteToMessage({ note, octave });
+    const command = Commands.NOTE_ON;
+    const { stopTone } = playTone({ command, message, value: 100 });
     setTimeout(() => stopTone(), 400);
   };
 }

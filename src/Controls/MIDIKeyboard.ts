@@ -1,26 +1,6 @@
 import type { getPlayTone } from '../Instruments/Oscillator';
+import { Commands } from '../Tools/Midi';
 import type { adjustContinuousControl } from './ContinuousControl';
-
-enum Commands {
-  NOTE_ON = 144,
-  NOTE_OFF = 128,
-  CONTINUOUS_CONTROL = 176,
-}
-
-const noteStrings = [
-  'c',
-  'db',
-  'd',
-  'eb',
-  'e',
-  'f',
-  'gb',
-  'g',
-  'ab',
-  'a',
-  'bb',
-  'b',
-] as const;
 
 export async function listen(
   playTone: ReturnType<typeof getPlayTone>,
@@ -37,11 +17,7 @@ export async function listen(
 
       switch (command) {
         case Commands.NOTE_ON:
-          stopTones[message] = playTone({
-            note: noteStrings[message % 12],
-            octave: Math.floor(message / 12),
-            velocity: value,
-          });
+          stopTones[message] = playTone({ command, message, value }).stopTone;
           break;
         case Commands.NOTE_OFF:
           stopTones[message]?.();

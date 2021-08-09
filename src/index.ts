@@ -1,12 +1,14 @@
 import './UI/styles.css';
 import * as MIDI from './Controls/MIDIKeyboard';
 import * as OnScreenKeyboard from './UI/OnScreenKeyboard';
-import { getPlayTone } from './Instruments/Oscillator';
+import { getPlayTone, IPlayTone } from './Instruments/Oscillator';
 import { createReverb } from './AudioEffects/Reverb';
 import { createFilter } from './AudioEffects/Filter';
 import { adjustContinuousControl } from './Controls/ContinuousControl';
 import { createTrack, Track } from './DAW/Track';
 import { createDelay } from './AudioEffects/Delay';
+import { MidiSignal } from './MidiEffects';
+import { createTranspose } from './MIDIEffects/Transpose';
 
 const bpm = 120;
 const timeSignature = 4;
@@ -16,10 +18,15 @@ const timeSignature = 4;
  */
 const context = new window.AudioContext();
 
-// Effects
+// Audio Effects
 const reverb = createReverb(context, 6, 0.5);
 const filter = createFilter(context, 5000, 'lowpass', 1, 1);
 const delay = createDelay(context, bpm, timeSignature, 4, 0.4, 0.4);
+
+// Midi Effects
+const transpose = createTranspose({ semiTones: -12 });
+
+// Instrument
 
 const instrument = context.createGain();
 
@@ -28,6 +35,7 @@ const instrument = context.createGain();
  */
 const masterTrack: Track = {
   audioEffectsChain: [delay, filter, reverb],
+  midiEffectsChain: [transpose],
   volume: 0.6,
   instrument,
 };
@@ -36,5 +44,15 @@ createTrack({ track: masterTrack, context });
 
 const playTone = getPlayTone({ context, instrumentNode: instrument });
 
-MIDI.listen(playTone, adjustContinuousControl);
-OnScreenKeyboard.listen(playTone);
+const midiEvent: IPlayTone = signal => {
+  const processedSignal = masterTrack.midiEffectsChain.reduce<MidiSignal>(
+    (currentSignal, midiEffect): MidiSignal => {
+      return midiEffect.process(currentSignal);
+    },
+    signal,
+  );
+  return playTone(processedSignal);
+};
+
+MIDI.listen(midiEvent, adjustContinuousControl);
+OnScreenKeyboard.listen(midiEvent);

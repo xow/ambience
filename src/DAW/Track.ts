@@ -1,7 +1,9 @@
 import { AudioEffect } from '../AudioEffects';
+import { MidiEffect } from '../MidiEffects';
 
 export interface Track {
   audioEffectsChain: AudioEffect[];
+  midiEffectsChain: MidiEffect[];
   volume: number;
   instrument: AudioNode;
 }
