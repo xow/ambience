@@ -1,4 +1,4 @@
-import { AudioIO } from '.';
+import { AudioEffect } from '.';
 import { createDryWet } from './DryWet';
 
 /**
@@ -17,7 +17,7 @@ export function createDelay(
   noteDenominator: number,
   feedback: number,
   dryWet: number,
-): AudioIO {
+): AudioEffect {
   const delay = context.createDelay();
   delay.delayTime.value = ((60 / bpm) * timeSignature) / noteDenominator;
 

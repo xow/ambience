@@ -1,4 +1,4 @@
-import { AudioIO } from '.';
+import { AudioEffect } from '.';
 import { createDryWet } from './DryWet';
 
 /**
@@ -16,7 +16,7 @@ export function createFilter(
   type: BiquadFilterType,
   qFactor: number,
   dryWet: number,
-): AudioIO {
+): AudioEffect {
   const biquadFilter = context.createBiquadFilter();
 
   biquadFilter.type = type;

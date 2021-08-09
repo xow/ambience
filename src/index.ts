@@ -27,7 +27,7 @@ const instrument = context.createGain();
  * Master Track
  */
 const masterTrack: Track = {
-  chain: [delay, filter, reverb],
+  audioEffectsChain: [delay, filter, reverb],
   volume: 0.6,
   instrument,
 };

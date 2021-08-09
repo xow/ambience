@@ -1,4 +1,4 @@
-import { AudioIO } from '.';
+import { AudioEffect } from '.';
 import { createDryWet } from './DryWet';
 
 function noise(amount: number) {
@@ -38,7 +38,7 @@ export function createReverb(
   context: AudioContext,
   decayTime: number,
   dryWet: number,
-): AudioIO {
+): AudioEffect {
   const convolver = context.createConvolver();
 
   convolver.buffer = createImpulseResponse(context, decayTime, 4);

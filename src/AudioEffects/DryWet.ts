@@ -1,4 +1,4 @@
-import { AudioIO } from '.';
+import { AudioEffect } from '.';
 
 /**
  * Creates a node that will be split between dry and wet by the given amount
@@ -10,7 +10,7 @@ export function createDryWet(
   context: AudioContext,
   wet: AudioNode,
   wetness: number,
-): AudioIO {
+): AudioEffect {
   // Ensure wetness is between 0 and 1
   const cleanWetnessValue = Math.min(Math.max(wetness, 0), 1);
 

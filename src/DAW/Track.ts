@@ -1,7 +1,7 @@
-import { AudioIO } from '../AudioEffects';
+import { AudioEffect } from '../AudioEffects';
 
 export interface Track {
-  chain: AudioIO[];
+  audioEffectsChain: AudioEffect[];
   volume: number;
   instrument: AudioNode;
 }
@@ -15,14 +15,14 @@ export function createTrack({ track, context }: ICreateTrackProps) {
   const trackVolumeNode = context.createGain();
   trackVolumeNode.gain.value = track.volume;
 
-  const nodeConnectionChain: AudioIO[] = [
+  const nodeConnectionChain: AudioEffect[] = [
     { input: null, output: track.instrument },
-    ...track.chain,
+    ...track.audioEffectsChain,
     { input: trackVolumeNode, output: trackVolumeNode },
     { input: context.destination, output: null },
   ];
 
-  nodeConnectionChain.forEach((currentNode: AudioIO, i) => {
+  nodeConnectionChain.forEach((currentNode: AudioEffect, i) => {
     // Final node, don't need to connect
     if (i + 1 > nodeConnectionChain.length - 1) return;
 
