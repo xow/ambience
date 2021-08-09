@@ -1,4 +1,4 @@
-import { frequencies, getPlayTone } from './Oscillator';
+import { frequencies, getPlayTone } from '../Instruments/Oscillator';
 
 export function listen(playTone: ReturnType<typeof getPlayTone>) {
   (window as any).onClickKey = ({

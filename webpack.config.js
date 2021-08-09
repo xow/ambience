@@ -9,7 +9,7 @@ module.exports = (_, { mode }) => ({
   mode: devMode ? 'development' : 'production',
   plugins: [
     ...(mode === 'production' ? [new MiniCssExtractPlugin()] : []),
-    new HtmlWebpackPlugin({ template: 'src/index.html' }),
+    new HtmlWebpackPlugin({ template: 'src/UI/template.html' }),
   ],
   module: {
     rules: [

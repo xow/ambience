@@ -1,4 +1,4 @@
-import type { getPlayTone } from './Oscillator';
+import type { getPlayTone } from '../Instruments/Oscillator';
 import type { adjustContinuousControl } from './ContinuousControl';
 
 enum Commands {

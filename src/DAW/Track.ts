@@ -1,4 +1,4 @@
-import { AudioIO } from './AudioEffects';
+import { AudioIO } from '../AudioEffects';
 
 export interface Track {
   chain: AudioIO[];

@@ -1,11 +1,11 @@
-import './styles.css';
-import * as MIDI from './MIDI';
-import * as OnScreenKeyboard from './OnScreenKeyboard';
-import { getPlayTone } from './Oscillator';
+import './UI/styles.css';
+import * as MIDI from './Controls/MIDIKeyboard';
+import * as OnScreenKeyboard from './UI/OnScreenKeyboard';
+import { getPlayTone } from './Instruments/Oscillator';
 import { createReverb } from './AudioEffects/Reverb';
 import { createFilter } from './AudioEffects/Filter';
-import { adjustContinuousControl } from './ContinuousControl';
-import { createTrack, Track } from './Track';
+import { adjustContinuousControl } from './Controls/ContinuousControl';
+import { createTrack, Track } from './DAW/Track';
 import { createDelay } from './AudioEffects/Delay';
 
 const bpm = 120;
