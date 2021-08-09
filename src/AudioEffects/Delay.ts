@@ -15,11 +15,17 @@ export function createDelay(
   bpm: number,
   timeSignature: number,
   noteDenominator: number,
+  feedback: number,
   dryWet: number,
 ): AudioIO {
   const delay = context.createDelay();
-
   delay.delayTime.value = ((60 / bpm) * timeSignature) / noteDenominator;
+
+  const feedbackNode = context.createGain();
+  feedbackNode.gain.value = feedback;
+
+  delay.connect(feedbackNode);
+  feedbackNode.connect(delay);
 
   return createDryWet(context, delay, dryWet);
 }

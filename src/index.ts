@@ -19,7 +19,7 @@ const context = new window.AudioContext();
 // Effects
 const reverb = createReverb(context, 6, 0.5);
 const filter = createFilter(context, 5000, 'lowpass', 1, 1);
-const delay = createDelay(context, bpm, timeSignature, 4, 0.3);
+const delay = createDelay(context, bpm, timeSignature, 4, 0.4, 0.4);
 
 const instrument = context.createGain();
 
