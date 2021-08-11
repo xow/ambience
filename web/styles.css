@@ -1,0 +1,29 @@
+.keyboard {
+  height: 512px;
+  width: 1024px;
+  margin: auto;
+}
+.key {
+  box-sizing: border-box;
+  display: inline-block;
+  background-color: #fff;
+  height: 100%;
+  width: 14.2857142857%;
+  border: 8px solid black;
+  border-bottom-right-radius: 16px;
+  border-bottom-left-radius: 16px;
+  margin: -8px;
+}
+div:nth-child(12n-10),
+div:nth-child(12n-8),
+div:nth-child(12n-5),
+div:nth-child(12n-3),
+div:nth-child(12n-1) {
+  margin: -8px -4%;
+  background-color: #000;
+  vertical-align: top;
+  height: 60%;
+  width: 8%;
+  border: none;
+  position: relative;
+}
