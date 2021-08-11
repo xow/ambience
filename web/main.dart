@@ -1,10 +1,25 @@
 import 'dart:html';
 
+const noteStrings = [
+  'c',
+  'db',
+  'd',
+  'eb',
+  'e',
+  'f',
+  'gb',
+  'g',
+  'ab',
+  'a',
+  'bb',
+  'b',
+];
+
 void main() {
-  for (var i = 0; i < 12; i++) {
-    var key = new DivElement();
-    key.className = "key";
+  noteStrings.forEach((note) {
+    var key = DivElement();
+    key.className = 'key';
     querySelector('.keyboard')?.children.add(key);
-    key.onClick.listen((event) => {window.alert('hey you clicked')});
-  }
+    key.onClick.listen((event) => {window.alert(note)});
+  });
 }
