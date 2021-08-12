@@ -8,6 +8,18 @@
 
 Give everyone access to world class synthesizer sounds with just the type of a url.
 
+## Running dev Typescript version
+
+```bash
+yarn dev
+```
+
+## Running dart version
+
+```bash
+webdev serve --auto=refresh
+```
+
 ## Goals
 
 1. Learn Web Audio

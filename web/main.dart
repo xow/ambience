@@ -1,25 +1,28 @@
 import 'dart:html';
+import 'dart:web_audio';
+import 'Instruments/Synth.dart';
+import 'Tools/Midi.dart';
 
-const noteStrings = [
-  'c',
-  'db',
-  'd',
-  'eb',
-  'e',
-  'f',
-  'gb',
-  'g',
-  'ab',
-  'a',
-  'bb',
-  'b',
-];
+void onClickKey({required String note, required int octave}) {
+  window.alert(note);
+}
 
 void main() {
-  noteStrings.forEach((note) {
-    var key = DivElement();
+  /// Main audio context
+  final context = AudioContext();
+
+  /// Instrument
+  final instrument = context.createGain();
+
+  final playTone = getPlayTone(context: context, instrumentNode: instrument);
+
+  noteStrings.forEach((String note) {
+    final key = DivElement();
     key.className = 'key';
     querySelector('.keyboard')?.children.add(key);
-    key.onClick.listen((event) => {window.alert(note)});
+    key.onClick.listen((event) {
+      playTone(message: 96, velocity: 127);
+      onClickKey(note: note, octave: 4);
+    });
   });
 }
