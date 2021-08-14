@@ -1,4 +1,4 @@
-import { MidiSignal } from '../MidiEffects2';
+import { MidiSignal } from '../MidiEffects';
 import { messageToOctaveAndNote } from '../Tools/Midi';
 
 /**

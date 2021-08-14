@@ -1,5 +1,5 @@
 import { AudioEffect } from '../AudioEffects';
-import { MidiEffect } from '../MidiEffects2';
+import { MidiEffect } from '../MidiEffects';
 
 export interface Track {
   audioEffectsChain: AudioEffect[];
