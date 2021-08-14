@@ -7,7 +7,7 @@ import { adjustContinuousControl } from './Controls/ContinuousControl';
 import { createTrack, Track } from './DAW/Track';
 import { createDelay } from './AudioEffects/Delay';
 import { MidiSignal } from './MidiEffects';
-import { createTranspose } from './MIDIEffects/Transpose';
+import { createTranspose } from './MidiEffects/Transpose';
 
 export function initialise() {
   const bpm = 120;
