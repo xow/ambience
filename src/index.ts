@@ -1,5 +1,5 @@
 import * as MIDI from './Controls/MIDIKeyboard';
-import * as OnScreenKeyboard from './UI/OnScreenKeyboard';
+import * as OnScreenKeyboard from './Controls/OnScreenKeyboard';
 import { getPlayTone, IPlayTone } from './Instruments/Oscillator';
 import { createReverb } from './AudioEffects/Reverb';
 import { createFilter } from './AudioEffects/Filter';

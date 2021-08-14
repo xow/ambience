@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { frequencies } from '../Instruments/Oscillator';
 import { initialise } from '..';
-import { IOnClickKey } from '../UI/OnScreenKeyboard';
+import { IOnClickKey } from '../Controls/OnScreenKeyboard';
 
 function HomePage() {
   const [onClickKey, setOnClickKey] = useState<IOnClickKey>();
