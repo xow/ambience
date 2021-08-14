@@ -1,6 +1,7 @@
 import 'dart:web_audio';
 import 'Instruments/Synth.dart';
 import 'UI/OnScreenKeyboard.dart';
+import 'Controls/MidiKeyboard.dart';
 
 /// Main audio context
 final context = AudioContext();
@@ -21,4 +22,6 @@ void main() {
   }
 
   render(handleMidi);
+
+  listen(playTone: playTone);
 }

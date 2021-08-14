@@ -4,9 +4,9 @@ typedef HandleMidi = StopTone Function(
     {required int command, required int message, required int value});
 
 class Commands {
-  static final int NOTE_ON = 144;
-  static final int NOTE_OFF = 128;
-  static final int CONTINUOUS_CONTROL = 176;
+  static const int NOTE_ON = 144;
+  static const int NOTE_OFF = 128;
+  static const int CONTINUOUS_CONTROL = 176;
 }
 
 const List<String> noteStrings = [
