@@ -55,7 +55,7 @@ export function initialise() {
   };
 
   MIDI.listen(handleMidiEvent, adjustContinuousControl);
-  const onClickKey = OnScreenKeyboard.listen(handleMidiEvent);
+  const handleClickKey = OnScreenKeyboard.listen(handleMidiEvent);
 
-  return { onClickKey };
+  return { handleClickKey };
 }
