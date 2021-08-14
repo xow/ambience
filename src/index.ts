@@ -6,8 +6,8 @@ import { createFilter } from './AudioEffects/Filter';
 import { adjustContinuousControl } from './Controls/ContinuousControl';
 import { createTrack, Track } from './DAW/Track';
 import { createDelay } from './AudioEffects/Delay';
-import { MidiSignal } from './MidiEffects';
-import { createTranspose } from './MidiEffects/Transpose';
+import { MidiSignal } from './MidiEffects2';
+import { createTranspose } from './MidiEffects2/Transpose';
 
 export function initialise() {
   const bpm = 120;
