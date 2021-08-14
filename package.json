@@ -8,12 +8,15 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "dev": "webpack serve",
-    "start": "webpack serve",
-    "build": "webpack",
+    "dev": "next dev",
+    "start": "next start",
+    "build": "next build",
     "lint": "eslint src/**/*.ts && prettier --write src/**/*.ts"
   },
   "dependencies": {
+    "next": "^11.1.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "webpack": "^5.47.1",
     "webpack-cli": "^4.7.2"
   },
@@ -23,6 +26,7 @@
     "@spotify/eslint-config-typescript": "^11.0.0",
     "@spotify/eslint-plugin": "^11.0.0",
     "@spotify/prettier-config": "^11.0.0",
+    "@types/react": "^17.0.17",
     "@types/webmidi": "^2.0.6",
     "@typescript-eslint/eslint-plugin": "^4.29.0",
     "@typescript-eslint/parser": "^4.29.0",
