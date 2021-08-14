@@ -10,9 +10,9 @@ final instrument = context.createGain();
 
 final playTone = getPlayTone(context: context, instrumentNode: instrument);
 
-void handleMidi(
+StopTone handleMidi(
     {required int command, required int message, required int value}) {
-  playTone(message: message, velocity: value);
+  return playTone(message: message, velocity: value);
 }
 
 void main() {

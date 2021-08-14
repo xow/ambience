@@ -1,4 +1,6 @@
-typedef HandleMidi = void Function(
+import '../Instruments/Synth.dart';
+
+typedef HandleMidi = StopTone Function(
     {required int command, required int message, required int value});
 
 class Commands {
