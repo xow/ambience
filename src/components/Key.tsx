@@ -9,6 +9,23 @@ interface IProps {
 
 function Key({ handleClickKey, note }: IProps) {
   const [isActive, setIsActive] = useState<boolean>(false);
+  const [handleReleaseKey, setHandleReleaseKey] =
+    useState<ReturnType<IHandleClickKey>['handleReleaseKey']>();
+
+  const handlePress = () => {
+    setIsActive(true);
+    const { handleReleaseKey: handleReleaseKeyValue } = handleClickKey?.({
+      note,
+      octave: 4,
+    });
+
+    setHandleReleaseKey(() => handleReleaseKeyValue);
+  };
+  const handleRelease = () => {
+    setIsActive(false);
+    handleReleaseKey?.();
+  };
+
   return (
     <>
       <style jsx>{`
@@ -23,9 +40,6 @@ function Key({ handleClickKey, note }: IProps) {
           border-bottom-left-radius: 16px;
           margin: -8px;
         }
-        .key.active {
-          background: #0f3;
-        }
         .key:nth-child(12n-10),
         .key:nth-child(12n-8),
         .key:nth-child(12n-5),
@@ -36,19 +50,24 @@ function Key({ handleClickKey, note }: IProps) {
           vertical-align: top;
           height: 300px;
           width: 76px;
-          border: none;
           position: relative;
+        }
+        .key.active,
+        .key:nth-child(12n-10).active,
+        .key:nth-child(12n-8).active,
+        .key:nth-child(12n-5).active,
+        .key:nth-child(12n-3).active,
+        .key:nth-child(12n-1).active {
+          background: #0f3;
         }
       `}</style>
       <div
         className={`key ${isActive && 'active'}`}
-        onMouseDown={() => {
-          setIsActive(true);
-          handleClickKey?.({ note, octave: 4 });
-        }}
-        onMouseUp={() => {
-          setIsActive(false);
-        }}
+        onMouseDown={handlePress}
+        onTouchStart={handlePress}
+        onMouseUp={handleRelease}
+        onMouseOut={handleRelease}
+        onTouchEnd={handleRelease}
       ></div>
     </>
   );

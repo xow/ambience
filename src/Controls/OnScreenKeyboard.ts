@@ -7,7 +7,7 @@ export type IHandleClickKey = ({
 }: {
   note: keyof typeof frequencies;
   octave: number;
-}) => void;
+}) => { handleReleaseKey: () => void };
 
 export function listen(
   playTone: ReturnType<typeof getPlayTone>,
@@ -15,7 +15,9 @@ export function listen(
   return ({ note, octave }) => {
     const message = octaveAndNoteToMessage({ note, octave });
     const command = Commands.NOTE_ON;
+
     const { stopTone } = playTone({ command, message, value: 100 });
-    setTimeout(() => stopTone(), 400);
+
+    return { handleReleaseKey: () => stopTone() };
   };
 }

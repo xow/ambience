@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import Head from 'next/head';
+
 import { initialise } from '..';
 import Keyboard from '../components/Keyboard';
 import { IHandleClickKey } from '../Controls/OnScreenKeyboard';
@@ -10,7 +12,14 @@ function HomePage() {
     setHandleClickKey(() => handleClickKeyValue);
   }, []);
 
-  return <>{handleClickKey && <Keyboard handleClickKey={handleClickKey} />}</>;
+  return (
+    <>
+      <Head>
+        <title>Online Synthesizer</title>
+      </Head>
+      {handleClickKey && <Keyboard handleClickKey={handleClickKey} />}
+    </>
+  );
 }
 
 export default HomePage;
