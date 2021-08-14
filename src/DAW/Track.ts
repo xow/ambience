@@ -29,6 +29,6 @@ export function createTrack({ track, context }: ICreateTrackProps) {
     if (i + 1 > nodeConnectionChain.length - 1) return;
 
     const nextNode = nodeConnectionChain[i + 1];
-    currentNode.output.connect(nextNode.input);
+    if (nextNode.input) currentNode.output?.connect(nextNode.input);
   });
 }
