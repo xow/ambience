@@ -17,7 +17,10 @@ function HomePage() {
       <Head>
         <title>Online Synthesizer</title>
       </Head>
-      {handleClickKey && <Keyboard handleClickKey={handleClickKey} />}
+      <div className="m-auto max-w-screen-lg">
+        <h1 className="text-4xl text-center mb-4">Online Synthesizer</h1>
+        {handleClickKey && <Keyboard handleClickKey={handleClickKey} />}
+      </div>
     </>
   );
 }
