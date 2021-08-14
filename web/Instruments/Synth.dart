@@ -20,7 +20,9 @@ final Map<String, num> frequencies = {
   'b': 440 * 1.122462,
 };
 
-typedef IPlayTone = Object Function(
+typedef StopTone = void Function();
+
+typedef IPlayTone = StopTone Function(
     {required int message, required int velocity});
 
 /// Returns a function that when called will play a certain note
@@ -66,6 +68,6 @@ IPlayTone getPlayTone({
       });
     }
 
-    return {stopTone};
+    return stopTone;
   };
 }

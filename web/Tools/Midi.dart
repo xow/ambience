@@ -1,3 +1,6 @@
+typedef HandleMidi = void Function(
+    {required int command, required int message, required int value});
+
 class Commands {
   static final int NOTE_ON = 144;
   static final int NOTE_OFF = 128;
