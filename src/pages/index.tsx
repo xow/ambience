@@ -18,7 +18,7 @@ export const SynthParametersContext = React.createContext<{
 
 function HomePage() {
   const [params, setParams] = useState<ISynthParameters>({
-    type: 'triangle',
+    type: 'sawtooth',
   });
   const [handleClickKey, setHandleClickKey] = useState<IHandleClickKey>();
   useEffect(() => {
