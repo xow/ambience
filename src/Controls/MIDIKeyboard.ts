@@ -1,4 +1,4 @@
-import type { getPlayTone } from '../Instruments/Oscillator';
+import type { getPlayTone } from '../Instruments/Synth';
 import { Commands } from '../Tools/Midi';
 import type { adjustContinuousControl } from './ContinuousControl';
 

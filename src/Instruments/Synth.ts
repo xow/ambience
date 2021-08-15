@@ -25,9 +25,10 @@ export const frequencies = {
  */
 export type IPlayTone = (data: MidiSignal) => { stopTone: () => void };
 
-interface IGetPlayToneProps {
+export interface IGetPlayToneProps {
   context: AudioContext;
   instrumentNode: AudioNode;
+  type: 'custom' | 'sawtooth' | 'sine' | 'square' | 'triangle';
 }
 
 /**
@@ -36,6 +37,7 @@ interface IGetPlayToneProps {
 export function getPlayTone({
   context,
   instrumentNode,
+  type,
 }: IGetPlayToneProps): IPlayTone {
   return ({ message, value: velocity }) => {
     const { octave, note } = messageToOctaveAndNote(message);
@@ -47,7 +49,6 @@ export function getPlayTone({
 
     // Todo make params
     const unison = 3;
-    const type = 'sawtooth';
     const spread = 0.005;
 
     const ocillators = Array.from(new Array(unison), (x, i) => {

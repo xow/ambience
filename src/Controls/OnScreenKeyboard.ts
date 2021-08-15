@@ -1,4 +1,4 @@
-import { frequencies, getPlayTone } from '../Instruments/Oscillator';
+import { frequencies, getPlayTone } from '../Instruments/Synth';
 import { Commands, octaveAndNoteToMessage } from '../Tools/Midi';
 
 export type IHandleClickKey = ({

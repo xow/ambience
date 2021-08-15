@@ -1,6 +1,6 @@
 import * as MIDI from './Controls/MIDIKeyboard';
 import * as OnScreenKeyboard from './Controls/OnScreenKeyboard';
-import { getPlayTone, IPlayTone } from './Instruments/Oscillator';
+import { getPlayTone, IGetPlayToneProps, IPlayTone } from './Instruments/Synth';
 import { createReverb } from './AudioEffects/Reverb';
 import { createFilter } from './AudioEffects/Filter';
 import { adjustContinuousControl } from './Controls/ContinuousControl';
@@ -9,7 +9,11 @@ import { createDelay } from './AudioEffects/Delay';
 import { MidiSignal } from './MidiEffects';
 import { createTranspose } from './MidiEffects/Transpose';
 
-export function initialise() {
+export interface ISynthParameters {
+  type: IGetPlayToneProps['type'];
+}
+
+export function initialise(params: ISynthParameters) {
   const bpm = 120;
   const timeSignature = 4;
 
@@ -42,7 +46,11 @@ export function initialise() {
 
   createTrack({ track: masterTrack, context });
 
-  const playTone = getPlayTone({ context, instrumentNode: instrument });
+  const playTone = getPlayTone({
+    context,
+    instrumentNode: instrument,
+    type: params.type,
+  });
 
   const handleMidiEvent: IPlayTone = signal => {
     const processedSignal = masterTrack.midiEffectsChain.reduce<MidiSignal>(

@@ -1,5 +1,5 @@
 import type { IHandleClickKey } from '../Controls/OnScreenKeyboard';
-import { frequencies } from '../Instruments/Oscillator';
+import { frequencies } from '../Instruments/Synth';
 import Key from './Key';
 
 interface IProps {
@@ -15,7 +15,7 @@ function Keyboard({ handleClickKey }: IProps) {
           width: fit-content;
         }
       `}</style>
-      <div className="keyboard">
+      <div className="keyboard shadow-2xl w-max m-auto">
         {(Object.keys(frequencies) as Array<keyof typeof frequencies>).map(
           note => (
             <Key key={note} note={note} handleClickKey={handleClickKey} />

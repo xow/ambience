@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { IHandleClickKey } from '../Controls/OnScreenKeyboard';
-import { frequencies } from '../Instruments/Oscillator';
+import { frequencies } from '../Instruments/Synth';
 
 interface IProps {
   handleClickKey: IHandleClickKey;
@@ -38,14 +38,14 @@ function Key({ handleClickKey, note }: IProps) {
           border: 8px solid black;
           border-bottom-right-radius: 16px;
           border-bottom-left-radius: 16px;
-          margin: -8px;
+          margin: 0px -8px;
         }
         .key:nth-child(12n-10),
         .key:nth-child(12n-8),
         .key:nth-child(12n-5),
         .key:nth-child(12n-3),
         .key:nth-child(12n-1) {
-          margin: -8px -38px;
+          margin: 0px -38px;
           background-color: #000;
           vertical-align: top;
           height: 300px;
