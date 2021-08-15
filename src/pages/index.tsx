@@ -25,7 +25,7 @@ function HomePage() {
     const { handleClickKey: handleClickKeyValue } = initialise(params);
     // The initialise returns a function for handling click events, let's set it in state so we can call it when someone clicks.
     setHandleClickKey(() => handleClickKeyValue);
-  }, []);
+  }, [params]);
 
   return (
     <>
