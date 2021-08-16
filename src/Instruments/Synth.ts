@@ -53,7 +53,7 @@ export function getPlayTone({
     const unison = 3;
     const spread = 0.005;
 
-    const envelope = { attack: 0.05, delay: 0.5, sustain: 0.5, release: 0.5 };
+    const envelope = { attack: 0, delay: 0, sustain: 1, release: 0 };
 
     const ocillators = Array.from(new Array(unison), (x, i) => {
       const detune = ((i - (unison - 1) / 2) / (unison - 1)) * spread;
