@@ -43,15 +43,17 @@ export function getPlayTone({
     const { octave, note } = messageToOctaveAndNote(message);
     const frequency = frequencies[note] * 2 ** (octave - 4);
 
+    const maxGain = velocity / 127;
+
     // Todo have set polyphony, reuse or discard unneeded nodes.
     const gainNode = context.createGain();
-    gainNode.gain.value = velocity / 127;
+    gainNode.gain.value = 0;
 
     // Todo make params
     const unison = 3;
     const spread = 0.005;
 
-    const envelope = { attack: 0, delay: 0, sustain: 1, release: 0.5 };
+    const envelope = { attack: 0.05, delay: 0, sustain: 1, release: 0.5 };
 
     const ocillators = Array.from(new Array(unison), (x, i) => {
       const detune = ((i - (unison - 1) / 2) / (unison - 1)) * spread;
@@ -60,6 +62,12 @@ export function getPlayTone({
       osc.type = type; // this is the default - also square, sawtooth, triangle
       osc.frequency.value = frequency * (1 + detune); // Hz
       osc.start(); // start the oscillator
+
+      // Apply attack to oscillator
+      gainNode.gain.linearRampToValueAtTime(
+        maxGain,
+        context.currentTime + envelope.attack,
+      );
       osc.connect(gainNode); // connect it to the gain node to give it correct velocity
 
       return osc;
@@ -68,6 +76,7 @@ export function getPlayTone({
     gainNode.connect(instrumentNode);
 
     function stopTone() {
+      // Apply release to each oscillator, and only stop after release is complete.
       ocillators.forEach(osc => {
         gainNode.gain.linearRampToValueAtTime(
           0,
