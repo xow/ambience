@@ -23,7 +23,9 @@ function Select<T extends string>({
           onChange={event => onChange(event.target.value as T)}
         >
           {Object.entries(options).map(([optionValue, optionText]) => (
-            <option value={optionValue}>{optionText}</option>
+            <option value={optionValue} key={optionValue}>
+              {optionText}
+            </option>
           ))}
         </select>
       </div>
