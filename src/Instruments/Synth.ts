@@ -53,7 +53,7 @@ export function getPlayTone({
     const unison = 3;
     const spread = 0.005;
 
-    const envelope = { attack: 0.05, delay: 0, sustain: 1, release: 0.5 };
+    const envelope = { attack: 0.05, delay: 0.5, sustain: 0.5, release: 0.5 };
 
     const ocillators = Array.from(new Array(unison), (x, i) => {
       const detune = ((i - (unison - 1) / 2) / (unison - 1)) * spread;
@@ -69,6 +69,14 @@ export function getPlayTone({
         context.currentTime + envelope.attack,
       );
       osc.connect(gainNode); // connect it to the gain node to give it correct velocity
+
+      // Start a ramp to sustain once attack is done
+      setInterval(() => {
+        gainNode.gain.linearRampToValueAtTime(
+          maxGain * envelope.sustain,
+          context.currentTime + envelope.attack + envelope.delay, // TODO don't need attack here once we figure out how to get context's true current Time
+        );
+      }, envelope.attack * 1000);
 
       return osc;
     });
