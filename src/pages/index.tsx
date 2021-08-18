@@ -38,7 +38,6 @@ function HomePage() {
           <Select<ISynthParameters['type']>
             label="Oscillator Waveform"
             options={{
-              custom: 'Custom',
               sawtooth: 'Saw',
               sine: 'Sine',
               square: 'Square',
