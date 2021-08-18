@@ -23,9 +23,9 @@ export const frequencies = {
  * A function to begin playing a tone
  * @returns An object with a stopTone function to stop the tone playing
  */
-export type IPlayTone = (data: MidiSignal) => { stopTone: () => void };
+export type IHandleMidi = (data: MidiSignal) => { stopTone: () => void };
 
-export interface IGetPlayToneProps {
+export interface IGetHandleMidiProps {
   context: AudioContext;
   instrumentNode: AudioNode;
   type: 'custom' | 'sawtooth' | 'sine' | 'square' | 'triangle';
@@ -34,11 +34,11 @@ export interface IGetPlayToneProps {
 /**
  * Returns a function that when called will play a certain note
  */
-export function getPlayTone({
+export function getHandleMidi({
   context,
   instrumentNode,
   type,
-}: IGetPlayToneProps): IPlayTone {
+}: IGetHandleMidiProps): IHandleMidi {
   return ({ message, value: velocity }) => {
     const { octave, note } = messageToOctaveAndNote(message);
     const frequency = frequencies[note] * 2 ** (octave - 4);

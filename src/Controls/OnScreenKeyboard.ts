@@ -1,4 +1,4 @@
-import { frequencies, getPlayTone } from '../Instruments/Synth';
+import { frequencies, getHandleMidi } from '../Instruments/Synth';
 import { Commands, octaveAndNoteToMessage } from '../Tools/Midi';
 
 export type IHandleClickKey = ({
@@ -10,13 +10,13 @@ export type IHandleClickKey = ({
 }) => { handleReleaseKey: () => void };
 
 export function listen(
-  playTone: ReturnType<typeof getPlayTone>,
+  handleMidi: ReturnType<typeof getHandleMidi>,
 ): IHandleClickKey {
   return ({ note, octave }) => {
     const message = octaveAndNoteToMessage({ note, octave });
     const command = Commands.NOTE_ON;
 
-    const { stopTone } = playTone({ command, message, value: 100 });
+    const { stopTone } = handleMidi({ command, message, value: 100 });
 
     return { handleReleaseKey: () => stopTone() };
   };

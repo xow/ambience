@@ -1,6 +1,10 @@
 import * as MIDI from './Controls/MIDIKeyboard';
 import * as OnScreenKeyboard from './Controls/OnScreenKeyboard';
-import { getPlayTone, IGetPlayToneProps, IPlayTone } from './Instruments/Synth';
+import {
+  getHandleMidi,
+  IGetHandleMidiProps,
+  IHandleMidi,
+} from './Instruments/Synth';
 import { createReverb } from './AudioEffects/Reverb';
 import { createFilter } from './AudioEffects/Filter';
 import { adjustContinuousControl } from './Controls/ContinuousControl';
@@ -10,7 +14,7 @@ import { MidiSignal } from './MidiEffects';
 import { createTranspose } from './MidiEffects/Transpose';
 
 export interface ISynthParameters {
-  type: IGetPlayToneProps['type'];
+  type: IGetHandleMidiProps['type'];
 }
 
 export function initialise(params: ISynthParameters) {
@@ -46,20 +50,20 @@ export function initialise(params: ISynthParameters) {
 
   createTrack({ track: masterTrack, context });
 
-  const playTone = getPlayTone({
+  const handleMidi = getHandleMidi({
     context,
     instrumentNode: instrument,
     type: params.type,
   });
 
-  const handleMidiEvent: IPlayTone = signal => {
+  const handleMidiEvent: IHandleMidi = signal => {
     const processedSignal = masterTrack.midiEffectsChain.reduce<MidiSignal>(
       (currentSignal, midiEffect): MidiSignal => {
         return midiEffect.process(currentSignal);
       },
       signal,
     );
-    return playTone(processedSignal);
+    return handleMidi(processedSignal);
   };
 
   MIDI.listen(handleMidiEvent, adjustContinuousControl);

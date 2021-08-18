@@ -1,9 +1,9 @@
-import type { getPlayTone } from '../Instruments/Synth';
+import type { getHandleMidi } from '../Instruments/Synth';
 import { Commands } from '../Tools/Midi';
 import type { adjustContinuousControl } from './ContinuousControl';
 
 export async function listen(
-  playTone: ReturnType<typeof getPlayTone>,
+  handleMidi: ReturnType<typeof getHandleMidi>,
   adjustContinuousControlFunction: typeof adjustContinuousControl,
 ) {
   const midiAccess: WebMidi.MIDIAccess = await navigator.requestMIDIAccess();
@@ -17,7 +17,7 @@ export async function listen(
 
       switch (command) {
         case Commands.NOTE_ON:
-          stopTones[message] = playTone({ command, message, value }).stopTone;
+          stopTones[message] = handleMidi({ command, message, value }).stopTone;
           break;
         case Commands.NOTE_OFF:
           stopTones[message]?.();
