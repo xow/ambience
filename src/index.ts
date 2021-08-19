@@ -9,6 +9,7 @@ import { createDelay } from './AudioEffects/Delay';
 import { createTranspose } from './MidiEffects/Transpose';
 import { IHandleMidi } from './Tools/Midi';
 import { createArpeggiator } from './MidiEffects/Arpeggiator';
+import { createChord } from './MidiEffects/Chord';
 
 export interface ISynthParameters {
   type: IGetHandleMidiProps['type'];
@@ -24,12 +25,14 @@ export function initialise(params: ISynthParameters) {
   const context = new window.AudioContext();
 
   // Audio Effects
-  const reverb = createReverb(context, 6, 0.5);
-  const filter = createFilter(context, 3000, 'lowpass', 1, 1);
-  const delay = createDelay(context, bpm, timeSignature, 4, 0.4, 0.4);
+  const reverb = createReverb(context, 6, 1);
+  const lowpassFilter = createFilter(context, 3000, 'lowpass', 1, 1);
+  const highpassFilter = createFilter(context, 300, 'highpass', 1, 1);
+  const delay = createDelay(context, bpm, timeSignature, 4, 0.6, 0.5);
 
   // Midi Effects
-  const transpose = createTranspose({ semiTones: -12 });
+  const transpose = createTranspose({ semiTones: 0 });
+  const chord = createChord({ noteOffsets: [-12, -5, 0, 2, 4, 7, 12] }); // 1, 5, 1, 2, 3, 5, 1
   const arpeggiator = createArpeggiator({
     bpm,
     timeSignature,
@@ -46,8 +49,8 @@ export function initialise(params: ISynthParameters) {
    * Master Track
    */
   const masterTrack: Track = {
-    audioEffectsChain: [delay, filter, reverb],
-    midiEffectsChain: [transpose, arpeggiator],
+    audioEffectsChain: [delay, lowpassFilter, highpassFilter, reverb],
+    midiEffectsChain: [transpose, chord, arpeggiator],
     volume: 0.6,
     instrument,
   };

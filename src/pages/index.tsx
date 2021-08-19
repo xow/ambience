@@ -30,11 +30,16 @@ function HomePage() {
   return (
     <>
       <Head>
-        <title>Online Synthesizer</title>
+        <title>Online Ambience Generator</title>
       </Head>
       <SynthParametersContext.Provider value={{ params, setParams }}>
         <div className="m-auto max-w-screen-lg">
-          <h1 className="text-4xl text-center mb-4">Online Synthesizer</h1>
+          <h1 className="text-4xl text-center mb-2">
+            Online Ambience Generator
+          </h1>
+          <h1 className="text-xl text-center mb-4">
+            Click a key to generate a drone in that key.
+          </h1>
           <Select<ISynthParameters['type']>
             label="Oscillator Waveform"
             options={{
