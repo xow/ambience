@@ -11,10 +11,12 @@ class Arpeggiator extends MidiEffect {
     bpm,
     timeSignature,
     noteDenominator,
+    gate,
   }: {
     bpm: number;
     timeSignature: number;
     noteDenominator: number;
+    gate: number;
   }) {
     super();
 
@@ -24,7 +26,7 @@ class Arpeggiator extends MidiEffect {
     const delayMs = (((60 / bpm) * timeSignature) / noteDenominator) * 1000;
 
     setInterval(() => {
-      this.tick(delayMs);
+      this.tick(delayMs, gate);
     }, delayMs);
 
     this.inputOnMidi = ({ command, message, value }: MidiSignal) => {
@@ -42,7 +44,7 @@ class Arpeggiator extends MidiEffect {
     };
   }
 
-  tick(delayMs: number) {
+  tick(delayMs: number, gate: number) {
     Object.entries(this.isKeydownByNote).forEach(([note, isKeyDown]) => {
       if (!isKeyDown) return;
       const message = parseInt(note, 10);
@@ -55,7 +57,6 @@ class Arpeggiator extends MidiEffect {
       });
 
       // TODO gate param
-      const gate = 0.5;
       setTimeout(() => {
         this.outputOnMidi({
           command: Commands.NOTE_OFF,
@@ -74,14 +75,17 @@ export function createArpeggiator({
   bpm,
   timeSignature,
   noteDenominator,
+  gate,
 }: {
   bpm: number;
   timeSignature: number;
   noteDenominator: number;
+  gate: number;
 }): MidiEffect {
   return new Arpeggiator({
     bpm,
     timeSignature,
     noteDenominator,
+    gate,
   });
 }

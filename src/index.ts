@@ -34,6 +34,7 @@ export function initialise(params: ISynthParameters) {
     bpm,
     timeSignature,
     noteDenominator: 8,
+    gate: 0.5,
   });
 
   // Instrument
