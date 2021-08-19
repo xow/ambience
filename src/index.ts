@@ -8,7 +8,7 @@ import { createTrack, Track } from './DAW/Track';
 import { createDelay } from './AudioEffects/Delay';
 import { createTranspose } from './MidiEffects/Transpose';
 import { IHandleMidi } from './Tools/Midi';
-import { createMidiDelay } from './MidiEffects/MidiDelay';
+import { createArpeggiator } from './MidiEffects/Arpeggiator';
 
 export interface ISynthParameters {
   type: IGetHandleMidiProps['type'];
@@ -25,16 +25,15 @@ export function initialise(params: ISynthParameters) {
 
   // Audio Effects
   const reverb = createReverb(context, 6, 0.5);
-  const filter = createFilter(context, 5000, 'lowpass', 1, 1);
+  const filter = createFilter(context, 3000, 'lowpass', 1, 1);
   const delay = createDelay(context, bpm, timeSignature, 4, 0.4, 0.4);
 
   // Midi Effects
   const transpose = createTranspose({ semiTones: -12 });
-  const midiDelay = createMidiDelay({
+  const arpeggiator = createArpeggiator({
     bpm,
     timeSignature,
-    noteDenominator: 4,
-    shouldOutputDry: true,
+    noteDenominator: 8,
   });
 
   // Instrument
@@ -46,7 +45,7 @@ export function initialise(params: ISynthParameters) {
    */
   const masterTrack: Track = {
     audioEffectsChain: [delay, filter, reverb],
-    midiEffectsChain: [transpose, midiDelay],
+    midiEffectsChain: [transpose, arpeggiator],
     volume: 0.6,
     instrument,
   };
