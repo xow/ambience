@@ -1,5 +1,4 @@
-import { MidiSignal } from '../MidiEffects';
-import { messageToOctaveAndNote } from '../Tools/Midi';
+import { Commands, IHandleMidi, messageToOctaveAndNote } from '../Tools/Midi';
 
 /**
  * Convert human readable note to a frequency
@@ -19,16 +18,84 @@ export const frequencies = {
   b: 440 * 1.122462,
 };
 
-/**
- * A function to begin playing a tone
- * @returns An object with a stopTone function to stop the tone playing
- */
-export type IHandleMidi = (data: MidiSignal) => { stopTone: () => void };
-
 export interface IGetHandleMidiProps {
   context: AudioContext;
   instrumentNode: AudioNode;
   type: 'custom' | 'sawtooth' | 'sine' | 'square' | 'triangle';
+}
+
+type IStopTone = () => void;
+
+const stopTones: Record<number, IStopTone> = {};
+
+function startTone({
+  context,
+  message,
+  velocity,
+  instrumentNode,
+  type,
+}: {
+  context: AudioContext;
+  message: number;
+  velocity: number;
+  instrumentNode: AudioNode;
+  type: OscillatorType;
+}) {
+  const { octave, note } = messageToOctaveAndNote(message);
+  const frequency = frequencies[note] * 2 ** (octave - 4);
+
+  const maxGain = velocity / 127;
+
+  // Todo have set polyphony, reuse or discard unneeded nodes.
+  const gainNode = context.createGain();
+  gainNode.gain.value = 0;
+
+  // Todo make params
+  const unison = 3;
+  const spread = 0.005;
+
+  const envelope = { attack: 0, delay: 0, sustain: 1, release: 0 };
+
+  const ocillators = Array.from(new Array(unison), (x, i) => {
+    const detune = ((i - (unison - 1) / 2) / (unison - 1)) * spread;
+
+    const osc = context.createOscillator(); // instantiate an oscillator
+    osc.type = type; // this is the default - also square, sawtooth, triangle
+    osc.frequency.value = frequency * (1 + detune); // Hz
+    osc.start(); // start the oscillator
+
+    // Apply attack to oscillator
+    gainNode.gain.linearRampToValueAtTime(
+      maxGain,
+      context.currentTime + envelope.attack,
+    );
+    osc.connect(gainNode); // connect it to the gain node to give it correct velocity
+
+    // Start a ramp to sustain once attack is done
+    setInterval(() => {
+      gainNode.gain.linearRampToValueAtTime(
+        maxGain * envelope.sustain,
+        context.currentTime + envelope.attack + envelope.delay, // TODO don't need attack here once we figure out how to get context's true current Time
+      );
+    }, envelope.attack * 1000);
+
+    return osc;
+  });
+
+  gainNode.connect(instrumentNode);
+
+  function stopTone() {
+    // Apply release to each oscillator, and only stop after release is complete.
+    ocillators.forEach(osc => {
+      gainNode.gain.linearRampToValueAtTime(
+        0,
+        context.currentTime + envelope.release,
+      );
+      osc.stop(context.currentTime + envelope.release);
+    });
+  }
+
+  return { stopTone };
 }
 
 /**
@@ -39,61 +106,22 @@ export function getHandleMidi({
   instrumentNode,
   type,
 }: IGetHandleMidiProps): IHandleMidi {
-  return ({ message, value: velocity }) => {
-    const { octave, note } = messageToOctaveAndNote(message);
-    const frequency = frequencies[note] * 2 ** (octave - 4);
-
-    const maxGain = velocity / 127;
-
-    // Todo have set polyphony, reuse or discard unneeded nodes.
-    const gainNode = context.createGain();
-    gainNode.gain.value = 0;
-
-    // Todo make params
-    const unison = 3;
-    const spread = 0.005;
-
-    const envelope = { attack: 0, delay: 0, sustain: 1, release: 0 };
-
-    const ocillators = Array.from(new Array(unison), (x, i) => {
-      const detune = ((i - (unison - 1) / 2) / (unison - 1)) * spread;
-
-      const osc = context.createOscillator(); // instantiate an oscillator
-      osc.type = type; // this is the default - also square, sawtooth, triangle
-      osc.frequency.value = frequency * (1 + detune); // Hz
-      osc.start(); // start the oscillator
-
-      // Apply attack to oscillator
-      gainNode.gain.linearRampToValueAtTime(
-        maxGain,
-        context.currentTime + envelope.attack,
-      );
-      osc.connect(gainNode); // connect it to the gain node to give it correct velocity
-
-      // Start a ramp to sustain once attack is done
-      setInterval(() => {
-        gainNode.gain.linearRampToValueAtTime(
-          maxGain * envelope.sustain,
-          context.currentTime + envelope.attack + envelope.delay, // TODO don't need attack here once we figure out how to get context's true current Time
-        );
-      }, envelope.attack * 1000);
-
-      return osc;
-    });
-
-    gainNode.connect(instrumentNode);
-
-    function stopTone() {
-      // Apply release to each oscillator, and only stop after release is complete.
-      ocillators.forEach(osc => {
-        gainNode.gain.linearRampToValueAtTime(
-          0,
-          context.currentTime + envelope.release,
-        );
-        osc.stop(context.currentTime + envelope.release);
-      });
+  return ({ command, message, value: velocity }) => {
+    switch (command) {
+      case Commands.NOTE_ON:
+        stopTones[message] = startTone({
+          context,
+          message,
+          velocity,
+          instrumentNode,
+          type,
+        }).stopTone;
+        break;
+      case Commands.NOTE_OFF:
+        stopTones[message]?.();
+        break;
+      default:
+        break;
     }
-
-    return { stopTone };
   };
 }

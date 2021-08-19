@@ -35,3 +35,15 @@ export function octaveAndNoteToMessage({
 }) {
   return noteStrings.indexOf(note) + octave * 12;
 }
+
+export interface MidiSignal {
+  command: number;
+  message: number;
+  value: number;
+}
+
+/**
+ * A function to begin playing a tone
+ * @returns An object with a stopTone function to stop the tone playing
+ */
+export type IHandleMidi = (data: MidiSignal) => void;

@@ -14,10 +14,12 @@ export function listen(
 ): IHandleClickKey {
   return ({ note, octave }) => {
     const message = octaveAndNoteToMessage({ note, octave });
-    const command = Commands.NOTE_ON;
 
-    const { stopTone } = handleMidi({ command, message, value: 100 });
+    handleMidi({ command: Commands.NOTE_ON, message, value: 100 });
 
-    return { handleReleaseKey: () => stopTone() };
+    return {
+      handleReleaseKey: () =>
+        handleMidi({ command: Commands.NOTE_OFF, message, value: 100 }),
+    };
   };
 }

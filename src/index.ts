@@ -1,17 +1,14 @@
 import * as MIDI from './Controls/MIDIKeyboard';
 import * as OnScreenKeyboard from './Controls/OnScreenKeyboard';
-import {
-  getHandleMidi,
-  IGetHandleMidiProps,
-  IHandleMidi,
-} from './Instruments/Synth';
+import { getHandleMidi, IGetHandleMidiProps } from './Instruments/Synth';
 import { createReverb } from './AudioEffects/Reverb';
 import { createFilter } from './AudioEffects/Filter';
 import { adjustContinuousControl } from './Controls/ContinuousControl';
 import { createTrack, Track } from './DAW/Track';
 import { createDelay } from './AudioEffects/Delay';
-import { MidiSignal } from './MidiEffects';
 import { createTranspose } from './MidiEffects/Transpose';
+import { IHandleMidi } from './Tools/Midi';
+import { createMidiDelay } from './MidiEffects/MidiDelay';
 
 export interface ISynthParameters {
   type: IGetHandleMidiProps['type'];
@@ -33,6 +30,12 @@ export function initialise(params: ISynthParameters) {
 
   // Midi Effects
   const transpose = createTranspose({ semiTones: -12 });
+  const midiDelay = createMidiDelay({
+    bpm,
+    timeSignature,
+    noteDenominator: 4,
+    shouldOutputDry: true,
+  });
 
   // Instrument
 
@@ -43,27 +46,28 @@ export function initialise(params: ISynthParameters) {
    */
   const masterTrack: Track = {
     audioEffectsChain: [delay, filter, reverb],
-    midiEffectsChain: [transpose],
+    midiEffectsChain: [transpose, midiDelay],
     volume: 0.6,
     instrument,
   };
 
   createTrack({ track: masterTrack, context });
 
-  const handleMidi = getHandleMidi({
+  const instrumentHandleMidi = getHandleMidi({
     context,
     instrumentNode: instrument,
     type: params.type,
   });
 
+  // Output the last in the chain to the instrument
+  masterTrack.midiEffectsChain[
+    masterTrack.midiEffectsChain.length - 1
+  ].outputOnMidi = x => instrumentHandleMidi(x);
+
+  // TODO move to create track?
   const handleMidiEvent: IHandleMidi = signal => {
-    const processedSignal = masterTrack.midiEffectsChain.reduce<MidiSignal>(
-      (currentSignal, midiEffect): MidiSignal => {
-        return midiEffect.process(currentSignal);
-      },
-      signal,
-    );
-    return handleMidi(processedSignal);
+    // Signal the first in the chain
+    masterTrack.midiEffectsChain[0].inputOnMidi(signal);
   };
 
   MIDI.listen(handleMidiEvent, adjustContinuousControl);

@@ -1,9 +1,7 @@
-export interface MidiEffect {
-  process: (signal: MidiSignal) => MidiSignal;
-}
+import { IHandleMidi } from '../Tools/Midi';
 
-export interface MidiSignal {
-  command: number;
-  message: number;
-  value: number;
+export abstract class MidiEffect {
+  abstract inputOnMidi: IHandleMidi;
+
+  abstract outputOnMidi: IHandleMidi;
 }

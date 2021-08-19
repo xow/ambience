@@ -8,8 +8,6 @@ export async function listen(
 ) {
   const midiAccess: WebMidi.MIDIAccess = await navigator.requestMIDIAccess();
 
-  const stopTones: Record<number, () => void> = {};
-
   midiAccess.inputs.forEach(entry => {
     // eslint-disable-next-line no-param-reassign
     entry.onmidimessage = event => {
@@ -17,10 +15,8 @@ export async function listen(
 
       switch (command) {
         case Commands.NOTE_ON:
-          stopTones[message] = handleMidi({ command, message, value }).stopTone;
-          break;
         case Commands.NOTE_OFF:
-          stopTones[message]?.();
+          handleMidi({ command, message, value });
           break;
         case Commands.CONTINUOUS_CONTROL:
           adjustContinuousControlFunction(message, value);

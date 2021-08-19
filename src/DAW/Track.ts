@@ -31,4 +31,16 @@ export function createTrack({ track, context }: ICreateTrackProps) {
     const nextNode = nodeConnectionChain[i + 1];
     if (nextNode.input) currentNode.output?.connect(nextNode.input);
   });
+
+  track.midiEffectsChain.forEach((midiEffect: MidiEffect, i) => {
+    // Final node, don't need to connect
+    if (i + 1 >= track.midiEffectsChain.length) return;
+
+    const nextNode = track.midiEffectsChain[i + 1];
+    if (nextNode) {
+      midiEffect.outputOnMidi = nextNode.inputOnMidi;
+    } else {
+      throw new Error('Next midi effect node not found');
+    }
+  });
 }
