@@ -51,7 +51,7 @@ export function initialise(params: ISynthParameters) {
   const masterTrack: Track = {
     audioEffectsChain: [delay, lowpassFilter, highpassFilter, reverb],
     midiEffectsChain: [transpose, chord, arpeggiator],
-    volume: 0.6,
+    volume: 0.3,
     instrument,
   };
 
