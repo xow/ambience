@@ -34,23 +34,27 @@ function HomePage() {
       </Head>
       <SynthParametersContext.Provider value={{ params, setParams }}>
         <div className="m-auto max-w-screen-lg">
-          <h1 className="text-4xl text-center mb-2">
-            Online Ambience Generator
-          </h1>
-          <h1 className="text-xl text-center mb-4">
-            Click a key to generate a drone in that key.
-          </h1>
-          <Select<ISynthParameters['type']>
-            label="Oscillator Waveform"
-            options={{
-              sawtooth: 'Saw',
-              sine: 'Sine',
-              square: 'Square',
-              triangle: 'Triangle',
-            }}
-            value={params.type}
-            onChange={value => setParams({ ...params, type: value })}
-          />
+          <div className="m-auto max-w-screen-sm">
+            <h1 className="text-4xl text-center mb-2">
+              Online Ambience Generator
+            </h1>
+            <h1 className="text-xl text-center mb-4">
+              Click a key to generate a drone in that key.
+            </h1>
+            <div className="mb-4">
+              <Select<ISynthParameters['type']>
+                label="Oscillator Waveform"
+                options={{
+                  sawtooth: 'Saw',
+                  sine: 'Sine',
+                  square: 'Square',
+                  triangle: 'Triangle',
+                }}
+                value={params.type}
+                onChange={value => setParams({ ...params, type: value })}
+              />
+            </div>
+          </div>
           {handleClickKey && <Keyboard handleClickKey={handleClickKey} />}
         </div>
       </SynthParametersContext.Provider>
