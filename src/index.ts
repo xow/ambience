@@ -25,19 +25,19 @@ export function initialise(params: ISynthParameters) {
   const context = new window.AudioContext();
 
   // Audio Effects
-  const reverb = createReverb(context, 6, 1);
-  const lowpassFilter = createFilter(context, 3000, 'lowpass', 1, 1);
+  const reverb = createReverb(context, 8, 1);
+  const lowpassFilter = createFilter(context, 2000, 'lowpass', 1, 1);
   const highpassFilter = createFilter(context, 300, 'highpass', 1, 1);
   const delay = createDelay(context, bpm, timeSignature, 4, 0.6, 0.5);
 
   // Midi Effects
-  const transpose = createTranspose({ semiTones: 0 });
   const chord = createChord({ noteOffsets: [-12, -5, 0, 2, 4, 7, 12] }); // 1, 5, 1, 2, 3, 5, 1
+  const transpose = createTranspose({ semiTones: 12, shouldOutputDry: true });
   const arpeggiator = createArpeggiator({
     bpm,
     timeSignature,
     noteDenominator: 8,
-    gate: 0.5,
+    gate: 1,
     style: 'up',
   });
 
@@ -50,7 +50,7 @@ export function initialise(params: ISynthParameters) {
    */
   const masterTrack: Track = {
     audioEffectsChain: [delay, lowpassFilter, highpassFilter, reverb],
-    midiEffectsChain: [transpose, chord, arpeggiator],
+    midiEffectsChain: [chord, arpeggiator, transpose],
     volume: 0.3,
     instrument,
   };
