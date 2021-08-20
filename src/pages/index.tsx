@@ -38,9 +38,9 @@ function HomePage() {
             <h1 className="text-4xl text-center mb-2">
               Online Ambience Generator
             </h1>
-            <h1 className="text-xl text-center mb-4">
+            <h2 className="text-xl text-center mb-4">
               Click a key to generate a drone in that key.
-            </h1>
+            </h2>
             <div className="mb-4">
               <Select<ISynthParameters['type']>
                 label="Oscillator Waveform"
