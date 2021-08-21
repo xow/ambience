@@ -11,6 +11,8 @@ interface IArpeggiatorParams {
   gate: number;
   /** The pattern in which the currently held notes will play */
   style: ArpeggiatorStyles;
+
+  isLatched: boolean;
 }
 
 class Arpeggiator extends MidiEffect {
@@ -23,18 +25,24 @@ class Arpeggiator extends MidiEffect {
   delayMs: number;
   gate: number;
 
+  isAccumulating: boolean;
+  isLatched: boolean;
+
   constructor({
     bpm,
     timeSignature,
     noteDenominator,
     gate,
     style,
+    isLatched,
   }: IArpeggiatorParams) {
     super();
 
     this.isKeydownByNote = {};
     this.velocityByNote = {};
     this.currentTick = 0;
+    this.isAccumulating = false;
+    this.isLatched = isLatched;
 
     this.delayMs = (((60 / bpm) * timeSignature) / noteDenominator) * 1000;
     this.gate = gate;
@@ -46,16 +54,32 @@ class Arpeggiator extends MidiEffect {
     this.inputOnMidi = ({ command, message, value }: MidiSignal) => {
       switch (command) {
         case Commands.NOTE_ON:
+          // if we've released one note, we should clear before putting the new note down
+          if (!this.isAccumulating) this.isAccumulating = true;
           this.isKeydownByNote[message] = true;
           this.velocityByNote[message] = value;
           break;
         case Commands.NOTE_OFF:
-          this.isKeydownByNote[message] = false;
+          this.isAccumulating = false;
+          if (!this.isLatched) this.isKeydownByNote[message] = false;
           break;
         default:
           break;
       }
     };
+  }
+
+  /** Clear which notes we think are down */
+  clearIsKeydownByNote() {
+    // Set all to false
+    this.isKeydownByNote = Object.fromEntries(
+      Object.entries(this.isKeydownByNote).reduce<Array<[string, boolean]>>(
+        (carry, [note]): Array<[string, boolean]> => {
+          return [...carry, [note, false]];
+        },
+        [],
+      ),
+    );
   }
 
   up() {

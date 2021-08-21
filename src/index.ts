@@ -39,6 +39,7 @@ export function initialise(params: ISynthParameters) {
     noteDenominator: 8,
     gate: 1,
     style: 'up',
+    isLatched: true,
   });
 
   // Instrument
