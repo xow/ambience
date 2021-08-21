@@ -1,35 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 
-import { initialise, ISynthParameters } from '..';
+import { initialise, IDawSettings } from '..';
 import Keyboard from '../components/Keyboard';
 import Select from '../components/Util/Select';
 import Button from '../components/Util/Button';
 import Input from '../components/Util/Input';
-
-const defaultParams: ISynthParameters = {
-  type: 'sawtooth',
-  bpm: 120,
-};
+import { defaultPreset } from '../DAW/Presets';
 
 export const SynthParametersContext = React.createContext<{
-  params: ISynthParameters;
-  setParams: (value: ISynthParameters) => void;
+  dawSettings: IDawSettings;
+  setDawSettings: (value: IDawSettings) => void;
 }>({
-  params: defaultParams,
-  setParams: () => {},
+  dawSettings: defaultPreset,
+  setDawSettings: () => {},
 });
 
 function HomePage() {
-  const [params, setParams] = useState<ISynthParameters>(defaultParams);
+  const [dawSettings, setDawSettings] = useState<IDawSettings>(defaultPreset);
   const [controls, setControls] = useState<ReturnType<typeof initialise>>();
 
   useEffect(() => {
-    const controlValue = initialise(params);
+    const controlValue = initialise(dawSettings);
 
     // The initialise returns a function for handling click events, let's set it in state so we can call it when someone clicks.
     setControls(controlValue);
-  }, [params]);
+  }, [dawSettings]);
 
   return (
     <>
@@ -37,7 +33,9 @@ function HomePage() {
         <title>Online Ambience Generator</title>
       </Head>
       {controls && (
-        <SynthParametersContext.Provider value={{ params, setParams }}>
+        <SynthParametersContext.Provider
+          value={{ dawSettings, setDawSettings }}
+        >
           <div className="m-auto max-w-screen-lg">
             <div className="m-auto max-w-screen-sm">
               <h1 className="text-4xl text-center mb-2">
@@ -48,7 +46,7 @@ function HomePage() {
               </h2>
               <div className="mb-4 flex content-center items-center">
                 <div className="flex-grow">
-                  <Select<ISynthParameters['type']>
+                  <Select<IDawSettings['type']>
                     label="Oscillator Waveform"
                     options={{
                       sawtooth: 'Saw',
@@ -56,16 +54,21 @@ function HomePage() {
                       square: 'Square',
                       triangle: 'Triangle',
                     }}
-                    value={params.type}
-                    onChange={value => setParams({ ...params, type: value })}
+                    value={dawSettings.type}
+                    onChange={value =>
+                      setDawSettings({ ...dawSettings, type: value })
+                    }
                   />
                 </div>
                 <div className="flex-grow">
                   <Input
                     label="BPM"
-                    value={`${params.bpm}`}
+                    value={`${dawSettings.bpm}`}
                     onChange={value =>
-                      setParams({ ...params, bpm: parseInt(value, 10) })
+                      setDawSettings({
+                        ...dawSettings,
+                        bpm: parseInt(value, 10),
+                      })
                     }
                   />
                 </div>
