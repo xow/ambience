@@ -12,10 +12,8 @@ function Select<T extends string>({
   onChange,
 }: IProps<T>) {
   return (
-    <>
-      <div>
-        <label className="font-bold text-gray-700 ">{label}</label>
-      </div>
+    <div>
+      <label className="font-bold text-gray-700 ">{label}</label>
       <div>
         <select
           className="w-48 p-2 shadow-md border-2 rounded text-gray-800 "
@@ -29,7 +27,7 @@ function Select<T extends string>({
           ))}
         </select>
       </div>
-    </>
+    </div>
   );
 }
 

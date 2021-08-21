@@ -44,21 +44,25 @@ function HomePage() {
               <h2 className="text-xl text-center mb-4">
                 Click a key to generate a drone in that key.
               </h2>
-              <div className="mb-4">
-                <Select<ISynthParameters['type']>
-                  label="Oscillator Waveform"
-                  options={{
-                    sawtooth: 'Saw',
-                    sine: 'Sine',
-                    square: 'Square',
-                    triangle: 'Triangle',
-                  }}
-                  value={params.type}
-                  onChange={value => setParams({ ...params, type: value })}
-                />
-                <Button onClick={() => controls.handleUnlatch()}>
-                  Clear latch
-                </Button>
+              <div className="mb-4 flex content-center items-center">
+                <div className="flex-grow">
+                  <Select<ISynthParameters['type']>
+                    label="Oscillator Waveform"
+                    options={{
+                      sawtooth: 'Saw',
+                      sine: 'Sine',
+                      square: 'Square',
+                      triangle: 'Triangle',
+                    }}
+                    value={params.type}
+                    onChange={value => setParams({ ...params, type: value })}
+                  />
+                </div>
+                <div className="flex-grow">
+                  <Button onClick={() => controls.handleUnlatch()}>
+                    Clear latch
+                  </Button>
+                </div>
               </div>
             </div>
             <Keyboard handleClickKey={controls.handleClickKey} />
