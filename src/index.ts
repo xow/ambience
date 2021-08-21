@@ -12,11 +12,12 @@ import { createArpeggiator } from './MidiEffects/Arpeggiator';
 import { createChord } from './MidiEffects/Chord';
 
 export interface ISynthParameters {
+  bpm: number;
   type: IGetHandleMidiProps['type'];
 }
 
 export function initialise(params: ISynthParameters) {
-  const bpm = 120;
+  const bpm = params.bpm;
   const timeSignature = 4;
 
   /**

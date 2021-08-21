@@ -5,21 +5,23 @@ import { initialise, ISynthParameters } from '..';
 import Keyboard from '../components/Keyboard';
 import Select from '../components/Util/Select';
 import Button from '../components/Util/Button';
+import Input from '../components/Util/Input';
+
+const defaultParams: ISynthParameters = {
+  type: 'sawtooth',
+  bpm: 120,
+};
 
 export const SynthParametersContext = React.createContext<{
   params: ISynthParameters;
   setParams: (value: ISynthParameters) => void;
 }>({
-  params: {
-    type: 'sawtooth',
-  },
+  params: defaultParams,
   setParams: () => {},
 });
 
 function HomePage() {
-  const [params, setParams] = useState<ISynthParameters>({
-    type: 'sawtooth',
-  });
+  const [params, setParams] = useState<ISynthParameters>(defaultParams);
   const [controls, setControls] = useState<ReturnType<typeof initialise>>();
 
   useEffect(() => {
@@ -56,6 +58,15 @@ function HomePage() {
                     }}
                     value={params.type}
                     onChange={value => setParams({ ...params, type: value })}
+                  />
+                </div>
+                <div className="flex-grow">
+                  <Input
+                    label="BPM"
+                    value={`${params.bpm}`}
+                    onChange={value =>
+                      setParams({ ...params, bpm: parseInt(value, 10) })
+                    }
                   />
                 </div>
                 <div className="flex-grow">

@@ -1,7 +1,7 @@
 interface IProps<T> {
   options: Record<string, string>;
   label: string;
-  value: string;
+  value: T;
   onChange: (value: T) => void;
 }
 
