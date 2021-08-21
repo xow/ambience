@@ -12,7 +12,7 @@ interface IArpeggiatorParams {
   /** The pattern in which the currently held notes will play */
   style: ArpeggiatorStyles;
 
-  isLatched: boolean;
+  isLatchOn: boolean;
 }
 
 class Arpeggiator extends MidiEffect {
@@ -26,7 +26,7 @@ class Arpeggiator extends MidiEffect {
   gate: number;
 
   isAccumulating: boolean;
-  isLatched: boolean;
+  isLatchOn: boolean;
 
   constructor({
     bpm,
@@ -34,7 +34,7 @@ class Arpeggiator extends MidiEffect {
     noteDenominator,
     gate,
     style,
-    isLatched,
+    isLatchOn,
   }: IArpeggiatorParams) {
     super();
 
@@ -42,7 +42,7 @@ class Arpeggiator extends MidiEffect {
     this.velocityByNote = {};
     this.currentTick = 0;
     this.isAccumulating = false;
-    this.isLatched = isLatched;
+    this.isLatchOn = isLatchOn;
 
     this.delayMs = (((60 / bpm) * timeSignature) / noteDenominator) * 1000;
     this.gate = gate;
@@ -55,8 +55,8 @@ class Arpeggiator extends MidiEffect {
       switch (command) {
         case Commands.NOTE_ON:
           // if we've released one note, we should clear before putting the new note down
-          if (this.isLatched && !this.isAccumulating) {
-            this.clearIsKeydownByNote();
+          if (this.isLatchOn && !this.isAccumulating) {
+            this.unLatch();
           }
 
           this.isAccumulating = true;
@@ -67,7 +67,7 @@ class Arpeggiator extends MidiEffect {
         case Commands.NOTE_OFF:
           this.isAccumulating = false;
 
-          if (!this.isLatched) this.isKeydownByNote[message] = false;
+          if (!this.isLatchOn) this.isKeydownByNote[message] = false;
           break;
         default:
           break;
@@ -76,7 +76,7 @@ class Arpeggiator extends MidiEffect {
   }
 
   /** Clear which notes we think are down */
-  clearIsKeydownByNote() {
+  unLatch() {
     // Set all to false
     this.isKeydownByNote = Object.fromEntries(
       Object.entries(this.isKeydownByNote).reduce<Array<[string, boolean]>>(
@@ -161,6 +161,6 @@ class Arpeggiator extends MidiEffect {
   outputOnMidi = (signal: MidiSignal) => {};
 }
 
-export function createArpeggiator(params: IArpeggiatorParams): MidiEffect {
+export function createArpeggiator(params: IArpeggiatorParams): Arpeggiator {
   return new Arpeggiator(params);
 }

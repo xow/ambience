@@ -39,7 +39,7 @@ export function initialise(params: ISynthParameters) {
     noteDenominator: 8,
     gate: 1,
     style: 'up',
-    isLatched: true,
+    isLatchOn: true,
   });
 
   // Instrument
@@ -78,5 +78,5 @@ export function initialise(params: ISynthParameters) {
   MIDI.listen(handleMidiEvent, adjustContinuousControl);
   const handleClickKey = OnScreenKeyboard.listen(handleMidiEvent);
 
-  return { handleClickKey };
+  return { handleClickKey, handleUnlatch: () => arpeggiator.unLatch() };
 }
