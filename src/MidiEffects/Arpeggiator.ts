@@ -55,12 +55,18 @@ class Arpeggiator extends MidiEffect {
       switch (command) {
         case Commands.NOTE_ON:
           // if we've released one note, we should clear before putting the new note down
-          if (!this.isAccumulating) this.isAccumulating = true;
+          if (this.isLatched && !this.isAccumulating) {
+            this.clearIsKeydownByNote();
+          }
+
+          this.isAccumulating = true;
           this.isKeydownByNote[message] = true;
           this.velocityByNote[message] = value;
+
           break;
         case Commands.NOTE_OFF:
           this.isAccumulating = false;
+
           if (!this.isLatched) this.isKeydownByNote[message] = false;
           break;
         default:
