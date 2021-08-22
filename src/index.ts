@@ -80,7 +80,12 @@ export function initialise(params: IDawSettings) {
    * Master Track
    */
   const masterTrack: Track = {
-    audioEffectsChain: [delay, lowpassFilter, highpassFilter, reverb],
+    audioEffectsChain: [
+      delay,
+      lowpassFilter,
+      highpassFilter,
+      ...(params.reverb.isOn ? [reverb] : []),
+    ],
     midiEffectsChain: [chord, arpeggiator, transpose],
     volume: 0.3,
     instrument,
