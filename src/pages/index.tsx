@@ -7,6 +7,7 @@ import Select from '../components/Util/Select';
 import Button from '../components/Util/Button';
 import Input from '../components/Util/Input';
 import { defaultPreset } from '../DAW/Presets';
+import Switch from '../components/Util/Switch';
 
 export const SynthParametersContext = React.createContext<{
   dawSettings: IDawSettings;
@@ -45,7 +46,7 @@ function HomePage() {
                 Click a key to generate a drone in that key.
               </h2>
               <div className="mb-4 flex content-center items-center">
-                <div className="flex-grow">
+                <div className="flex-grow min-w-min">
                   <Select<IDawSettings['type']>
                     label="Oscillator Waveform"
                     options={{
@@ -60,7 +61,7 @@ function HomePage() {
                     }
                   />
                 </div>
-                <div className="flex-grow">
+                <div className="flex-grow min-w-min">
                   <Input
                     label="BPM"
                     value={`${dawSettings.bpm}`}
@@ -72,10 +73,38 @@ function HomePage() {
                     }
                   />
                 </div>
-                <div className="flex-grow">
+              </div>
+              <div className="mb-4 flex content-center items-center">
+                <div className="flex-grow min-w-min">
+                  <Input
+                    label="Time Signature X/4"
+                    value={`${dawSettings.timeSignature}`}
+                    onChange={value =>
+                      setDawSettings({
+                        ...dawSettings,
+                        timeSignature: parseInt(value, 10),
+                      })
+                    }
+                  />
+                </div>
+                <div className="flex-grow min-w-min">
                   <Button onClick={() => controls.handleUnlatch()}>
                     Clear latch
                   </Button>
+                </div>
+              </div>
+              <div className="mb-4 flex content-center items-center">
+                <div className="flex-grow min-w-min">
+                  <Switch
+                    label="Reverb On/Off"
+                    value={dawSettings.reverb.isOn}
+                    onChange={value =>
+                      setDawSettings({
+                        ...dawSettings,
+                        reverb: { ...dawSettings.reverb, isOn: value },
+                      })
+                    }
+                  />
                 </div>
               </div>
             </div>

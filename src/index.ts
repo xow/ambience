@@ -24,6 +24,7 @@ export interface IDawSettings {
 
   // Audio effects. TODO: dynamic array of synth settings
   reverb: {
+    isOn: boolean;
     decay: number;
     dryWet: number;
   };

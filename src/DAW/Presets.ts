@@ -6,6 +6,7 @@ export const presets: Record<string, IDawSettings> = {
     timeSignature: 4,
     bpm: 120,
     reverb: {
+      isOn: true,
       dryWet: 1,
       decay: 8,
     },
