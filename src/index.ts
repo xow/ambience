@@ -6,10 +6,13 @@ import { createFilter, ICreateFilterParams } from './AudioEffects/Filter';
 import { adjustContinuousControl } from './Controls/ContinuousControl';
 import { createTrack, Track } from './DAW/Track';
 import { createDelay } from './AudioEffects/Delay';
-import { createTranspose } from './MidiEffects/Transpose';
+import { createTranspose, ITransposeParams } from './MidiEffects/Transpose';
 import { IHandleMidi } from './Tools/Midi';
-import { createArpeggiator } from './MidiEffects/Arpeggiator';
-import { createChord } from './MidiEffects/Chord';
+import {
+  createArpeggiator,
+  IArpeggiatorUniqueParams,
+} from './MidiEffects/Arpeggiator';
+import { createChord, IChordParams } from './MidiEffects/Chord';
 
 export interface IDawSettings {
   // Song
@@ -31,6 +34,9 @@ export interface IDawSettings {
   };
   filter0: ICreateFilterParams;
   filter1: ICreateFilterParams;
+  chord: IChordParams;
+  transpose: ITransposeParams;
+  arpeggiator: IArpeggiatorUniqueParams;
 }
 
 export function initialise(params: IDawSettings) {
@@ -57,15 +63,12 @@ export function initialise(params: IDawSettings) {
   const highpassFilter = createFilter({ context, ...params.filter1 });
 
   // Midi Effects
-  const chord = createChord({ noteOffsets: [-12, -5, 0, 2, 4, 7, 12] }); // 1, 5, 1, 2, 3, 5, 1
-  const transpose = createTranspose({ semiTones: 12, shouldOutputDry: true });
+  const chord = createChord(params.chord);
+  const transpose = createTranspose(params.transpose);
   const arpeggiator = createArpeggiator({
     bpm: params.bpm,
     timeSignature: params.timeSignature,
-    noteDenominator: 8,
-    gate: 1,
-    style: 'up',
-    isLatchOn: true,
+    ...params.arpeggiator,
   });
 
   // Instrument

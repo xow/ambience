@@ -7,8 +7,8 @@ interface IProps {
 function Input({ label, value, onChange }: IProps) {
   return (
     <div>
-      <label className="font-bold text-gray-700 ">{label}</label>
-      <div>
+      <label className="font-bold text-gray-700">{label}</label>
+      <div className="mt-1">
         <input
           className="w-48 p-2 shadow-md border-2 rounded text-gray-800 "
           value={value}

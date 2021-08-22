@@ -3,9 +3,7 @@ import { Commands, IHandleMidi, MidiSignal } from '../Tools/Midi';
 
 type ArpeggiatorStyles = 'trigger' | 'up';
 
-interface IArpeggiatorParams {
-  bpm: number;
-  timeSignature: number;
+export interface IArpeggiatorUniqueParams {
   noteDenominator: number;
   /** 0 to 1; the length between each note the note will be held */
   gate: number;
@@ -14,6 +12,11 @@ interface IArpeggiatorParams {
 
   isLatchOn: boolean;
 }
+
+type IArpeggiatorParams = IArpeggiatorUniqueParams & {
+  bpm: number;
+  timeSignature: number;
+};
 
 class Arpeggiator extends MidiEffect {
   inputOnMidi: IHandleMidi;

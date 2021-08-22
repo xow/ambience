@@ -26,6 +26,14 @@ export const presets: Record<string, IDawSettings> = {
       qFactor: 1,
       dryWet: 1,
     },
+    chord: { noteOffsets: [-12, -5, 0, 2, 4, 7, 12] }, // 1, 5, 1, 2, 3, 5, 1
+    transpose: { semiTones: 12, shouldOutputDry: true },
+    arpeggiator: {
+      noteDenominator: 8,
+      gate: 1,
+      style: 'up',
+      isLatchOn: true,
+    },
   },
 };
 

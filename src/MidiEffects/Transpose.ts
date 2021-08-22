@@ -1,7 +1,7 @@
 import { MidiEffect } from '.';
 import { IHandleMidi, MidiSignal } from '../Tools/Midi';
 
-interface ITransposeParams {
+export interface ITransposeParams {
   semiTones: number;
   shouldOutputDry: boolean;
 }

@@ -1,7 +1,7 @@
 import { MidiEffect } from '.';
 import { IHandleMidi, MidiSignal } from '../Tools/Midi';
 
-interface IChordParams {
+export interface IChordParams {
   noteOffsets: number[];
 }
 
