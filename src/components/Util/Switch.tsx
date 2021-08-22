@@ -24,8 +24,8 @@ function Switch({ label, value, onChange }: IProps) {
             } `}
           ></span>
           <span
-            className={`h-6 w-6 border-2 absolute z-10 rounded-full bg-white transition-transform duration-300 ease-in-out flex justify-center items-center  ${
-              value ? 'border-green-500 right-0' : 'border-gray-500'
+            className={`h-6 w-6 border-2 absolute z-10 rounded-full bg-white transition-right duration-300 ease-in-out flex justify-center items-center  ${
+              value ? 'border-green-500 left-6' : 'border-gray-500 left-0'
             }`}
           ></span>
         </label>
