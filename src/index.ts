@@ -113,5 +113,13 @@ export function initialise(params: IDawSettings) {
   MIDI.listen(handleMidiEvent, adjustContinuousControl);
   const handleClickKey = OnScreenKeyboard.listen(handleMidiEvent);
 
-  return { handleClickKey, handleUnlatch: () => arpeggiator.unLatch() };
+  function destruct() {
+    context.close();
+  }
+
+  return {
+    handleClickKey,
+    handleUnlatch: () => arpeggiator.unLatch(),
+    destruct,
+  };
 }
