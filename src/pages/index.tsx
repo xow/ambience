@@ -8,6 +8,8 @@ import Button from '../components/Util/Button';
 import Input from '../components/Util/Input';
 import { defaultPreset } from '../DAW/Presets';
 import Switch from '../components/Util/Switch';
+import Radial from '../components/Util/Radial';
+import PluginControl from '../components/PluginControl';
 
 export const SynthParametersContext = React.createContext<{
   dawSettings: IDawSettings;
@@ -22,6 +24,7 @@ function HomePage() {
   const [controls, setControls] = useState<ReturnType<typeof initialise>>();
 
   useEffect(() => {
+    if (controls) controls.destruct();
     const controlValue = initialise(dawSettings);
 
     // The initialise returns a function for handling click events, let's set it in state so we can call it when someone clicks.
@@ -93,10 +96,10 @@ function HomePage() {
                   </Button>
                 </div>
               </div>
-              <div className="mb-4 flex content-center items-center">
+              <PluginControl pluginName="Reverb">
                 <div className="flex-grow min-w-min">
                   <Switch
-                    label="Reverb On/Off"
+                    label="On/Off"
                     value={dawSettings.reverb.isOn}
                     onChange={value =>
                       setDawSettings({
@@ -106,7 +109,22 @@ function HomePage() {
                     }
                   />
                 </div>
-              </div>
+                <div className="flex-grow min-w-min">
+                  <Radial
+                    label="Dry/Wet"
+                    value={dawSettings.reverb.dryWet * 100}
+                    onChange={value =>
+                      setDawSettings({
+                        ...dawSettings,
+                        reverb: { ...dawSettings.reverb, dryWet: value / 100 },
+                      })
+                    }
+                    min={0}
+                    max={100}
+                    suffix="%"
+                  />
+                </div>
+              </PluginControl>
             </div>
             <Keyboard handleClickKey={controls.handleClickKey} />
           </div>
