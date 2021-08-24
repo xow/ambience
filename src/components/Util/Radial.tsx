@@ -5,6 +5,7 @@ interface IProps {
   min: number;
   max: number;
   suffix: string | null;
+  decimalPlaces: number;
 }
 
 const MOVEABLE_RANGE = 315;
@@ -15,7 +16,15 @@ function valueToDegrees(value: number, min: number, max: number): number {
   return degrees;
 }
 
-function Radial({ label, value, onChange, min, max, suffix }: IProps) {
+function Radial({
+  label,
+  value,
+  onChange,
+  min,
+  max,
+  suffix,
+  decimalPlaces,
+}: IProps) {
   const degrees = valueToDegrees(value, min, max);
   return (
     <label className="font-bold text-gray-700">
@@ -30,15 +39,17 @@ function Radial({ label, value, onChange, min, max, suffix }: IProps) {
           </div>
         </div>
         <input
-          value={value}
-          min={min}
-          max={max}
-          onChange={event => onChange(parseInt(event.target.value, 10))}
+          value={value * 10 ** decimalPlaces}
+          min={min * 10 ** decimalPlaces}
+          max={max * 10 ** decimalPlaces}
+          onChange={event =>
+            onChange(parseInt(event.target.value, 10) * 0.1 ** decimalPlaces)
+          }
           type="range"
-          className="w-20 h-14 shadow-md rounded-full absolute top-0 opacity-0"
+          className="w-20 h-14 shadow-md rounded-full absolute top-0 -left-3 opacity-0"
         />
         <span>
-          {Math.round(value)}
+          {value.toFixed(decimalPlaces)}
           {suffix}
         </span>
       </div>

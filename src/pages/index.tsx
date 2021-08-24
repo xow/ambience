@@ -111,6 +111,22 @@ function HomePage() {
                 </div>
                 <div className="flex-grow min-w-min">
                   <Radial
+                    label="Decay"
+                    value={dawSettings.reverb.decay}
+                    onChange={value =>
+                      setDawSettings({
+                        ...dawSettings,
+                        reverb: { ...dawSettings.reverb, decay: value },
+                      })
+                    }
+                    min={0.1}
+                    max={15}
+                    suffix=""
+                    decimalPlaces={1}
+                  />
+                </div>
+                <div className="flex-grow min-w-min">
+                  <Radial
                     label="Dry/Wet"
                     value={dawSettings.reverb.dryWet * 100}
                     onChange={value =>
@@ -122,6 +138,7 @@ function HomePage() {
                     min={0}
                     max={100}
                     suffix="%"
+                    decimalPlaces={0}
                   />
                 </div>
               </PluginControl>
