@@ -59,6 +59,18 @@ function SynthControls({ controls }: IProps) {
       </PluginControl>
       <PluginControl pluginName="Arpeggiator">
         <div className="flex-grow min-w-min">
+          <Switch
+            label="On/Off"
+            value={dawSettings.arpeggiator.isOn}
+            onChange={value =>
+              setDawSettings({
+                ...dawSettings,
+                arpeggiator: { ...dawSettings.arpeggiator, isOn: value },
+              })
+            }
+          />
+        </div>
+        <div className="flex-grow min-w-min">
           <Button onClick={() => controls.handleUnlatch()}>Clear latch</Button>
         </div>
         <div className="flex-grow min-w-min">

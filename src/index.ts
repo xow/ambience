@@ -37,7 +37,7 @@ export interface IDawSettings {
   filter1: ICreateFilterParams;
   chord: IChordParams;
   transpose: ITransposeParams;
-  arpeggiator: IArpeggiatorUniqueParams;
+  arpeggiator: IArpeggiatorUniqueParams & { isOn: boolean };
 }
 
 export function initialise(params: IDawSettings) {
@@ -86,7 +86,11 @@ export function initialise(params: IDawSettings) {
       highpassFilter,
       ...(params.reverb.isOn ? [reverb] : []),
     ],
-    midiEffectsChain: [chord, arpeggiator, transpose],
+    midiEffectsChain: [
+      chord,
+      ...(params.arpeggiator.isOn ? [arpeggiator] : []),
+      transpose,
+    ],
     volume: 0.3,
     instrument,
   };
