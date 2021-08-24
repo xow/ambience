@@ -1,7 +1,5 @@
-import { ReactChildren } from 'react';
-
 interface IProps {
-  children: ReactChildren | string;
+  children: React.ReactNode;
   onClick: () => void;
 }
 
