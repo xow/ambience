@@ -21,7 +21,7 @@ export const frequencies = {
 export interface IGetHandleMidiProps {
   context: AudioContext;
   instrumentNode: AudioNode;
-  type: 'custom' | 'sawtooth' | 'sine' | 'square' | 'triangle';
+  type: 'sawtooth' | 'sine' | 'square' | 'triangle';
 }
 
 type IStopTone = () => void;

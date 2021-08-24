@@ -1,7 +1,7 @@
 import { MidiEffect } from '.';
 import { Commands, IHandleMidi, MidiSignal } from '../Tools/Midi';
 
-type ArpeggiatorStyles = 'trigger' | 'up';
+export type ArpeggiatorStyles = 'trigger' | 'up';
 
 export interface IArpeggiatorUniqueParams {
   noteDenominator: number;

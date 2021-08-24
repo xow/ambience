@@ -6,7 +6,7 @@ interface IProps {
 function Button({ children, onClick }: IProps) {
   return (
     <button
-      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-md"
+      className="w-32 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-md"
       onClick={() => onClick()}
     >
       {children}
