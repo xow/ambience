@@ -10,6 +10,7 @@ import { SynthParametersContext } from '../../pages';
 import Delay from './Delay';
 import Arpeggiator from './Arpeggiator';
 import Chord from './Chord';
+import Transpose from './Transpose';
 
 interface IProps {
   controls: ReturnType<typeof initialise>;
@@ -107,6 +108,7 @@ function SynthControls({ controls }: IProps) {
       </PluginControl>
       <Delay />
       <Chord />
+      <Transpose />
     </div>
   );
 }
