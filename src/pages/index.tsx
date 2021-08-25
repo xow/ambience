@@ -45,7 +45,7 @@ function HomePage() {
               </h2>
             </div>
             <Keyboard handleClickKey={controls.handleClickKey} />
-            <div>
+            <div className="max-w-screen-lg m-auto mt-8">
               <SynthControls controls={controls} />
             </div>
           </div>
