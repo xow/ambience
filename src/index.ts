@@ -13,10 +13,13 @@ import {
   IArpeggiatorUniqueParams,
 } from './MidiEffects/Arpeggiator';
 import { createChord, IChordParams } from './MidiEffects/Chord';
+import { Patches } from './DAW/Presets';
 
 export interface IDawSettings {
   // Patch
+  id: Patches;
   name: string;
+  seoName: string;
   description: string;
 
   // Song

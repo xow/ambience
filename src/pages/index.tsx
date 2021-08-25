@@ -29,7 +29,7 @@ function HomePage() {
   return (
     <>
       <Head>
-        <title>{dawSettings.name}</title>
+        <title>{dawSettings.seoName}</title>
       </Head>
       {controls && (
         <SynthParametersContext.Provider
@@ -38,7 +38,7 @@ function HomePage() {
           <div className="m-auto">
             <div className="shadow-md border-t-8 border-blue-500 p-2 mb-8">
               <h1 className="text-2xl text-center font-bold text-gray-600">
-                {dawSettings.name}
+                {dawSettings.seoName}
               </h1>
               <h2 className="text-center text-gray-500">
                 {dawSettings.description}

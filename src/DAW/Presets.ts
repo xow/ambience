@@ -1,8 +1,53 @@
 import { IDawSettings } from '..';
 
-export const presets: Record<string, IDawSettings> = {
+export type Patches = 'dronePad' | 'init';
+
+export const presets: Record<Patches, IDawSettings> = {
+  init: {
+    id: 'init',
+    name: 'Free online synth',
+    seoName: 'Free online Synth',
+    description: 'Basic starter patch to be modified.',
+    type: 'sawtooth',
+    timeSignature: 4,
+    bpm: 120,
+    reverb: {
+      isOn: false,
+      dryWet: 0.5,
+      decay: 8,
+    },
+    delay: {
+      isOn: false,
+      noteDenominator: 4,
+      feedback: 0.6,
+      dryWet: 0.5,
+    },
+    filter0: {
+      cutoffFrequency: 2000,
+      type: 'lowpass',
+      qFactor: 1,
+      dryWet: 1,
+    },
+    filter1: {
+      cutoffFrequency: 300,
+      type: 'highpass',
+      qFactor: 1,
+      dryWet: 1,
+    },
+    chord: { isOn: false, noteOffsets: [-7, 0, 7] }, // 5, 1, 5
+    transpose: { isOn: false, semiTones: 12, shouldOutputDry: true },
+    arpeggiator: {
+      isOn: false,
+      noteDenominator: 8,
+      gate: 1,
+      style: 'up',
+      isLatchOn: true,
+    },
+  },
   dronePad: {
-    name: 'Drone pad / Ambience Generator',
+    id: 'dronePad',
+    name: 'Drone pad',
+    seoName: 'Drone pad / Ambience Generator',
     description: 'Click a key to generate a drone in that key.',
     type: 'sawtooth',
     timeSignature: 4,
