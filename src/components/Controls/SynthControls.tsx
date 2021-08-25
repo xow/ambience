@@ -11,6 +11,7 @@ import Arpeggiator from './Arpeggiator';
 import Chord from './Chord';
 import Transpose from './Transpose';
 import General from './General';
+import Filter from './Filter';
 
 interface IProps {
   controls: ReturnType<typeof initialise>;
@@ -84,6 +85,7 @@ function SynthControls({ controls }: IProps) {
       <Delay />
       <Chord />
       <Transpose />
+      <Filter />
     </div>
   );
 }

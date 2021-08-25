@@ -23,12 +23,14 @@ export const presets: Record<Patches, IDawSettings> = {
       dryWet: 0.5,
     },
     filter0: {
+      isOn: false,
       cutoffFrequency: 2000,
       type: 'lowpass',
       qFactor: 1,
       dryWet: 1,
     },
     filter1: {
+      isOn: false,
       cutoffFrequency: 300,
       type: 'highpass',
       qFactor: 1,
@@ -64,12 +66,14 @@ export const presets: Record<Patches, IDawSettings> = {
       dryWet: 0.5,
     },
     filter0: {
+      isOn: true,
       cutoffFrequency: 2000,
       type: 'lowpass',
       qFactor: 1,
       dryWet: 1,
     },
     filter1: {
+      isOn: true,
       cutoffFrequency: 300,
       type: 'highpass',
       qFactor: 1,

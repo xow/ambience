@@ -41,8 +41,8 @@ export interface IDawSettings {
     feedback: number;
     dryWet: number;
   };
-  filter0: ICreateFilterParams;
-  filter1: ICreateFilterParams;
+  filter0: ICreateFilterParams & { isOn: boolean };
+  filter1: ICreateFilterParams & { isOn: boolean };
   chord: IChordParams & { isOn: boolean };
   transpose: ITransposeParams & { isOn: boolean };
   arpeggiator: IArpeggiatorUniqueParams & { isOn: boolean };
@@ -68,8 +68,8 @@ export function initialise(params: IDawSettings) {
     params.delay.feedback,
     params.delay.dryWet,
   );
-  const lowpassFilter = createFilter({ context, ...params.filter0 });
-  const highpassFilter = createFilter({ context, ...params.filter1 });
+  const filter0 = createFilter({ context, ...params.filter0 });
+  const filter1 = createFilter({ context, ...params.filter1 });
 
   // Midi Effects
   const chord = createChord(params.chord);
@@ -90,8 +90,8 @@ export function initialise(params: IDawSettings) {
   const masterTrack: Track = {
     audioEffectsChain: [
       ...(params.delay.isOn ? [delay] : []),
-      lowpassFilter,
-      highpassFilter,
+      ...(params.filter0.isOn ? [filter0] : []),
+      ...(params.filter1.isOn ? [filter1] : []),
       ...(params.reverb.isOn ? [reverb] : []),
     ],
     midiEffectsChain: [
