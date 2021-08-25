@@ -39,6 +39,18 @@ function Transpose() {
           decimalPlaces={0}
         />
       </div>
+      <div className="flex-grow w-36">
+        <Switch
+          label="Output dry signal"
+          value={dawSettings.transpose.shouldOutputDry}
+          onChange={value =>
+            setDawSettings({
+              ...dawSettings,
+              transpose: { ...dawSettings.transpose, shouldOutputDry: value },
+            })
+          }
+        />
+      </div>
     </PluginControl>
   );
 }

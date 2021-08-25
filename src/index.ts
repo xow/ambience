@@ -86,7 +86,7 @@ export function initialise(params: IDawSettings) {
    */
   const masterTrack: Track = {
     audioEffectsChain: [
-      ...(params.reverb.isOn ? [delay] : []),
+      ...(params.delay.isOn ? [delay] : []),
       lowpassFilter,
       highpassFilter,
       ...(params.reverb.isOn ? [reverb] : []),
@@ -109,12 +109,18 @@ export function initialise(params: IDawSettings) {
   });
 
   // Output the last in the chain to the instrument
-  masterTrack.midiEffectsChain[
-    masterTrack.midiEffectsChain.length - 1
-  ].outputOnMidi = x => instrumentHandleMidi(x);
+  if (masterTrack.midiEffectsChain.length > 0) {
+    masterTrack.midiEffectsChain[
+      masterTrack.midiEffectsChain.length - 1
+    ].outputOnMidi = x => instrumentHandleMidi(x);
+  }
 
   // TODO move to create track?
   const handleMidiEvent: IHandleMidi = signal => {
+    if (masterTrack.midiEffectsChain.length < 1) {
+      instrumentHandleMidi(signal);
+      return;
+    }
     // Signal the first in the chain
     masterTrack.midiEffectsChain[0].inputOnMidi(signal);
   };
