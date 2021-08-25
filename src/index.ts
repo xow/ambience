@@ -15,6 +15,10 @@ import {
 import { createChord, IChordParams } from './MidiEffects/Chord';
 
 export interface IDawSettings {
+  // Patch
+  name: string;
+  description: string;
+
   // Song
   bpm: number;
   timeSignature: number;

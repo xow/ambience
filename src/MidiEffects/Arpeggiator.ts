@@ -3,8 +3,10 @@ import { Commands, IHandleMidi, MidiSignal } from '../Tools/Midi';
 
 export type ArpeggiatorStyles = 'trigger' | 'up';
 
+export type ArpeggiatorRates = 1 | 2 | 3 | 4 | 6 | 8 | 12 | 16 | 18 | 24 | 32;
+
 export interface IArpeggiatorUniqueParams {
-  noteDenominator: number;
+  noteDenominator: ArpeggiatorRates;
   /** 0 to 1; the length between each note the note will be held */
   gate: number;
   /** The pattern in which the currently held notes will play */

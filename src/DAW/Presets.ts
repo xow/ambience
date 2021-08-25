@@ -2,6 +2,8 @@ import { IDawSettings } from '..';
 
 export const presets: Record<string, IDawSettings> = {
   dronePad: {
+    name: 'Drone pad / Ambience Generator',
+    description: 'Click a key to generate a drone in that key.',
     type: 'sawtooth',
     timeSignature: 4,
     bpm: 120,
