@@ -20,7 +20,7 @@ interface IProps {
 function SynthControls({ controls }: IProps) {
   const { dawSettings, setDawSettings } = useContext(SynthParametersContext);
   return (
-    <>
+    <div className="flex flex-wrap">
       <PluginControl pluginName="Song">
         <div className="flex-grow w-36">
           <Input
@@ -220,7 +220,7 @@ function SynthControls({ controls }: IProps) {
           />
         </div>
       </PluginControl>
-    </>
+    </div>
   );
 }
 

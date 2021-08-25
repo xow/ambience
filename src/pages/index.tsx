@@ -29,25 +29,25 @@ function HomePage() {
   return (
     <>
       <Head>
-        <title>Online Ambience Generator</title>
+        <title>{dawSettings.name}</title>
       </Head>
       {controls && (
         <SynthParametersContext.Provider
           value={{ dawSettings, setDawSettings }}
         >
-          <div className="m-auto max-w-screen-lg">
-            <div className="m-auto max-w-screen-sm">
-              <h1 className="text-4xl text-center mb-2">
-                Online Ambience Generator
+          <div className="m-auto">
+            <div className="shadow-md border-t-8 border-blue-500 p-2 mb-8">
+              <h1 className="text-2xl text-center font-bold text-gray-600">
+                {dawSettings.name}
               </h1>
-              <h2 className="text-xl text-center mb-4">
-                Click a key to generate a drone in that key.
+              <h2 className="text-center text-gray-500">
+                {dawSettings.description}
               </h2>
-              <div>
-                <SynthControls controls={controls} />
-              </div>
             </div>
             <Keyboard handleClickKey={controls.handleClickKey} />
+            <div>
+              <SynthControls controls={controls} />
+            </div>
           </div>
         </SynthParametersContext.Provider>
       )}
