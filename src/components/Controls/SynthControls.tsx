@@ -1,17 +1,18 @@
 import { useContext } from 'react';
 
-import Select from '../components/Util/Select';
-import Switch from '../components/Util/Switch';
-import Radial from '../components/Util/Radial';
-import Button from '../components/Util/Button';
-import Input from '../components/Util/Input';
-import PluginControl from '../components/PluginControl';
-import type { IDawSettings, initialise } from '..';
-import { SynthParametersContext } from '../pages';
+import Select from '../Util/Select';
+import Switch from '../Util/Switch';
+import Radial from '../Util/Radial';
+import Button from '../Util/Button';
+import Input from '../Util/Input';
+import PluginControl from '../PluginControl';
+import type { IDawSettings, initialise } from '../..';
+import { SynthParametersContext } from '../../pages';
 import {
   ArpeggiatorRates,
   ArpeggiatorStyles,
-} from '../MidiEffects/Arpeggiator';
+} from '../../MidiEffects/Arpeggiator';
+import Delay from './Delay';
 
 interface IProps {
   controls: ReturnType<typeof initialise>;
@@ -220,6 +221,7 @@ function SynthControls({ controls }: IProps) {
           />
         </div>
       </PluginControl>
+      <Delay />
     </div>
   );
 }

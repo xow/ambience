@@ -5,7 +5,7 @@ import { createReverb } from './AudioEffects/Reverb';
 import { createFilter, ICreateFilterParams } from './AudioEffects/Filter';
 import { adjustContinuousControl } from './Controls/ContinuousControl';
 import { createTrack, Track } from './DAW/Track';
-import { createDelay } from './AudioEffects/Delay';
+import { createDelay, DelayRates } from './AudioEffects/Delay';
 import { createTranspose, ITransposeParams } from './MidiEffects/Transpose';
 import { IHandleMidi } from './Tools/Midi';
 import {
@@ -33,7 +33,8 @@ export interface IDawSettings {
     dryWet: number;
   };
   delay: {
-    noteDenominator: number;
+    isOn: boolean;
+    noteDenominator: DelayRates;
     feedback: number;
     dryWet: number;
   };
@@ -85,7 +86,7 @@ export function initialise(params: IDawSettings) {
    */
   const masterTrack: Track = {
     audioEffectsChain: [
-      delay,
+      ...(params.reverb.isOn ? [delay] : []),
       lowpassFilter,
       highpassFilter,
       ...(params.reverb.isOn ? [reverb] : []),

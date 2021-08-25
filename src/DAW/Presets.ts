@@ -13,6 +13,7 @@ export const presets: Record<string, IDawSettings> = {
       decay: 8,
     },
     delay: {
+      isOn: true,
       noteDenominator: 4,
       feedback: 0.6,
       dryWet: 0.5,

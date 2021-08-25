@@ -4,7 +4,7 @@ import Head from 'next/head';
 import { initialise, IDawSettings } from '..';
 import { defaultPreset } from '../DAW/Presets';
 import Keyboard from '../components/Keyboard';
-import SynthControls from '../components/SynthControls';
+import SynthControls from '../components/Controls/SynthControls';
 
 export const SynthParametersContext = React.createContext<{
   dawSettings: IDawSettings;

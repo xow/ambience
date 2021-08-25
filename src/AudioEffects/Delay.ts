@@ -1,6 +1,8 @@
 import { AudioEffect } from '.';
 import { createDryWet } from './DryWet';
 
+export type DelayRates = 1 | 2 | 3 | 4 | 6 | 8 | 12 | 16 | 18 | 24 | 32;
+
 /**
  * Creates a delay effect node
  * @param context Audio context to create the effect
