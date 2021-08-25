@@ -9,6 +9,7 @@ import type { IDawSettings, initialise } from '../..';
 import { SynthParametersContext } from '../../pages';
 import Delay from './Delay';
 import Arpeggiator from './Arpeggiator';
+import Chord from './Chord';
 
 interface IProps {
   controls: ReturnType<typeof initialise>;
@@ -105,6 +106,7 @@ function SynthControls({ controls }: IProps) {
         </div>
       </PluginControl>
       <Delay />
+      <Chord />
     </div>
   );
 }

@@ -40,8 +40,8 @@ export interface IDawSettings {
   };
   filter0: ICreateFilterParams;
   filter1: ICreateFilterParams;
-  chord: IChordParams;
-  transpose: ITransposeParams;
+  chord: IChordParams & { isOn: boolean };
+  transpose: ITransposeParams & { isOn: boolean };
   arpeggiator: IArpeggiatorUniqueParams & { isOn: boolean };
 }
 
