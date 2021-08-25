@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { SynthParametersContext } from '../../pages';
-import PluginControl from '../PluginControl';
+import PluginControl from './PluginControl';
 import Radial from '../Util/Radial';
 import Switch from '../Util/Switch';
 

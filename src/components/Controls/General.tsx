@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { Patches, presets } from '../../DAW/Presets';
 import { SynthParametersContext } from '../../pages';
-import PluginControl from '../PluginControl';
+import PluginControl from './PluginControl';
 import Input from '../Util/Input';
 import Select from '../Util/Select';
 

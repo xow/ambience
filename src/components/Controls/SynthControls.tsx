@@ -1,10 +1,9 @@
 import { useContext } from 'react';
 
-import Select from '../Util/Select';
 import Switch from '../Util/Switch';
 import Radial from '../Util/Radial';
-import PluginControl from '../PluginControl';
-import type { IDawSettings, initialise } from '../..';
+import PluginControl from './PluginControl';
+import type { initialise } from '../..';
 import { SynthParametersContext } from '../../pages';
 import Delay from './Delay';
 import Arpeggiator from './Arpeggiator';
@@ -12,6 +11,7 @@ import Chord from './Chord';
 import Transpose from './Transpose';
 import General from './General';
 import Filter from './Filter';
+import Synth from './Synth';
 
 interface IProps {
   controls: ReturnType<typeof initialise>;
@@ -22,19 +22,7 @@ function SynthControls({ controls }: IProps) {
   return (
     <div className="flex flex-wrap">
       <General />
-      <PluginControl pluginName="Oscillator">
-        <Select<IDawSettings['type']>
-          label="Waveform"
-          options={{
-            sawtooth: 'Saw',
-            sine: 'Sine',
-            square: 'Square',
-            triangle: 'Triangle',
-          }}
-          value={dawSettings.type}
-          onChange={value => setDawSettings({ ...dawSettings, type: value })}
-        />
-      </PluginControl>
+      <Synth />
       <Arpeggiator controls={controls} />
       <PluginControl pluginName="Reverb">
         <div className="flex-grow w-36">

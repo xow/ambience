@@ -5,7 +5,7 @@ import {
   ArpeggiatorStyles,
 } from '../../MidiEffects/Arpeggiator';
 import { SynthParametersContext } from '../../pages';
-import PluginControl from '../PluginControl';
+import PluginControl from './PluginControl';
 import Button from '../Util/Button';
 import Radial from '../Util/Radial';
 import Select from '../Util/Select';
