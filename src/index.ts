@@ -92,9 +92,9 @@ export function initialise(params: IDawSettings) {
       ...(params.reverb.isOn ? [reverb] : []),
     ],
     midiEffectsChain: [
-      chord,
+      ...(params.chord.isOn ? [chord] : []),
       ...(params.arpeggiator.isOn ? [arpeggiator] : []),
-      transpose,
+      ...(params.transpose.isOn ? [transpose] : []),
     ],
     volume: 0.3,
     instrument,
