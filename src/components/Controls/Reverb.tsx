@@ -32,7 +32,7 @@ function Reverb() {
           }
           min={0.1}
           max={15}
-          displayFunction={x => `${x}`}
+          displayFunction={x => x.toFixed(1)}
           decimalPlaces={1}
         />
       </div>
