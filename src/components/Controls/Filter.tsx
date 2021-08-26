@@ -63,6 +63,22 @@ function Filter() {
             decimalPlaces={10}
           />
         </div>
+        <div className="flex-grow w-36">
+          <Radial
+            label="Q"
+            value={dawSettings.filter0.qFactor ** (1 / 2)}
+            onChange={value =>
+              setDawSettings({
+                ...dawSettings,
+                filter0: { ...dawSettings.filter0, qFactor: value ** 2 },
+              })
+            }
+            min={0.1 ** (1 / 2)}
+            max={18 ** (1 / 2)}
+            displayFunction={x => `${(x ** 2).toFixed(2)}`}
+            decimalPlaces={10}
+          />
+        </div>
       </PluginControl>
       <PluginControl pluginName="Filter 2">
         <div className="flex-grow w-36">
@@ -115,6 +131,22 @@ function Filter() {
             min={1.4051158265}
             max={2.7179550379}
             displayFunction={x => `${(x ** 10).toFixed(0)}hz`}
+            decimalPlaces={10}
+          />
+        </div>
+        <div className="flex-grow w-36">
+          <Radial
+            label="Q"
+            value={dawSettings.filter1.qFactor ** (1 / 2)}
+            onChange={value =>
+              setDawSettings({
+                ...dawSettings,
+                filter1: { ...dawSettings.filter1, qFactor: value ** 2 },
+              })
+            }
+            min={0.1 ** (1 / 2)}
+            max={18 ** (1 / 2)}
+            displayFunction={x => `${(x ** 2).toFixed(2)}`}
             decimalPlaces={10}
           />
         </div>
