@@ -5,7 +5,7 @@ export type Patches = 'dronePad' | 'init';
 export const presets: Record<Patches, IDawSettings> = {
   init: {
     id: 'init',
-    name: 'Free online synth',
+    name: 'Initial',
     seoName: 'Free online Synth',
     description: 'Basic starter patch to be modified.',
     synth: {
