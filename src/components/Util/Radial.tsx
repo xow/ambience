@@ -4,7 +4,7 @@ interface IProps {
   onChange: (value: number) => void;
   min: number;
   max: number;
-  displayFunction: (value: number | string) => string;
+  displayFunction: (value: number) => string;
   decimalPlaces: number;
 }
 
@@ -48,7 +48,7 @@ function Radial({
           type="range"
           className="w-20 h-14 shadow-md rounded-full absolute top-0 -left-3 opacity-0"
         />
-        <span>{displayFunction(value.toFixed(decimalPlaces))}</span>
+        <span>{displayFunction(value)}</span>
       </div>
     </label>
   );

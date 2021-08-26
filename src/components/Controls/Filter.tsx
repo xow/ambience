@@ -50,17 +50,17 @@ function Filter() {
         <div className="flex-grow w-36">
           <Radial
             label="Frequency"
-            value={dawSettings.filter0.frequency}
+            value={dawSettings.filter0.frequency ** 0.1}
             onChange={value =>
               setDawSettings({
                 ...dawSettings,
-                filter0: { ...dawSettings.filter0, frequency: value },
+                filter0: { ...dawSettings.filter0, frequency: value ** 10 },
               })
             }
-            min={10}
-            max={22000}
-            displayFunction={x => `${x}`}
-            decimalPlaces={1}
+            min={1.4051158265}
+            max={2.7179550379}
+            displayFunction={x => `${(x ** 10).toFixed(0)}hz`}
+            decimalPlaces={10}
           />
         </div>
       </PluginControl>
@@ -105,17 +105,17 @@ function Filter() {
         <div className="flex-grow w-36">
           <Radial
             label="Frequency"
-            value={dawSettings.filter1.frequency}
+            value={dawSettings.filter1.frequency ** 0.1}
             onChange={value =>
               setDawSettings({
                 ...dawSettings,
-                filter1: { ...dawSettings.filter1, frequency: value },
+                filter1: { ...dawSettings.filter1, frequency: value ** 10 },
               })
             }
-            min={30}
-            max={20000}
-            displayFunction={x => `${x}`}
-            decimalPlaces={1}
+            min={1.4051158265}
+            max={2.7179550379}
+            displayFunction={x => `${(x ** 10).toFixed(0)}hz`}
+            decimalPlaces={10}
           />
         </div>
       </PluginControl>
