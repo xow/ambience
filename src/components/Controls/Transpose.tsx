@@ -35,7 +35,7 @@ function Transpose() {
           }
           min={-12}
           max={12}
-          displayFunction={x => `${x}`}
+          displayFunction={x => `${x} semitones`}
           decimalPlaces={0}
         />
       </div>

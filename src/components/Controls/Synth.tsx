@@ -8,7 +8,7 @@ function Synth() {
   const { dawSettings, setDawSettings } = useContext(SynthParametersContext);
   return (
     <PluginControl pluginName="Oscillator">
-      <Select<IDawSettings['type']>
+      <Select<IDawSettings['synth']['type']>
         label="Waveform"
         options={{
           sawtooth: 'Saw',
@@ -16,8 +16,13 @@ function Synth() {
           square: 'Square',
           triangle: 'Triangle',
         }}
-        value={dawSettings.type}
-        onChange={value => setDawSettings({ ...dawSettings, type: value })}
+        value={dawSettings.synth.type}
+        onChange={value =>
+          setDawSettings({
+            ...dawSettings,
+            synth: { ...dawSettings.synth, type: value },
+          })
+        }
       />
     </PluginControl>
   );

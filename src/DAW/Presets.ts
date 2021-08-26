@@ -8,7 +8,13 @@ export const presets: Record<Patches, IDawSettings> = {
     name: 'Free online synth',
     seoName: 'Free online Synth',
     description: 'Basic starter patch to be modified.',
-    type: 'sawtooth',
+    synth: {
+      type: 'sawtooth',
+      attack: 0,
+      delay: 0,
+      sustain: 1,
+      release: 0,
+    },
     timeSignature: 4,
     bpm: 120,
     reverb: {
@@ -51,7 +57,13 @@ export const presets: Record<Patches, IDawSettings> = {
     name: 'Drone pad',
     seoName: 'Drone pad / Ambience Generator',
     description: 'Click a key to generate a drone in that key.',
-    type: 'sawtooth',
+    synth: {
+      type: 'sawtooth',
+      attack: 0.2,
+      delay: 0,
+      sustain: 1,
+      release: 0.3,
+    },
     timeSignature: 4,
     bpm: 120,
     reverb: {

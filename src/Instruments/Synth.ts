@@ -22,6 +22,10 @@ export interface IGetHandleMidiProps {
   context: AudioContext;
   instrumentNode: AudioNode;
   type: 'sawtooth' | 'sine' | 'square' | 'triangle';
+  attack: number;
+  delay: number;
+  sustain: number;
+  release: number;
 }
 
 type IStopTone = () => void;
@@ -34,12 +38,20 @@ function startTone({
   velocity,
   instrumentNode,
   type,
+  attack,
+  delay,
+  sustain,
+  release,
 }: {
   context: AudioContext;
   message: number;
   velocity: number;
   instrumentNode: AudioNode;
   type: OscillatorType;
+  attack: number;
+  delay: number;
+  sustain: number;
+  release: number;
 }) {
   const { octave, note } = messageToOctaveAndNote(message);
   const frequency = frequencies[note] * 2 ** (octave - 4);
@@ -54,7 +66,7 @@ function startTone({
   const unison = 3;
   const spread = 0.005;
 
-  const envelope = { attack: 0.2, delay: 0, sustain: 1, release: 0.3 };
+  const envelope = { attack, delay, sustain, release };
 
   const ocillators = Array.from(new Array(unison), (x, i) => {
     const detune = ((i - (unison - 1) / 2) / (unison - 1)) * spread;
@@ -105,6 +117,10 @@ export function getHandleMidi({
   context,
   instrumentNode,
   type,
+  attack,
+  delay,
+  sustain,
+  release,
 }: IGetHandleMidiProps): IHandleMidi {
   return ({ command, message, value: velocity }) => {
     switch (command) {
@@ -115,6 +131,10 @@ export function getHandleMidi({
           velocity,
           instrumentNode,
           type,
+          attack,
+          delay,
+          sustain,
+          release,
         }).stopTone;
         break;
       case Commands.NOTE_OFF:

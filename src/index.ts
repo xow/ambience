@@ -26,8 +26,13 @@ export interface IDawSettings {
   bpm: number;
   timeSignature: number;
 
-  // Synth
-  type: IGetHandleMidiProps['type'];
+  synth: {
+    type: IGetHandleMidiProps['type'];
+    attack: number;
+    delay: number;
+    sustain: number;
+    release: number;
+  };
 
   // Audio effects. TODO: dynamic array of synth settings
   reverb: {
@@ -108,7 +113,7 @@ export function initialise(params: IDawSettings) {
   const instrumentHandleMidi = getHandleMidi({
     context,
     instrumentNode: instrument,
-    type: params.type,
+    ...params.synth,
   });
 
   // Output the last in the chain to the instrument
