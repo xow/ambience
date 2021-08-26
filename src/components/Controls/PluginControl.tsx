@@ -7,7 +7,7 @@ interface IProps {
 }
 
 function PluginControl({ children, pluginName, defaultToOpen }: IProps) {
-  const [isOpen, setIsOpen] = useState(defaultToOpen);
+  const [isOpen, setIsOpen] = useState(defaultToOpen !== false);
   return (
     <fieldset className="m-4 max-w-lg flex-grow flex content-center items-center shadow-md p-4 border border-solid border-gray-300 rounded">
       <legend
