@@ -93,19 +93,19 @@ export function initialise(params: IDawSettings) {
    * Master Track
    */
   const masterTrack: Track = {
+    midiEffectsChain: [
+      ...(params.chord.isOn ? [chord] : []),
+      ...(params.arpeggiator.isOn ? [arpeggiator] : []),
+      ...(params.transpose.isOn ? [transpose] : []),
+    ],
+    instrument,
     audioEffectsChain: [
       ...(params.delay.isOn ? [delay] : []),
       ...(params.filter0.isOn ? [filter0] : []),
       ...(params.filter1.isOn ? [filter1] : []),
       ...(params.reverb.isOn ? [reverb] : []),
     ],
-    midiEffectsChain: [
-      ...(params.chord.isOn ? [chord] : []),
-      ...(params.arpeggiator.isOn ? [arpeggiator] : []),
-      ...(params.transpose.isOn ? [transpose] : []),
-    ],
     volume: 0.3,
-    instrument,
   };
 
   createTrack({ track: masterTrack, context });

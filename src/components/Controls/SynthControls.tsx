@@ -16,13 +16,13 @@ function SynthControls({ controls }: IProps) {
   return (
     <div className="flex flex-wrap">
       <General />
-      <Synth />
-      <Arpeggiator controls={controls} />
-      <Reverb />
-      <Delay />
       <Chord />
+      <Arpeggiator controls={controls} />
       <Transpose />
+      <Synth />
+      <Delay />
       <Filter />
+      <Reverb />
     </div>
   );
 }

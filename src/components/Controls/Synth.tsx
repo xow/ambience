@@ -8,7 +8,7 @@ import Radial from '../Util/Radial';
 function Synth() {
   const { dawSettings, setDawSettings } = useContext(SynthParametersContext);
   return (
-    <PluginControl pluginName="Oscillator">
+    <PluginControl pluginName="Oscillator" defaultToOpen={true}>
       <div className="flex-grow w-36">
         <Select<IDawSettings['synth']['type']>
           label="Waveform"
