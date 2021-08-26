@@ -2,7 +2,7 @@ import { AudioEffect } from '.';
 import { createDryWet } from './DryWet';
 
 export interface ICreateFilterParams {
-  cutoffFrequency: number;
+  frequency: number;
   type: BiquadFilterType;
   qFactor: number;
   dryWet: number;
@@ -11,7 +11,7 @@ export interface ICreateFilterParams {
 /**
  * Returns a filter
  * @param context Audio context we should create the filter under
- * @param cutoffFrequency Frequency of cutoff fot the filter
+ * @param frequency Frequency of cutoff fot the filter
  * @param type Type of filter
  * @param qFactor Q-factor aka. resonance
  * @param dryWet 0 (dry) to 1 (wet)
@@ -19,7 +19,7 @@ export interface ICreateFilterParams {
  */
 export function createFilter({
   context,
-  cutoffFrequency,
+  frequency,
   type,
   qFactor,
   dryWet,
@@ -27,7 +27,7 @@ export function createFilter({
   const biquadFilter = context.createBiquadFilter();
 
   biquadFilter.type = type;
-  biquadFilter.frequency.value = cutoffFrequency;
+  biquadFilter.frequency.value = frequency;
   biquadFilter.Q.value = qFactor;
 
   return createDryWet(context, biquadFilter, dryWet);

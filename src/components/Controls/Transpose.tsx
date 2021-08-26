@@ -35,7 +35,7 @@ function Transpose() {
           }
           min={-12}
           max={12}
-          suffix=""
+          displayFunction={x => `${x}`}
           decimalPlaces={0}
         />
       </div>

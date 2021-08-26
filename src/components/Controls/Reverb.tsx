@@ -32,7 +32,7 @@ function Reverb() {
           }
           min={0.1}
           max={15}
-          suffix=""
+          displayFunction={x => `${x}`}
           decimalPlaces={1}
         />
       </div>
@@ -48,7 +48,7 @@ function Reverb() {
           }
           min={0}
           max={100}
-          suffix="%"
+          displayFunction={x => `${x}%`}
           decimalPlaces={0}
         />
       </div>

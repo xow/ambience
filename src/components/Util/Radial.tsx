@@ -4,7 +4,7 @@ interface IProps {
   onChange: (value: number) => void;
   min: number;
   max: number;
-  suffix: string | null;
+  displayFunction: (value: number | string) => string;
   decimalPlaces: number;
 }
 
@@ -22,7 +22,7 @@ function Radial({
   onChange,
   min,
   max,
-  suffix,
+  displayFunction,
   decimalPlaces,
 }: IProps) {
   const degrees = valueToDegrees(value, min, max);
@@ -48,10 +48,7 @@ function Radial({
           type="range"
           className="w-20 h-14 shadow-md rounded-full absolute top-0 -left-3 opacity-0"
         />
-        <span>
-          {value.toFixed(decimalPlaces)}
-          {suffix}
-        </span>
+        <span>{displayFunction(value.toFixed(decimalPlaces))}</span>
       </div>
     </label>
   );

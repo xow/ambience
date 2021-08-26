@@ -120,7 +120,7 @@ function Arpeggiator({ controls }: IProps) {
               }
               min={0}
               max={100}
-              suffix="%"
+              displayFunction={value => `${value}%`}
               decimalPlaces={0}
             />
           </div>

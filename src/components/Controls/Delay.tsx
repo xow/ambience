@@ -73,7 +73,7 @@ function Delay() {
           }
           min={0}
           max={100}
-          suffix="%"
+          displayFunction={value => `${value}%`}
           decimalPlaces={0}
         />
       </div>
@@ -89,7 +89,7 @@ function Delay() {
           }
           min={0}
           max={100}
-          suffix="%"
+          displayFunction={value => `${value}%`}
           decimalPlaces={0}
         />
       </div>
