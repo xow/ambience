@@ -125,6 +125,9 @@ export function getHandleMidi({
   return ({ command, message, value: velocity }) => {
     switch (command) {
       case Commands.NOTE_ON:
+        // if it already exists, cancel it
+        if (stopTones[message]) stopTones[message]();
+
         stopTones[message] = startTone({
           context,
           message,

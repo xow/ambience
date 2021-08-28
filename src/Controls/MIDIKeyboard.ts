@@ -2,15 +2,21 @@ import type { getHandleMidi } from '../Instruments/Synth';
 import { Commands } from '../Tools/Midi';
 import type { adjustContinuousControl } from './ContinuousControl';
 
+let numberOfListeners = 0;
+
 export async function listen(
   handleMidi: ReturnType<typeof getHandleMidi>,
   adjustContinuousControlFunction: typeof adjustContinuousControl,
 ) {
+  numberOfListeners++;
   const midiAccess: WebMidi.MIDIAccess = await navigator.requestMIDIAccess();
 
-  midiAccess.inputs.forEach(entry => {
+  midiAccess.inputs.forEach(input => {
+    const listenerNumber = numberOfListeners;
+
     // eslint-disable-next-line no-param-reassign
-    entry.onmidimessage = event => {
+    input.onmidimessage = event => {
+      if (listenerNumber !== numberOfListeners) return; // TODO remove the event listener
       const [command, message, value] = event.data;
 
       switch (command) {
