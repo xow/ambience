@@ -26,6 +26,8 @@ export interface IGetHandleMidiProps {
   delay: number;
   sustain: number;
   release: number;
+  spread: number;
+  unison: number;
 }
 
 type IStopTone = () => void;
@@ -42,6 +44,8 @@ function startTone({
   delay,
   sustain,
   release,
+  spread,
+  unison,
 }: {
   context: AudioContext;
   message: number;
@@ -52,24 +56,23 @@ function startTone({
   delay: number;
   sustain: number;
   release: number;
+  spread: number;
+  unison: number;
 }) {
   const { octave, note } = messageToOctaveAndNote(message);
   const frequency = frequencies[note] * 2 ** (octave - 4);
 
   const maxGain = velocity / 127;
 
-  // Todo have set polyphony, reuse or discard unneeded nodes.
   const gainNode = context.createGain();
   gainNode.gain.value = 0;
 
-  // Todo make params
-  const unison = 3;
-  const spread = 0.005;
-
   const envelope = { attack, delay, sustain, release };
 
+  // Todo have set polyphony, reuse or discard unneeded nodes.
   const ocillators = Array.from(new Array(unison), (x, i) => {
-    const detune = ((i - (unison - 1) / 2) / (unison - 1)) * spread;
+    const detune =
+      unison > 1 ? ((i - (unison - 1) / 2) / (unison - 1)) * spread : 0;
 
     const osc = context.createOscillator(); // instantiate an oscillator
     osc.type = type; // this is the default - also square, sawtooth, triangle
@@ -133,6 +136,8 @@ export function getHandleMidi({
   delay,
   sustain,
   release,
+  spread,
+  unison,
 }: IGetHandleMidiProps): IHandleMidi {
   return ({ command, message, value: velocity }) => {
     switch (command) {
@@ -150,6 +155,8 @@ export function getHandleMidi({
           delay,
           sustain,
           release,
+          spread,
+          unison,
         }).stopTone;
         break;
       case Commands.NOTE_OFF:

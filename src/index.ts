@@ -32,6 +32,8 @@ export interface IDawSettings {
     delay: number;
     sustain: number;
     release: number;
+    spread: number;
+    unison: number;
   };
 
   // Audio effects. TODO: dynamic array of synth settings
