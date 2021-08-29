@@ -45,7 +45,7 @@ function HomePage() {
               </h2>
             </div>
             <Keyboard handleClickKey={controls.handleClickKey} />
-            <div className="bg-white shadow-md">
+            <div className="bg-gray-50 shadow-md">
               <div className=" max-w-4xl m-auto mt-8">
                 <SynthControls controls={controls} />
               </div>

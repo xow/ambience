@@ -7,16 +7,18 @@ interface IProps {
 }
 
 function PluginControl({ children, pluginName, defaultToOpen }: IProps) {
-  const [isOpen, setIsOpen] = useState(!!defaultToOpen);
+  const [isOpen, setIsOpen] = useState(true || !!defaultToOpen);
   return (
-    <fieldset className="m-4 max-w-lg flex-grow flex content-center items-start shadow-md p-4 border border-solid border-gray-300 rounded">
-      <legend
-        className="font-bold text-gray-700 cursor-pointer"
+    <fieldset className="bg-white m-4 flex-1 shadow-md p-4 rounded-lg">
+      <div
+        className="text-gray-400 cursor-pointer w-full text-xs uppercase mb-2"
         onClick={() => setIsOpen(!isOpen)}
       >
         {pluginName}
-      </legend>
-      {isOpen && children}
+      </div>
+      <div className="flex content-center items-start">
+        {isOpen && children}
+      </div>
     </fieldset>
   );
 }

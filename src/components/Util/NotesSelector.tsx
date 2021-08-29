@@ -7,8 +7,8 @@ interface INoteButtonProps {
 function NoteButton({ noteInterval, value, onChange }: INoteButtonProps) {
   return (
     <span
-      className={`border w-8 h-8 m-1 leading-8 text-center whitespace-nowrap cursor-pointer ${
-        value ? 'bg-green-500' : ''
+      className={`border w-8 h-8 m-1 leading-8 text-center text-xs whitespace-nowrap cursor-pointer rounded-md shadow-sm ${
+        value ? 'bg-green-500 text-white' : 'text-gray-400'
       }`}
       onClick={() => onChange({ key: noteInterval, value: !value })}
     >
@@ -32,7 +32,7 @@ function NotesSelector({ label, notes, onChange }: IProps) {
   const noteOptions = Array.from(new Array(25), (x, i) => i - 12);
   return (
     <div>
-      <label className="font-bold text-gray-700 mb-2">{label}</label>
+      <label className="font-semibold text-gray-600 mb-2">{label}</label>
       <div className="mt-2 flex flex-wrap">
         {noteOptions.map(note => (
           <NoteButton

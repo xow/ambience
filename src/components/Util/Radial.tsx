@@ -27,7 +27,7 @@ function Radial({
 }: IProps) {
   const degrees = valueToDegrees(value, min, max);
   return (
-    <label className="font-bold text-gray-700">
+    <label className="font-bold text-gray-600">
       {label}
       <div className="mt-1 relative">
         <div className="w-14 h-14 shadow-md rounded-full p-0 border-2 select-none">
@@ -48,7 +48,9 @@ function Radial({
           type="range"
           className="w-20 h-14 shadow-md rounded-full absolute top-0 -left-3 opacity-0"
         />
-        <span>{displayFunction(value)}</span>
+        <span className="text-gray-500 font-normal text-sm">
+          {displayFunction(value)}
+        </span>
       </div>
     </label>
   );

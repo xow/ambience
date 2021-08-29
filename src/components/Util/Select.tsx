@@ -13,7 +13,7 @@ function Select<T extends string>({
 }: IProps<T>) {
   return (
     <div>
-      <label className="font-bold text-gray-700 mb-2">{label}</label>
+      <label className="font-semibold text-gray-600 mb-2">{label}</label>
       <div className="mt-1">
         <select
           className="w-32 h-10 p-2 shadow-md border-2 rounded text-gray-800 "

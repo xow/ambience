@@ -7,7 +7,7 @@ interface IProps {
 function Switch({ label, value, onChange }: IProps) {
   return (
     <div>
-      <label className="font-bold text-gray-700 mb-2">{label}</label>
+      <label className="font-semibold text-gray-600 mb-2">{label}</label>
       <div className="flex mt-2">
         <label className="relative w-12 h-6 flex select-none cursor-pointer">
           <input
