@@ -43,7 +43,7 @@ export const presets: Record<Patches, IDawSettings> = {
       dryWet: 1,
     },
     chord: { isOn: false, noteOffsets: [-7, 0, 7] }, // 5, 1, 5
-    transpose: { isOn: false, semiTones: 12, shouldOutputDry: true },
+    transpose: { isOn: false, semiTones: 12, shouldOutputDry: false },
     arpeggiator: {
       isOn: false,
       noteDenominator: 8,

@@ -133,11 +133,15 @@ export function initialise(params: IDawSettings) {
     masterTrack.midiEffectsChain[0].inputOnMidi(signal);
   };
 
-  MIDI.listen(handleMidiEvent, adjustContinuousControl);
+  const midiDestructorPromise = MIDI.listen(
+    handleMidiEvent,
+    adjustContinuousControl,
+  );
   const handleClickKey = OnScreenKeyboard.listen(handleMidiEvent);
 
   function destruct() {
     context.close();
+    midiDestructorPromise.then(midiDestructor => midiDestructor());
   }
 
   return {
