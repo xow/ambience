@@ -19,6 +19,8 @@ class Transpose extends MidiEffect {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   outputOnMidi = (signal: MidiSignal) => {};
+
+  destruct = () => {};
 }
 
 export function createTranspose(params: ITransposeParams): MidiEffect {

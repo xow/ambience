@@ -139,9 +139,16 @@ export function initialise(params: IDawSettings) {
   );
   const handleClickKey = OnScreenKeyboard.listen(handleMidiEvent);
 
-  function destruct() {
+  async function destruct() {
     context.close();
-    midiDestructorPromise.then(midiDestructor => midiDestructor());
+
+    const midiDestructor = await midiDestructorPromise;
+    midiDestructor();
+
+    // TODO make master track class w/ destructor
+    masterTrack.midiEffectsChain.forEach(midiEffect => {
+      midiEffect.destruct();
+    });
   }
 
   return {

@@ -58,7 +58,7 @@ function Key({ handleClickKey, note }: IProps) {
         .key:nth-child(12n-5).active,
         .key:nth-child(12n-3).active,
         .key:nth-child(12n-1).active {
-          background: #0f3;
+          background: rgb(16, 185, 129);
         }
       `}</style>
       <div

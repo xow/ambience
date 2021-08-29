@@ -24,6 +24,8 @@ class Chord extends MidiEffect {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   outputOnMidi = (signal: MidiSignal) => {};
+
+  destruct = () => {};
 }
 
 export function createChord(params: IChordParams): MidiEffect {

@@ -4,4 +4,6 @@ export abstract class MidiEffect {
   abstract inputOnMidi: IHandleMidi;
 
   abstract outputOnMidi: IHandleMidi;
+
+  abstract destruct: () => void;
 }

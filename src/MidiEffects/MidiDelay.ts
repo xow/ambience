@@ -29,6 +29,10 @@ class MidiDelay extends MidiEffect {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   outputOnMidi = (signal: MidiSignal) => {};
+
+  destruct = () => {
+    // TODO stop delays (not that important as there will only be 1)
+  };
 }
 
 export function createMidiDelay({

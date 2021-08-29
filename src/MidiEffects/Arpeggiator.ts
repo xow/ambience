@@ -33,6 +33,8 @@ class Arpeggiator extends MidiEffect {
   isAccumulating: boolean;
   isLatchOn: boolean;
 
+  tickInterval: ReturnType<typeof setInterval>;
+
   constructor({
     bpm,
     timeSignature,
@@ -52,7 +54,7 @@ class Arpeggiator extends MidiEffect {
     this.delayMs = (((60 / bpm) * timeSignature) / noteDenominator) * 1000;
     this.gate = gate;
 
-    setInterval(() => {
+    this.tickInterval = setInterval(() => {
       this.tick(style);
     }, this.delayMs);
 
@@ -164,6 +166,10 @@ class Arpeggiator extends MidiEffect {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   outputOnMidi = (signal: MidiSignal) => {};
+
+  destruct = () => {
+    clearInterval(this.tickInterval);
+  };
 }
 
 export function createArpeggiator(params: IArpeggiatorParams): Arpeggiator {

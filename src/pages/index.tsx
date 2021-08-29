@@ -36,7 +36,7 @@ function HomePage() {
           value={{ dawSettings, setDawSettings }}
         >
           <div className="m-auto">
-            <div className="shadow-md border-t-8 border-blue-500 p-2 mb-8">
+            <div className="shadow-md border-t-8 border-green-500 p-2 mb-8">
               <h1 className="text-2xl text-center font-bold text-gray-600">
                 {dawSettings.seoName}
               </h1>
