@@ -30,15 +30,7 @@ function Key({ handleClickKey, note }: IProps) {
     <>
       <style jsx>{`
         .key {
-          box-sizing: border-box;
-          display: inline-block;
-          background-color: #fff;
           height: 512px;
-          width: 128px;
-          border: 8px solid black;
-          border-bottom-right-radius: 16px;
-          border-bottom-left-radius: 16px;
-          margin: 0px -8px;
         }
         .key:nth-child(12n-10),
         .key:nth-child(12n-8),
@@ -62,7 +54,9 @@ function Key({ handleClickKey, note }: IProps) {
         }
       `}</style>
       <div
-        className={`key ${isActive && 'active'}`}
+        className={`key box-border inline-block bg-white w-32 rounded-b-2xl border-black border-8 -mx-2 ${
+          isActive && 'active'
+        }`}
         onMouseDown={handlePress}
         onTouchStart={handlePress}
         onMouseUp={handleRelease}
