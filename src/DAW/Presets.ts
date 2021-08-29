@@ -121,4 +121,4 @@ export const presets: Record<string, IDawSettings> = {
 
 export type Patches = keyof typeof presets;
 
-export const defaultPreset: IDawSettings = presets.lead;
+export const defaultPreset: IDawSettings = presets.dronePad;
