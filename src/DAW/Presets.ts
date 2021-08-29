@@ -71,6 +71,11 @@ export const presets: Record<string, IDawSettings> = {
       unison: 5,
       spread: 0.025,
     },
+    reverb: {
+      decay: 2.3,
+      dryWet: 0.5,
+      isOn: true,
+    },
   },
   dronePad: {
     id: 'dronePad',
