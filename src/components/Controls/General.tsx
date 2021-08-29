@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { Patches, presets } from '../../DAW/Presets';
+import { presets } from '../../DAW/Presets';
 import { SynthParametersContext } from '../../pages';
 import PluginControl from './PluginControl';
 import Input from '../Util/Input';
@@ -9,17 +9,18 @@ function General() {
   const { dawSettings, setDawSettings } = useContext(SynthParametersContext);
   const [shownMessage, setShownMessage] = useState(false);
 
+  const options = Object.values(presets).reduce((previousOptions, patch) => {
+    return { ...previousOptions, [patch.id]: patch.name };
+  }, {});
+
   return (
     <>
       <PluginControl pluginName="General" defaultToOpen={true}>
         <div className="flex-col space-y-4">
           <div className="flex-grow w-36">
-            <Select<Patches>
+            <Select
               label="Patch"
-              options={{
-                init: presets.init.name,
-                dronePad: presets.dronePad.name,
-              }}
+              options={options}
               value={dawSettings.id}
               onChange={value => {
                 setDawSettings(presets[value]);

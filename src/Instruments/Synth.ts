@@ -97,12 +97,21 @@ function startTone({
   gainNode.connect(instrumentNode);
 
   function stopTone() {
+    // Cancel existing ramps (e.g. delay)
+    gainNode.gain.cancelScheduledValues(context.currentTime);
+
+    // Fix gain
+    gainNode.gain.linearRampToValueAtTime(
+      0,
+      context.currentTime + envelope.release,
+    );
+
+    setTimeout(() => {
+      gainNode.disconnect();
+    }, envelope.release * 1000);
+
     // Apply release to each oscillator, and only stop after release is complete.
     ocillators.forEach(osc => {
-      gainNode.gain.linearRampToValueAtTime(
-        0,
-        context.currentTime + envelope.release,
-      );
       osc.stop(context.currentTime + envelope.release);
     });
   }

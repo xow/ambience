@@ -1,55 +1,71 @@
 import { IDawSettings } from '..';
 
-export type Patches = 'dronePad' | 'init';
+const initPatch = {
+  id: 'init' as const,
+  name: 'Initial',
+  seoName: 'Free online Synth',
+  description: 'Basic starter patch to be modified.',
+  synth: {
+    type: 'sawtooth' as const,
+    attack: 0,
+    delay: 0,
+    sustain: 1,
+    release: 0,
+  },
+  timeSignature: 4,
+  bpm: 120,
+  reverb: {
+    isOn: false,
+    dryWet: 0.5,
+    decay: 8,
+  },
+  delay: {
+    isOn: false,
+    noteDenominator: 4 as const,
+    feedback: 0.6,
+    dryWet: 0.5,
+  },
+  filter0: {
+    isOn: false,
+    frequency: 2000,
+    type: 'lowpass' as const,
+    qFactor: 1,
+    dryWet: 1,
+  },
+  filter1: {
+    isOn: false,
+    frequency: 300,
+    type: 'highpass' as const,
+    qFactor: 1,
+    dryWet: 1,
+  },
+  chord: { isOn: false, noteOffsets: [-7, 0, 7] }, // 5, 1, 5
+  transpose: { isOn: false, semiTones: 12, shouldOutputDry: false },
+  arpeggiator: {
+    isOn: false,
+    noteDenominator: 8 as const,
+    gate: 1,
+    style: 'up' as const,
+    isLatchOn: true,
+  },
+};
 
-export const presets: Record<Patches, IDawSettings> = {
+export const presets: Record<string, IDawSettings> = {
   init: {
-    id: 'init',
-    name: 'Initial',
-    seoName: 'Free online Synth',
-    description: 'Basic starter patch to be modified.',
+    ...initPatch,
+  },
+  lead: {
+    ...initPatch,
+    id: 'lead' as const,
+    name: 'Lead',
+    seoName: 'Lead stabbing synth',
+    description: 'For use in anthemic songs.',
     synth: {
-      type: 'sawtooth',
+      type: 'sawtooth' as const,
       attack: 0,
       delay: 0,
       sustain: 1,
-      release: 0,
-    },
-    timeSignature: 4,
-    bpm: 120,
-    reverb: {
-      isOn: false,
-      dryWet: 0.5,
-      decay: 8,
-    },
-    delay: {
-      isOn: false,
-      noteDenominator: 4,
-      feedback: 0.6,
-      dryWet: 0.5,
-    },
-    filter0: {
-      isOn: false,
-      frequency: 2000,
-      type: 'lowpass',
-      qFactor: 1,
-      dryWet: 1,
-    },
-    filter1: {
-      isOn: false,
-      frequency: 300,
-      type: 'highpass',
-      qFactor: 1,
-      dryWet: 1,
-    },
-    chord: { isOn: false, noteOffsets: [-7, 0, 7] }, // 5, 1, 5
-    transpose: { isOn: false, semiTones: 12, shouldOutputDry: false },
-    arpeggiator: {
-      isOn: false,
-      noteDenominator: 8,
-      gate: 1,
-      style: 'up',
-      isLatchOn: true,
+      release: 0.3,
     },
   },
   dronePad: {
@@ -102,5 +118,7 @@ export const presets: Record<Patches, IDawSettings> = {
     },
   },
 };
+
+export type Patches = keyof typeof presets;
 
 export const defaultPreset: IDawSettings = presets.dronePad;
