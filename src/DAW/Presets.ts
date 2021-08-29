@@ -1,7 +1,7 @@
 import { IDawSettings } from '..';
 
 const initPatch = {
-  id: 'init' as const,
+  id: 'init',
   name: 'Initial',
   seoName: 'Free online Synth',
   description: 'Basic starter patch to be modified.',
@@ -58,7 +58,7 @@ export const presets: Record<string, IDawSettings> = {
   },
   lead: {
     ...initPatch,
-    id: 'lead' as const,
+    id: 'lead',
     name: 'Lead',
     seoName: 'Lead stabbing synth',
     description: 'For use in anthemic songs.',
@@ -75,6 +75,34 @@ export const presets: Record<string, IDawSettings> = {
       decay: 2.3,
       dryWet: 0.5,
       isOn: true,
+    },
+  },
+  softPad: {
+    ...initPatch,
+    id: 'softPad',
+    name: 'Soft pad',
+    seoName: 'Soft pad sound',
+    description: 'For use in mellow songs.',
+    synth: {
+      type: 'sawtooth' as const,
+      attack: 0.3,
+      delay: 0.1,
+      sustain: 1,
+      release: 0.5,
+      unison: 5,
+      spread: 0.01,
+    },
+    reverb: {
+      decay: 6,
+      dryWet: 0.7,
+      isOn: true,
+    },
+    filter0: {
+      isOn: true,
+      frequency: 1500,
+      type: 'lowpass',
+      qFactor: 1,
+      dryWet: 1,
     },
   },
   dronePad: {
