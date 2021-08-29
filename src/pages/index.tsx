@@ -32,11 +32,11 @@ function HomePage() {
         <title>{dawSettings.seoName}</title>
       </Head>
       {controls && (
-        <SynthParametersContext.Provider
-          value={{ dawSettings, setDawSettings }}
-        >
-          <div className="m-auto">
-            <div className="shadow-md border-t-8 border-green-500 p-2 mb-8">
+        <div className="bg-gray-100">
+          <SynthParametersContext.Provider
+            value={{ dawSettings, setDawSettings }}
+          >
+            <div className="shadow-md border-t-8 border-green-500 p-2 mb-8 bg-white">
               <h1 className="text-2xl text-center font-bold text-gray-600">
                 {dawSettings.seoName}
               </h1>
@@ -45,11 +45,13 @@ function HomePage() {
               </h2>
             </div>
             <Keyboard handleClickKey={controls.handleClickKey} />
-            <div className="max-w-screen-lg m-auto mt-8">
-              <SynthControls controls={controls} />
+            <div className="bg-white shadow-md">
+              <div className=" max-w-4xl m-auto mt-8">
+                <SynthControls controls={controls} />
+              </div>
             </div>
-          </div>
-        </SynthParametersContext.Provider>
+          </SynthParametersContext.Provider>
+        </div>
       )}
     </>
   );
