@@ -53,7 +53,7 @@ function Synth() {
               synth: { ...dawSettings.synth, delay: value ** 3 },
             })
           }
-          min={0}
+          min={0.01 ** (1 / 3)}
           max={5 ** (1 / 3)}
           displayFunction={x => `${(x ** 3).toFixed(2)}s`}
           decimalPlaces={10}
@@ -66,7 +66,7 @@ function Synth() {
           onChange={value =>
             setDawSettings({
               ...dawSettings,
-              synth: { ...dawSettings.synth, sustain: value ** 3 },
+              synth: { ...dawSettings.synth, sustain: value },
             })
           }
           min={0}

@@ -8,7 +8,7 @@ const initPatch = {
   synth: {
     type: 'sawtooth' as const,
     attack: 0,
-    delay: 0,
+    delay: 0.1,
     sustain: 1,
     release: 0,
   },
@@ -63,7 +63,7 @@ export const presets: Record<string, IDawSettings> = {
     synth: {
       type: 'sawtooth' as const,
       attack: 0,
-      delay: 0,
+      delay: 0.1,
       sustain: 1,
       release: 0.3,
     },
@@ -76,7 +76,7 @@ export const presets: Record<string, IDawSettings> = {
     synth: {
       type: 'sawtooth',
       attack: 0.2,
-      delay: 0,
+      delay: 0.1,
       sustain: 1,
       release: 0.3,
     },
@@ -121,4 +121,4 @@ export const presets: Record<string, IDawSettings> = {
 
 export type Patches = keyof typeof presets;
 
-export const defaultPreset: IDawSettings = presets.dronePad;
+export const defaultPreset: IDawSettings = presets.lead;

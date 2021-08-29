@@ -75,28 +75,31 @@ function startTone({
     osc.type = type; // this is the default - also square, sawtooth, triangle
     osc.frequency.value = frequency * (1 + detune); // Hz
     osc.start(); // start the oscillator
-
-    // Apply attack to oscillator
-    gainNode.gain.linearRampToValueAtTime(
-      maxGain,
-      context.currentTime + envelope.attack,
-    );
     osc.connect(gainNode); // connect it to the gain node to give it correct velocity
-
-    // Start a ramp to sustain once attack is done
-    setInterval(() => {
-      gainNode.gain.linearRampToValueAtTime(
-        maxGain * envelope.sustain,
-        context.currentTime + envelope.attack + envelope.delay, // TODO don't need attack here once we figure out how to get context's true current Time
-      );
-    }, envelope.attack * 1000);
 
     return osc;
   });
 
+  // Apply attack to oscillator
+  gainNode.gain.linearRampToValueAtTime(
+    maxGain,
+    context.currentTime + envelope.attack,
+  );
+
+  // Start a ramp to sustain once attack is done
+  const attackEndInterval = setInterval(() => {
+    gainNode.gain.linearRampToValueAtTime(
+      maxGain * envelope.sustain,
+      context.currentTime + envelope.attack + envelope.delay, // TODO don't need attack here once we figure out how to get context's true current Time
+    );
+  }, envelope.attack * 1000);
+
+  // Output should come from the gain node.
   gainNode.connect(instrumentNode);
 
   function stopTone() {
+    clearInterval(attackEndInterval);
+
     // Cancel existing ramps (e.g. delay)
     gainNode.gain.cancelScheduledValues(context.currentTime);
 
