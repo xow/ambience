@@ -14,7 +14,7 @@ interface IProps {
 
 function SynthControls({ controls }: IProps) {
   return (
-    <div className="flex w-full overflow-x-scroll">
+    <div className="flex flex-wrap">
       <General />
       <Chord />
       <Arpeggiator controls={controls} />

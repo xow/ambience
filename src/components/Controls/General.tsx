@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Patches, presets } from '../../DAW/Presets';
 import { SynthParametersContext } from '../../pages';
 import PluginControl from './PluginControl';
@@ -7,18 +7,32 @@ import Select from '../Util/Select';
 
 function General() {
   const { dawSettings, setDawSettings } = useContext(SynthParametersContext);
+  const [shownMessage, setShownMessage] = useState(false);
+
   return (
     <>
       <PluginControl pluginName="General" defaultToOpen={true}>
-        <Select<Patches>
-          label="Patch"
-          options={{
-            init: presets.init.name,
-            dronePad: presets.dronePad.name,
-          }}
-          value={dawSettings.id}
-          onChange={value => setDawSettings(presets[value])}
-        />
+        <div className="flex-col space-y-4">
+          <div className="flex-grow w-36">
+            <Select<Patches>
+              label="Patch"
+              options={{
+                init: presets.init.name,
+                dronePad: presets.dronePad.name,
+              }}
+              value={dawSettings.id}
+              onChange={value => {
+                setDawSettings(presets[value]);
+                setShownMessage(true);
+              }}
+            />
+          </div>
+          {!shownMessage && (
+            <div className="flex-grow text-sm bg-green-100 rounded-md p-2 w-full">
+              👆 Don't need a drone? Select a normal patch up here
+            </div>
+          )}
+        </div>
       </PluginControl>
       <PluginControl pluginName="Song">
         <div className="flex-col space-y-4">
