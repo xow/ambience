@@ -29,6 +29,9 @@ function Key({ handleClickKey, note }: IProps) {
   return (
     <>
       <style jsx>{`
+        .key {
+          height: 512px;
+        }
         .key:nth-child(12n-10),
         .key:nth-child(12n-8),
         .key:nth-child(12n-5),
@@ -37,7 +40,7 @@ function Key({ handleClickKey, note }: IProps) {
           margin: 0px -38px;
           background-color: #000;
           vertical-align: top;
-          min-height: 300px;
+          height: 300px;
           width: 76px;
           position: relative;
         }
@@ -51,7 +54,7 @@ function Key({ handleClickKey, note }: IProps) {
         }
       `}</style>
       <div
-        className={`key box-border inline-block bg-white w-32 rounded-b-2xl border-black border-8 -mx-2 min-h-full ${
+        className={`key box-border inline-block bg-white w-32 rounded-b-2xl border-black border-8 -mx-2 -mb-2 ${
           isActive && 'active'
         }`}
         onMouseDown={handlePress}
