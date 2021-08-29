@@ -10,12 +10,10 @@ function Keyboard({ handleClickKey }: IProps) {
     <>
       <style jsx>{`
         .keyboard {
-          margin: auto;
           height: 512px;
-          width: fit-content;
         }
       `}</style>
-      <div className="keyboard shadow-2xl w-max m-auto">
+      <div className="keyboard m-auto shadow-2xl w-max min-w-min">
         {(Object.keys(frequencies) as Array<keyof typeof frequencies>).map(
           note => (
             <Key key={note} note={note} handleClickKey={handleClickKey} />
