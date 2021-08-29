@@ -7,7 +7,7 @@ interface INoteButtonProps {
 function NoteButton({ noteInterval, value, onChange }: INoteButtonProps) {
   return (
     <span
-      className={`border w-8 h-8 m-1 leading-8 text-center text-xs whitespace-nowrap cursor-pointer rounded-md shadow-sm ${
+      className={`border w-6 h-6 m-0.5 leading-6 text-center text-xs whitespace-nowrap cursor-pointer rounded-md shadow-sm ${
         value ? 'bg-green-500 text-white' : 'text-gray-400'
       }`}
       onClick={() => onChange({ key: noteInterval, value: !value })}

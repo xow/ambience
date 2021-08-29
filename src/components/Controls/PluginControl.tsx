@@ -7,9 +7,9 @@ interface IProps {
 }
 
 function PluginControl({ children, pluginName, defaultToOpen }: IProps) {
-  const [isOpen, setIsOpen] = useState(true || !!defaultToOpen);
+  const [isOpen, setIsOpen] = useState(defaultToOpen !== false);
   return (
-    <fieldset className="bg-white m-4 flex-1 shadow-md p-4 rounded-lg">
+    <fieldset className="bg-white m-4 shadow-md p-4 rounded-lg">
       <div
         className="text-gray-400 cursor-pointer w-full text-xs uppercase mb-2"
         onClick={() => setIsOpen(!isOpen)}

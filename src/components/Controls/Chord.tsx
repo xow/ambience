@@ -20,7 +20,7 @@ function Chord() {
           }
         />
       </div>
-      <div className="flex-grow w-96">
+      <div className="flex-grow w-32">
         <NoteSelector
           label="Notes"
           notes={dawSettings.chord.noteOffsets}
