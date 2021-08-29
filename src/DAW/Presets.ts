@@ -103,4 +103,4 @@ export const presets: Record<Patches, IDawSettings> = {
   },
 };
 
-export const defaultPreset: IDawSettings = presets.init;
+export const defaultPreset: IDawSettings = presets.dronePad;
