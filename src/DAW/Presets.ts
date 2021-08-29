@@ -68,8 +68,8 @@ export const presets: Record<string, IDawSettings> = {
       delay: 0.1,
       sustain: 1,
       release: 0.3,
-      unison: 3,
-      spread: 0.005,
+      unison: 5,
+      spread: 0.025,
     },
   },
   dronePad: {
