@@ -21,29 +21,31 @@ function General() {
         />
       </PluginControl>
       <PluginControl pluginName="Song">
-        <div className="flex-grow w-36">
-          <Input
-            label="BPM"
-            value={`${dawSettings.bpm}`}
-            onChange={value =>
-              setDawSettings({
-                ...dawSettings,
-                bpm: parseInt(value, 10),
-              })
-            }
-          />
-        </div>
-        <div className="flex-grow w-36">
-          <Input
-            label="Time Signature X/4"
-            value={`${dawSettings.timeSignature}`}
-            onChange={value =>
-              setDawSettings({
-                ...dawSettings,
-                timeSignature: parseInt(value, 10),
-              })
-            }
-          />
+        <div className="flex-col space-y-4">
+          <div className="flex-grow w-36">
+            <Input
+              label="BPM"
+              value={`${dawSettings.bpm}`}
+              onChange={value =>
+                setDawSettings({
+                  ...dawSettings,
+                  bpm: parseInt(value, 10),
+                })
+              }
+            />
+          </div>
+          <div className="flex-grow w-36">
+            <Input
+              label="Time&nbsp;Signature&nbsp;X/4"
+              value={`${dawSettings.timeSignature}`}
+              onChange={value =>
+                setDawSettings({
+                  ...dawSettings,
+                  timeSignature: parseInt(value, 10),
+                })
+              }
+            />
+          </div>
         </div>
       </PluginControl>
     </>
