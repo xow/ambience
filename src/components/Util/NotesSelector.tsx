@@ -10,7 +10,7 @@ function NoteButton({ noteInterval, value, onChange }: INoteButtonProps) {
       className={`border w-8 h-8 m-1 leading-8 text-center whitespace-nowrap cursor-pointer ${
         value ? 'bg-green-500' : ''
       }`}
-      onClick={() => onChange({ noteInterval, value: !value })}
+      onClick={() => onChange({ key: noteInterval, value: !value })}
     >
       {noteInterval}
     </span>
