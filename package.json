@@ -17,9 +17,9 @@
     "node": "22.18.0"
   },
   "dependencies": {
-    "next": "^11.1.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "next": "^14.1.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.8"
   },
   "devDependencies": {
     "@spotify/eslint-config": "^11.0.0",
@@ -27,6 +27,7 @@
     "@spotify/eslint-config-typescript": "^11.0.0",
     "@spotify/eslint-plugin": "^11.0.0",
     "@spotify/prettier-config": "^11.0.0",
+    "@types/node": "24.2.1",
     "@types/react": "^17.0.17",
     "@types/webaudioapi": "^0.0.27",
     "@types/webmidi": "^2.0.6",
