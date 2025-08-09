@@ -13,6 +13,9 @@
     "build": "next build",
     "lint": "eslint src/**/*.ts && prettier --write src/**/*.ts"
   },
+  "engines": {
+    "node": "22.18.0"
+  },
   "dependencies": {
     "next": "^11.1.0",
     "react": "^17.0.2",
@@ -25,6 +28,7 @@
     "@spotify/eslint-plugin": "^11.0.0",
     "@spotify/prettier-config": "^11.0.0",
     "@types/react": "^17.0.17",
+    "@types/webaudioapi": "^0.0.27",
     "@types/webmidi": "^2.0.6",
     "@typescript-eslint/eslint-plugin": "^4.29.0",
     "@typescript-eslint/parser": "^4.29.0",
