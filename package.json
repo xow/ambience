@@ -27,7 +27,7 @@
     "@spotify/eslint-config-typescript": "^11.0.0",
     "@spotify/eslint-plugin": "^11.0.0",
     "@spotify/prettier-config": "^11.0.0",
-    "@types/node": "24.2.1",
+    "@types/node": "^24.2.1",
     "@types/react": "^17.0.17",
     "@types/webaudioapi": "^0.0.27",
     "@types/webmidi": "^2.0.6",
